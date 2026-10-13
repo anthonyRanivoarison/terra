@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: terra
+      POSTGRES_PASSWORD: terra
+      POSTGRES_DB: terra
+    ports:
+      - "5433:5432"
+    volumes:
+      - terra-postgres:/var/lib/postgresql/data
+
+volumes:
+  terra-postgres:
