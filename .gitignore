@@ -48,3 +48,6 @@ next-env.d.ts
 
 # self-hosting
 infra/data/
+
+# local markers
+.deps-ready
