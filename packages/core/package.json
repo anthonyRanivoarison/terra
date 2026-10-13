@@ -1,0 +1,24 @@
+{
+  "name": "@terra/core",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "geoip-lite": "^2.0.3",
+    "isbot": "^5.2.2",
+    "maxmind": "^5.0.7",
+    "ua-parser-js": "^2.0.10"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.2",
+    "@types/geoip-lite": "^1.4.4",
+    "@workspace/typescript-config": "workspace:*"
+  }
+}
