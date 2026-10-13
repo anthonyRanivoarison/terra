@@ -1,0 +1,65 @@
+{
+  "name": "@terra-analytics/crawl",
+  "version": "0.1.0",
+  "description": "Server-side AI crawler and search bot tracking for Terra Analytics",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.test.ts",
+    "README.md"
+  ],
+  "keywords": [
+    "analytics",
+    "crawler",
+    "gptbot",
+    "ai",
+    "bot",
+    "terra"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "bun": "./src/index.ts",
+      "import": "./dist/index.js"
+    },
+    "./next": {
+      "types": "./dist/next.d.ts",
+      "bun": "./src/next.ts",
+      "import": "./dist/next.js"
+    },
+    "./hono": {
+      "types": "./dist/hono.d.ts",
+      "bun": "./src/hono.ts",
+      "import": "./dist/hono.js"
+    },
+    "./express": {
+      "types": "./dist/express.d.ts",
+      "bun": "./src/express.ts",
+      "import": "./dist/express.js"
+    },
+    "./worker": {
+      "types": "./dist/worker.d.ts",
+      "bun": "./src/worker.ts",
+      "import": "./dist/worker.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rm -rf dist && bun build src/index.ts src/next.ts src/hono.ts src/express.ts src/worker.ts --outdir dist --target node --format esm --splitting && tsc -p tsconfig.build.json",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "bun run build && bun test"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.2",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18.17"
+  }
+}
