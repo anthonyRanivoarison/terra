@@ -4,6 +4,7 @@ import { getFunnel } from "./funnel"
 import { getHeatmap, getPoints, getQuality, getVitals } from "./insights"
 import { getEvents, getSection, type Section } from "./metrics"
 import { getOverview } from "./overview"
+import { getPages } from "./pages"
 import { FRESHNESS, type AnalyticsParams } from "./params"
 import { getOnline, getRealtime } from "./realtime"
 import { getAttribution } from "./revenue"
@@ -35,6 +36,7 @@ export const section = cached(
     getSection(siteId, params, name, limit)
 )
 export const events = cached("events", getEvents)
+export const pages = cached("pages", getPages)
 export const attribution = cached("attribution", getAttribution)
 export const funnel = cached("funnel", getFunnel)
 export const heatmap = cached("heatmap", getHeatmap)

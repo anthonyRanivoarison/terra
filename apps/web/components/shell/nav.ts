@@ -2,6 +2,7 @@ import {
   Bot,
   CircleDollarSign,
   Code,
+  FileText,
   Gauge,
   LayoutDashboard,
   Plug,
@@ -30,6 +31,12 @@ export const NAV: NavGroup[] = [
         icon: LayoutDashboard,
         keep: true,
         exact: true,
+      },
+      {
+        label: "Pages",
+        path: "/dashboard/pages",
+        icon: FileText,
+        keep: true,
       },
       {
         label: "Realtime",
