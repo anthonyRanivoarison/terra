@@ -5,7 +5,7 @@ import { formatMoney, formatNumber } from "@/components/dashboard/format"
 import { SiteFavicon } from "@/components/sites/site-favicon"
 import type { SiteOverview } from "@/lib/sites-overview"
 import type { SiteSummary } from "@/lib/sites"
-import { Sparkline } from "./sparkline"
+import { Sparkline } from "@/components/charts/sparkline"
 
 type SitePanelType = { site: SiteSummary; overview: SiteOverview }
 
@@ -25,10 +25,10 @@ export const SitePanel = ({ site, overview }: SitePanelType) => {
   const dashboard = `/sites/${site.publicId}/dashboard`
 
   return (
-    <article className="group relative flex w-full flex-col gap-5 rounded-2xl border bg-card p-5 transition-[border-color,box-shadow] hover:border-primary/40 hover:shadow-md hover:shadow-primary/5">
+    <article className="group relative flex w-full flex-col gap-5 rounded-lg border bg-card p-5 transition-colors hover:border-foreground/20">
       <header className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-center gap-3">
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-xl border bg-background">
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border bg-background">
             <SiteFavicon
               siteId={site.publicId}
               domain={site.domain}
@@ -36,10 +36,10 @@ export const SitePanel = ({ site, overview }: SitePanelType) => {
             />
           </span>
           <div className="flex min-w-0 flex-col">
-            <h2 className="truncate font-heading text-base font-semibold">
+            <h2 className="truncate text-base font-semibold">
               <Link
                 href={live ? dashboard : `/sites/${site.publicId}`}
-                className="outline-none after:absolute after:inset-0 after:rounded-2xl focus-visible:after:ring-2 focus-visible:after:ring-ring"
+                className="outline-none after:absolute after:inset-0 after:rounded-lg focus-visible:after:ring-2 focus-visible:after:ring-ring"
               >
                 {site.name}
               </Link>
@@ -50,7 +50,7 @@ export const SitePanel = ({ site, overview }: SitePanelType) => {
           </div>
         </div>
         {live ? (
-          <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-1 text-xs font-medium text-emerald-700">
+          <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-1 text-xs font-medium text-up">
             <span className="relative flex size-1.5">
               {overview.online > 0 && (
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-60 motion-reduce:hidden" />
@@ -60,7 +60,7 @@ export const SitePanel = ({ site, overview }: SitePanelType) => {
             {overview.online} online
           </span>
         ) : (
-          <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-amber-500/10 px-2 py-1 text-xs font-medium text-amber-800">
+          <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-amber-500/10 px-2 py-1 text-xs font-medium text-amber-800 dark:text-amber-300">
             <LoaderCircle
               className="size-3 animate-spin motion-reduce:animate-none"
               aria-hidden
@@ -75,6 +75,7 @@ export const SitePanel = ({ site, overview }: SitePanelType) => {
           <Sparkline
             values={overview.daily}
             label={`${site.name}: visitors over the last 30 days`}
+            dot
           />
           <dl className="grid grid-cols-3 gap-3 border-t pt-4">
             <Stat label="Visitors · 7d">
@@ -95,7 +96,7 @@ export const SitePanel = ({ site, overview }: SitePanelType) => {
           </dl>
         </>
       ) : (
-        <div className="flex flex-1 flex-col justify-between gap-4 rounded-xl border border-dashed p-4">
+        <div className="flex flex-1 flex-col justify-between gap-4 rounded-lg border border-dashed p-4">
           <p className="text-sm text-pretty text-muted-foreground">
             Awaiting the first event. Paste the script on {site.domain} and
             visit it once.

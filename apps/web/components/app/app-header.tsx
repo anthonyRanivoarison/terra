@@ -1,12 +1,13 @@
 import Link from "next/link"
 import { Logo } from "@/components/brand/logo"
+import { ThemeToggle } from "@/components/shell/theme-toggle"
 import { requireUser } from "@/lib/session"
 import { UserMenu } from "./user-menu"
 
 export const AppHeader = async () => {
   const { user } = await requireUser()
   return (
-    <header className="relative z-10 flex h-16 w-full items-center justify-between gap-4 px-4 sm:px-6">
+    <header className="relative z-10 flex h-14 w-full items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
       <Link
         href="/sites"
         aria-label="Terra, all sites"
@@ -14,7 +15,10 @@ export const AppHeader = async () => {
       >
         <Logo className="text-lg" markClassName="text-primary" />
       </Link>
-      <UserMenu name={user.name} email={user.email} image={user.image} />
+      <div className="flex items-center gap-1">
+        <ThemeToggle />
+        <UserMenu name={user.name} email={user.email} image={user.image} />
+      </div>
     </header>
   )
 }

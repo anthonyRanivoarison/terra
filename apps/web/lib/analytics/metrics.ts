@@ -3,6 +3,7 @@ import {
   DIMENSIONS,
   hasFilters,
   QueryBuilder,
+  run,
   runAll,
   safe,
   type Dimension,
@@ -75,6 +76,24 @@ export function getSection(
       return Object.fromEntries(tabs.map((tab, i) => [tab, results[i] ?? []]))
     },
     Object.fromEntries(tabs.map((tab) => [tab, []]))
+  )
+}
+
+export const isTab = (value: string): value is Tab =>
+  Object.values(SECTIONS).some((tabs) =>
+    (tabs as readonly string[]).includes(value)
+  )
+
+export function getTab(
+  siteId: string,
+  params: AnalyticsParams,
+  tab: Tab,
+  limit = 50
+): Promise<MetricRow[]> {
+  return safe(
+    `tab ${tab}`,
+    () => run<MetricRow>(tabQuery(siteId, params, tab, limit)),
+    []
   )
 }
 

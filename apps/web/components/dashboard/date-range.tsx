@@ -10,6 +10,7 @@ import {
   PopoverTrigger,
 } from "@workspace/ui/components/popover"
 import { cn } from "@workspace/ui/lib/utils"
+import { CompareToggle } from "./compare-toggle"
 import { useAnalyticsNav } from "./nav-context"
 
 const PRESETS = [
@@ -32,9 +33,14 @@ const short = (value: string) =>
 
 type DayRange = { from: Date | undefined; to?: Date | undefined }
 
-type DateRangeType = { range: string; from: string | null; to: string | null }
+type DateRangeType = {
+  range: string
+  from: string | null
+  to: string | null
+  compare: string | null
+}
 
-export const DateRange = ({ range, from, to }: DateRangeType) => {
+export const DateRange = ({ range, from, to, compare }: DateRangeType) => {
   const { update } = useAnalyticsNav()
   const [open, setOpen] = useState(false)
   const [draft, setDraft] = useState<DayRange | undefined>(
@@ -70,7 +76,7 @@ export const DateRange = ({ range, from, to }: DateRangeType) => {
           <Button
             variant="outline"
             size="sm"
-            className="min-w-40 justify-between gap-2 active:scale-[0.96]"
+            className="min-w-36 justify-between gap-2"
           />
         }
       >
@@ -78,7 +84,7 @@ export const DateRange = ({ range, from, to }: DateRangeType) => {
         <span className="flex-1 text-left">{label}</span>
         <ChevronDown className="size-3.5 text-muted-foreground" aria-hidden />
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-auto p-0">
+      <PopoverContent align="end" className="w-auto gap-0 p-0">
         <div className="flex flex-col sm:flex-row">
           <ul className="flex flex-row flex-wrap gap-1 border-b p-2 sm:w-40 sm:flex-col sm:border-r sm:border-b-0">
             {PRESETS.map((preset) => (
@@ -108,6 +114,12 @@ export const DateRange = ({ range, from, to }: DateRangeType) => {
               Apply range
             </Button>
           </div>
+        </div>
+        <div className="flex flex-col gap-1.5 border-t p-2">
+          <p className="px-0.5 text-xs font-medium text-muted-foreground">
+            Compare with
+          </p>
+          <CompareToggle compare={compare} />
         </div>
       </PopoverContent>
     </Popover>

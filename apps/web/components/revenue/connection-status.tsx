@@ -40,9 +40,9 @@ export const ConnectionStatus = ({
   )
   const state = disconnectState.message ? disconnectState : backfillState
   return (
-    <section className="flex flex-col gap-5 rounded-xl border p-6">
+    <section className="flex flex-col gap-5 rounded-lg border p-6">
       <div className="flex items-center justify-between gap-4">
-        <h2 className="font-heading text-lg font-semibold">Paddle</h2>
+        <h2 className="text-lg font-semibold">Paddle</h2>
         <Badge variant={environment === "production" ? "default" : "secondary"}>
           {environment === "production" ? "Production" : "Sandbox"}
         </Badge>

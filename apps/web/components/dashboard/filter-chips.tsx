@@ -1,29 +1,9 @@
 "use client"
 
 import { X } from "lucide-react"
+import { FILTER_NAMES as NAMES } from "./filter-names"
 import { dimensionLabel } from "./format"
 import { useAnalyticsNav } from "./nav-context"
-
-const NAMES: Record<string, string> = {
-  page: "Page",
-  hostname: "Hostname",
-  entry: "Entry page",
-  exit: "Exit page",
-  referrer: "Referrer",
-  channel: "Channel",
-  utm_source: "Source",
-  utm_medium: "Medium",
-  utm_campaign: "Campaign",
-  country: "Country",
-  region: "Region",
-  city: "City",
-  device: "Device",
-  browser: "Browser",
-  os: "OS",
-  language: "Language",
-  screen: "Screen",
-  event: "Event",
-}
 
 type FilterChipsType = { filters: Record<string, string> }
 

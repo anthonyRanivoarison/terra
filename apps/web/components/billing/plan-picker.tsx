@@ -62,19 +62,17 @@ export const PlanPicker = ({
   const message = error ?? state.error
   return (
     <section className="flex flex-col gap-4">
-      <h2 className="font-heading text-lg font-semibold">Plans</h2>
+      <h2 className="text-lg font-semibold">Plans</h2>
       <ul className="grid gap-4 sm:grid-cols-3">
         {plans.map((plan) => {
           const current = plan.id === currentPlan
           return (
             <li
               key={plan.id}
-              className="flex flex-col gap-4 rounded-xl border p-5"
+              className="flex flex-col gap-4 rounded-lg border p-5"
             >
               <div className="flex flex-col gap-1">
-                <p className="font-heading text-lg font-semibold">
-                  {plan.name}
-                </p>
+                <p className="text-lg font-semibold">{plan.name}</p>
                 <p className="text-sm text-muted-foreground">
                   {number.format(plan.quota)} events per month
                 </p>

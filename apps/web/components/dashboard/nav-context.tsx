@@ -75,7 +75,7 @@ export const PendingShell = ({ children }: PendingShellType) => {
       />
       <div
         className={cn(
-          "flex flex-col gap-4 transition-opacity duration-200",
+          "flex flex-col gap-3 transition-opacity duration-200",
           isPending && "opacity-60"
         )}
       >

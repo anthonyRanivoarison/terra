@@ -37,14 +37,14 @@ export const PortfolioSummary = ({
   ]
 
   return (
-    <dl className="grid grid-cols-2 overflow-hidden rounded-2xl border bg-card sm:grid-cols-4">
+    <dl className="grid grid-cols-2 overflow-hidden rounded-lg border bg-card sm:grid-cols-4">
       {items.map((item, i) => (
         <div
           key={item.label}
           className={`flex flex-col gap-1 p-4 sm:p-5 ${i % 2 ? "border-l" : ""} ${i > 1 ? "border-t sm:border-t-0" : ""} ${i === 2 ? "sm:border-l" : ""}`}
         >
           <dt className="text-sm text-muted-foreground">{item.label}</dt>
-          <dd className="flex items-center gap-2 font-heading text-2xl font-semibold tabular-nums">
+          <dd className="flex items-center gap-2 text-2xl font-semibold tabular-nums">
             {item.value}
             {item.extra}
           </dd>

@@ -55,7 +55,7 @@ export const VisitsTable = ({
             </span>
             <span className="flex items-center gap-2 text-muted-foreground md:justify-end">
               {v.revenueCents !== 0 && (
-                <span className="rounded-md bg-emerald-500/10 px-1.5 py-0.5 text-xs font-medium text-emerald-700">
+                <span className="rounded-md bg-emerald-500/10 px-1.5 py-0.5 text-xs font-medium text-up">
                   {formatMoney(v.revenueCents, currency)}
                 </span>
               )}

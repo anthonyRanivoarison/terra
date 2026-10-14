@@ -48,10 +48,8 @@ export const BotTrafficEmpty = ({ setupHref, onHide }: BotTrafficEmptyType) => (
       })}
     </div>
     <SamplePreview sample={<BotTrafficSample />}>
-      <div className="flex w-full max-w-sm flex-col items-center gap-3 rounded-xl border bg-background/95 p-6 text-center shadow-lg">
-        <h3 className="font-heading text-base font-semibold">
-          No bot traffic detected yet
-        </h3>
+      <div className="flex w-full max-w-sm flex-col items-center gap-3 rounded-lg border bg-background/95 p-6 text-center shadow-lg">
+        <h3 className="text-base font-semibold">No bot traffic detected yet</h3>
         <p className="text-sm text-balance text-muted-foreground">
           Install the server-side tracker to see when AI assistants, search
           engines, and model training crawlers request your pages.

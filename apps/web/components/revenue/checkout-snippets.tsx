@@ -22,9 +22,7 @@ await paddle.transactions.create({
 export const CheckoutSnippets = () => (
   <section className="flex flex-col gap-4">
     <div className="flex flex-col gap-1">
-      <h2 className="font-heading text-lg font-semibold">
-        Link payments to visitors
-      </h2>
+      <h2 className="text-lg font-semibold">Link payments to visitors</h2>
       <p className="text-sm text-muted-foreground">
         Pass the Terra visitor id in the checkout custom data. Purchases without
         it still count as revenue, but cannot be attributed to a channel.

@@ -56,8 +56,11 @@ export type Stats = { current: Overview; previous: Overview | null }
 export type SeriesPoint = {
   bucket: string
   visitors: number
+  visits: number
   views: number
+  bounceRate: number
   revenueCents: number
+  conversionRate: number
 }
 
 export type Timeseries = {

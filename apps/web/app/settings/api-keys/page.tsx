@@ -12,9 +12,7 @@ export default async function ApiKeysPage() {
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-col gap-10 px-4 py-12">
       <header className="flex flex-col gap-2">
-        <h1 className="font-heading text-3xl font-semibold tracking-tight">
-          API keys
-        </h1>
+        <h1 className="text-3xl font-semibold tracking-tight">API keys</h1>
         <p className="text-muted-foreground">
           Keys work for every site in this workspace. Read the{" "}
           <Link href="/docs/api" className="underline underline-offset-4">
@@ -26,11 +24,11 @@ export default async function ApiKeysPage() {
         </p>
       </header>
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-lg font-semibold">Your keys</h2>
+        <h2 className="text-lg font-semibold">Your keys</h2>
         <KeyList keys={keys} />
       </section>
       <section className="flex flex-col gap-4">
-        <h2 className="font-heading text-lg font-semibold">Create a key</h2>
+        <h2 className="text-lg font-semibold">Create a key</h2>
         <CreateKeyForm />
       </section>
     </main>

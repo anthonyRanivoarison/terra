@@ -33,9 +33,9 @@ export const ConnectForm = ({ publicId }: ConnectFormType) => {
     { error: null, message: null }
   )
   return (
-    <section className="flex flex-col gap-4 rounded-xl border p-6">
+    <section className="flex flex-col gap-4 rounded-lg border p-6">
       <div className="flex flex-col gap-1">
-        <h2 className="font-heading text-lg font-semibold">Connect Paddle</h2>
+        <h2 className="text-lg font-semibold">Connect Paddle</h2>
         <p className="text-sm text-muted-foreground">
           Terra registers a webhook in your Paddle account and imports the last
           90 days of transactions and refunds.

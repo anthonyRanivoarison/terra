@@ -36,9 +36,7 @@ export default async function SitesPage() {
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 pt-6 pb-16 sm:px-6">
         <div className="flex items-end justify-between gap-4">
           <div className="flex flex-col gap-1">
-            <h1 className="font-heading text-3xl font-semibold tracking-tight">
-              Sites
-            </h1>
+            <h1 className="text-3xl font-semibold tracking-tight">Sites</h1>
             {sites.length > 0 && (
               <p className="text-sm text-muted-foreground">
                 Traffic and revenue across your {sites.length}{" "}

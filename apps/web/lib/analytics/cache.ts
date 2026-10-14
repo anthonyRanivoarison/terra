@@ -31,8 +31,8 @@ export const overview = cached("overview", getOverview)
 export const series = cached("series", getSeries)
 export const section = cached(
   "section",
-  (siteId: string, params: AnalyticsParams, name: Section) =>
-    getSection(siteId, params, name)
+  (siteId: string, params: AnalyticsParams, name: Section, limit?: number) =>
+    getSection(siteId, params, name, limit)
 )
 export const events = cached("events", getEvents)
 export const attribution = cached("attribution", getAttribution)

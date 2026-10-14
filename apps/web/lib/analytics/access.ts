@@ -1,9 +1,10 @@
+import { cache } from "react"
 import { notFound } from "next/navigation"
 import { requireOrganization } from "@/lib/session"
 import { getSite, listSites } from "@/lib/sites"
 import { getSiteSettings } from "./settings"
 
-export async function requireDashboard(publicId: string) {
+export const requireDashboard = cache(async (publicId: string) => {
   const organizationId = await requireOrganization()
   const [site, sites] = await Promise.all([
     getSite(organizationId, publicId),
@@ -20,7 +21,7 @@ export async function requireDashboard(publicId: string) {
       domain,
     })),
   }
-}
+})
 
 export type SearchParams = Record<string, string | string[] | undefined>
 

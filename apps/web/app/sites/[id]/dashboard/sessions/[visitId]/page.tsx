@@ -10,6 +10,8 @@ import { formatDuration, formatMoney } from "@/components/dashboard/format"
 import { VisitMeta } from "@/components/dashboard/sessions/visit-meta"
 import { VisitTimeline } from "@/components/dashboard/sessions/visit-timeline"
 import { VisitsTable } from "@/components/dashboard/sessions/visits-table"
+import { PageShell } from "@/components/shell/page-shell"
+import { Toolbar } from "@/components/shell/toolbar"
 import { requireDashboard } from "@/lib/analytics/access"
 import { visit as getVisit } from "@/lib/analytics/cache"
 
@@ -46,7 +48,8 @@ export default async function VisitPage({
   ]
 
   return (
-    <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-8 sm:px-6">
+    <PageShell>
+      <Toolbar title="Visit" />
       <Link
         href={`${base}/sessions`}
         className="text-sm text-muted-foreground hover:text-foreground"
@@ -54,9 +57,9 @@ export default async function VisitPage({
         ← All sessions
       </Link>
       <div className="flex flex-col gap-1">
-        <h1 className="font-heading text-2xl font-semibold tracking-tight">
+        <h2 className="text-xl font-semibold tracking-tight">
           <VisitMeta visit={visit} />
-        </h1>
+        </h2>
         <p className="font-mono text-xs text-muted-foreground">
           {visit.visitorId}
         </p>
@@ -85,9 +88,7 @@ export default async function VisitPage({
       </div>
       {others.length > 0 && (
         <section className="flex flex-col gap-3">
-          <h2 className="font-heading text-lg font-semibold">
-            Other visits by this visitor
-          </h2>
+          <h2 className="text-sm font-medium">Other visits by this visitor</h2>
           <VisitsTable
             rows={others}
             page={0}
@@ -98,6 +99,6 @@ export default async function VisitPage({
           />
         </section>
       )}
-    </div>
+    </PageShell>
   )
 }

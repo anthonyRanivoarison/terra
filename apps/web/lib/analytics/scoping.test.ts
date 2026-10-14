@@ -54,6 +54,7 @@ beforeAll(async () => {
     for (const s of Object.keys(metrics.SECTIONS) as never[])
       await metrics.getSection(SITE, p, s)
     await metrics.getEvents(SITE, p)
+    await metrics.getTab(SITE, p, "country")
     await revenue.getAttribution(SITE, p)
     await funnel.getFunnel(SITE, p)
     await insights.getHeatmap(SITE, p)
