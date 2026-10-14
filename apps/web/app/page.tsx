@@ -1,11 +1,10 @@
 import type { Metadata } from "next"
 import { headers } from "next/headers"
 
-import { Experience } from "@/components/landing/experience"
-import { SmoothScroll } from "@/components/landing/smooth-scroll"
+import { Home as Landing } from "@/components/home/home"
 import { auth } from "@/lib/auth"
 import { metadataFor, siteConfig } from "@/lib/seo"
-import "@/components/landing/landing.css"
+import "@/components/home/home.css"
 
 export const metadata: Metadata = {
   ...metadataFor({
@@ -20,9 +19,5 @@ export const metadata: Metadata = {
 export default async function Home() {
   const session = await auth.api.getSession({ headers: await headers() })
 
-  return (
-    <SmoothScroll>
-      <Experience signedIn={Boolean(session)} />
-    </SmoothScroll>
-  )
+  return <Landing signedIn={Boolean(session)} />
 }
