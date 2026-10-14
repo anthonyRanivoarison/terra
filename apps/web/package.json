@@ -11,7 +11,8 @@
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",
     "test": "bun test",
-    "auth:migrate": "bun --env-file=../../.env scripts/migrate-auth.ts"
+    "auth:migrate": "bun --env-file=../../.env scripts/migrate-auth.ts",
+    "db:seed": "bun --env-file=../../.env scripts/seed-demo.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

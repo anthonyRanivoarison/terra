@@ -6,8 +6,8 @@ v AS (
     channel, utm_source, utm_campaign, country, city, latitude, longitude,
     device, browser, os, language, screen, as_org
   )
-  SELECT gen_random_uuid(), p.site_id, 'v' || (random() * 2500)::int, t,
-    t + ((random() * 420)::int || ' seconds')::interval,
+  SELECT gen_random_uuid(), p.site_id, 'v' || (random() * 9000)::int, t,
+    LEAST(now(), t + ((random() * 420)::int || ' seconds')::interval),
     (ARRAY['/', '/', '/pricing', '/docs', '/blog/launch'])[1 + (random() * 4)::int],
     (ARRAY['/', '/pricing', '/docs', '/thanks'])[1 + (random() * 3)::int],
     (ARRAY['launch-now.dev', 'launch-now.dev', 'docs.launch-now.dev', 'app.launch-now.dev'])[1 + (random() * 3)::int],
@@ -24,9 +24,13 @@ v AS (
     (ARRAY['Comcast', 'Orange', 'Deutsche Telekom', 'Telma', 'Free SAS'])[1 + (random() * 4)::int]
   FROM params p,
     LATERAL (
-      SELECT now() - (random() * 30 || ' days')::interval
-        - ((CASE WHEN random() < 0.6 THEN (random() * 8)::int ELSE 0 END) || ' hours')::interval AS t
-      FROM generate_series(1, 3200)
+      SELECT CASE
+        WHEN i <= 14 THEN now() - interval '1 second' * random() * 90
+        WHEN i <= 60 THEN now() - interval '1 minute' * random() * 30
+        ELSE now() - interval '1 day' * power(random(), 1.6) * 400
+          - ((CASE WHEN random() < 0.6 THEN (random() * 8)::int ELSE 0 END) || ' hours')::interval
+      END AS t
+      FROM generate_series(1, 16000) i
     ) g,
     LATERAL (
       SELECT * FROM (VALUES
@@ -93,11 +97,11 @@ refund AS (
   RETURNING 1
 )
 INSERT INTO crawls (site_id, at, crawler, company, category, hostname, path, status, ip_verified)
-SELECT p.site_id, now() - (random() * 30 || ' days')::interval, c.crawler, c.company, c.category,
+SELECT p.site_id, now() - interval '1 day' * power(random(), 1.4) * 400, c.crawler, c.company, c.category,
   'launch-now.dev',
   (ARRAY['/', '/pricing', '/docs', '/robots.txt', '/llms.txt', '/sitemap.xml', '/blog/launch'])[1 + (random() * 6)::int],
   CASE WHEN random() < 0.05 THEN 404 ELSE 200 END, random() < 0.85
-FROM params p, generate_series(1, 900) g, LATERAL (
+FROM params p, generate_series(1, 4000) g, LATERAL (
   SELECT * FROM (VALUES
     ('chatgpt-user', 'OpenAI', 'answers'), ('chatgpt-user', 'OpenAI', 'answers'),
     ('gptbot', 'OpenAI', 'training'), ('claudebot', 'Anthropic', 'training'),
