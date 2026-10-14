@@ -55,6 +55,17 @@ await db.unsafe(
   [siteId]
 )
 await db`
+  UPDATE visits v SET entry_page = f.page, exit_page = l.page
+  FROM (
+    SELECT DISTINCT ON (visit_id) visit_id, page FROM views
+    WHERE site_id = ${siteId} ORDER BY visit_id, entered_at
+  ) f, (
+    SELECT DISTINCT ON (visit_id) visit_id, page FROM views
+    WHERE site_id = ${siteId} ORDER BY visit_id, entered_at DESC
+  ) l
+  WHERE v.site_id = ${siteId} AND f.visit_id = v.id AND l.visit_id = v.id
+`
+await db`
   UPDATE sites SET first_event_at = COALESCE(first_event_at, now())
   WHERE id = ${siteId}
 `

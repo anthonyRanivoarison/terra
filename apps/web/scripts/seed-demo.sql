@@ -8,8 +8,8 @@ v AS (
   )
   SELECT gen_random_uuid(), p.site_id, 'v' || (random() * 9000)::int, t,
     LEAST(now(), t + ((random() * 420)::int || ' seconds')::interval),
-    (ARRAY['/', '/', '/pricing', '/docs', '/blog/launch'])[1 + (random() * 4)::int],
-    (ARRAY['/', '/pricing', '/docs', '/thanks'])[1 + (random() * 3)::int],
+    (ARRAY['/', '/', '/pricing', '/docs', '/blog/launch', '/blog/ai-crawlers', '/features', '/integrations/paddle'])[1 + (random() * 7)::int],
+    (ARRAY['/', '/pricing', '/docs', '/thanks', '/signup', '/docs/api', '/features'])[1 + (random() * 6)::int],
     (ARRAY['launch-now.dev', 'launch-now.dev', 'docs.launch-now.dev', 'app.launch-now.dev'])[1 + (random() * 3)::int],
     1 + (random() * 5)::int, (random() * 3)::int, random() < 0.04, random() < 0.65,
     NULL, src.host, src.channel,
@@ -56,7 +56,7 @@ pv AS (
     entered_at, last_seen_at, duration_s, scroll_pct, lcp_ms, inp_ms, cls, fcp_ms, ttfb_ms
   )
   SELECT gen_random_uuid(), v.site_id, v.id, v.visitor_id, v.hostname,
-    (ARRAY['/', '/pricing', '/docs', '/docs/install', '/blog/launch', '/changelog'])[1 + (random() * 5)::int],
+    (ARRAY['/', '/', '/pricing', '/pricing', '/docs', '/docs/install', '/docs/api', '/docs/tracking', '/blog/launch', '/blog/ai-crawlers', '/blog/how-we-grew', '/changelog', '/features', '/integrations/paddle', '/about', '/careers', '/signup'])[1 + (random() * 16)::int],
     'Launch.now', v.is_bot,
     v.started_at + (n * 40 || ' seconds')::interval,
     v.started_at + (n * 40 + 30 || ' seconds')::interval,
