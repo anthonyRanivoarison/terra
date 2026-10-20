@@ -12,7 +12,7 @@ type HeaderType = {
 const links = [
   { href: "#rankings", label: "Demo" },
   { href: "#ai", label: "AI crawlers" },
-  { href: "#pricing", label: "Pricing" },
+  { href: "#free", label: "Free" },
   { href: "#faq", label: "FAQ" },
 ]
 

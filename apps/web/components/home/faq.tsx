@@ -16,6 +16,10 @@ const questions = [
     a: "No. Subdomains such as blog, shop and app report to the same site with nothing extra to configure.",
   },
   {
+    q: "Is Terra really free?",
+    a: "Yes. There are no plans and no paid tiers. The app is open source under AGPL-3.0, and the tracker, SDK and crawler package are MIT.",
+  },
+  {
     q: "Can I host Terra myself?",
     a: "Yes. Terra is open source and ships with Docker files for the dashboard, the collector and Postgres.",
   },
@@ -33,13 +37,13 @@ export const Faq = () => (
   >
     <div className="max-w-3xl">
       {questions.map((item) => (
-        <details key={item.q} className="border-b border-border">
-          <summary className="flex min-h-14 cursor-pointer items-center justify-between gap-4 py-3 font-medium">
+        <details key={item.q} className="group border-b border-border">
+          <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3 font-medium [&::-webkit-details-marker]:hidden">
             {item.q}
             <ChevronDown
               data-chevron
               aria-hidden
-              className="size-4 shrink-0 text-muted-foreground transition-transform duration-200"
+              className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
             />
           </summary>
           <p className="max-w-[62ch] pb-5 leading-relaxed text-muted-foreground">

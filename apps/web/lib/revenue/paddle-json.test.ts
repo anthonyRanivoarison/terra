@@ -1,5 +1,4 @@
 import { describe, expect, test } from "bun:test"
-import { subscriptionFromJson } from "@/lib/billing/subscriptions"
 import {
   purchaseFromTransaction,
   refundFromAdjustment,
@@ -51,21 +50,5 @@ describe("webhook payloads", () => {
       totals: { total: "1000" },
     })
     expect(refundFromAdjustment(adjustment!, null)?.amountCents).toBe(-1000)
-  })
-
-  test("maps a subscription payload", () => {
-    const record = subscriptionFromJson(
-      {
-        id: "sub_1",
-        status: "active",
-        customer_id: "ctm_1",
-        updated_at: "2026-10-01T00:00:00Z",
-        custom_data: { organization_id: "org_1" },
-        current_billing_period: { ends_at: "2026-11-01T00:00:00Z" },
-        items: [{ price: { id: "pri_starter" } }],
-      },
-      { PADDLE_PRICE_STARTER: "pri_starter" }
-    )
-    expect(record).toMatchObject({ plan: "starter", eventsQuota: 10_000 })
   })
 })

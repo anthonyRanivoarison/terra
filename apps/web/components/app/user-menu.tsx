@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { ChevronDown, CreditCard, Globe, KeyRound, LogOut } from "lucide-react"
+import { ChevronDown, Globe, KeyRound, LogOut } from "lucide-react"
 import { Button } from "@workspace/ui/components/button"
 import {
   DropdownMenu,
@@ -76,10 +76,6 @@ export const UserMenuItems = ({
       <DropdownMenuItem render={<Link href="/settings/api-keys" />}>
         <KeyRound aria-hidden />
         API keys
-      </DropdownMenuItem>
-      <DropdownMenuItem render={<Link href="/settings/billing" />}>
-        <CreditCard aria-hidden />
-        Billing
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem onClick={signOut}>

@@ -20,6 +20,7 @@ Use **bun** only (`bun@1.4.0`, `bun.lock`). Never use npm, pnpm or yarn, and nev
 | ------------------------ | ------------------------------------------------------------- |
 | `bun run dev`            | turbo dev: web on :3000, ingest on :4000                      |
 | `bun run db:migrate`     | Terra tables (`packages/db`) then Better Auth tables (`.env`) |
+| `bun run db:seed`        | Demo site with a year of fake traffic (`apps/web/scripts`)    |
 | `bun run lint`           | ESLint in every workspace                                     |
 | `bun run typecheck`      | `tsc --noEmit` in every workspace                             |
 | `bun run test`           | `bun test` in every workspace that has tests                  |

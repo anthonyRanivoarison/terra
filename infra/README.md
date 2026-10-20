@@ -92,7 +92,7 @@ BACKUP_KEEP_DAYS=14
 BACKUP_HOUR_UTC=3
 ```
 
-Optional: `TERRA_FREE_EVENTS_QUOTA`, the `PADDLE_*` billing variables (see `.env.example`), and `ASN_DB_PATH=/data/dbip-asn.mmdb` after placing a db-ip ASN `.mmdb` in `~/terra/infra/data`.
+Optional: `ASN_DB_PATH=/data/dbip-asn.mmdb` after placing a db-ip ASN `.mmdb` in `~/terra/infra/data`.
 
 Use a hex password for Postgres: it goes into a connection URL unescaped. Keep `chmod 600 .env`.
 
