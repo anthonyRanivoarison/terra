@@ -26,7 +26,7 @@ export const Snippet = () => {
   }
 
   return (
-    <div className="landing-code relative mt-4 overflow-hidden rounded-xl">
+    <div className="relative mt-4 overflow-hidden rounded-xl bg-[oklch(0.2_0.012_264)] text-white">
       <div className="flex items-center justify-between border-b border-white/10 py-1 pr-1 pl-4">
         <span className="font-mono text-xs text-white/70">index.html</span>
         <button

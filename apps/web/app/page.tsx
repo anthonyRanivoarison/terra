@@ -1,16 +1,15 @@
 import type { Metadata } from "next"
 import { headers } from "next/headers"
 
-import { Home as Landing } from "@/components/home/home"
+import { Landing } from "@/components/marketing/landing"
 import { auth } from "@/lib/auth"
 import { metadataFor, siteConfig } from "@/lib/seo"
-import "@/components/home/home.css"
 
 export const metadata: Metadata = {
   ...metadataFor({
     title: `Terra · ${siteConfig.tagline}`,
     description:
-      "Terra shows which channels, pages and countries bring revenue, not just visitors. Privacy-friendly analytics with AI crawler tracking. One script, free to start.",
+      "Terra shows which channels, pages and countries bring revenue, not just visitors. Free, open source and privacy-friendly analytics with AI crawler tracking.",
     path: "/",
   }),
   title: { absolute: `Terra · ${siteConfig.tagline}` },

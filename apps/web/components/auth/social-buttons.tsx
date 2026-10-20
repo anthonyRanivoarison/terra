@@ -51,6 +51,7 @@ export const SocialButtons = ({
           key={provider}
           type="button"
           variant="outline"
+          className="h-12 rounded-xl text-base font-medium transition-[scale,background-color] duration-150 active:scale-[0.96]"
           disabled={loading !== null}
           onClick={() => signIn(provider)}
         >
