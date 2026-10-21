@@ -1,5 +1,6 @@
 import { cn } from "@workspace/ui/lib/utils"
 import { INK, traits } from "./identity"
+import { Collar, FacialHair, Freckles } from "./parts/extras"
 import { Brows, Eyes, Mouth } from "./parts/face"
 import { HairBack, HairFront } from "./parts/hair"
 import { stroke } from "./parts/stroke"
@@ -15,6 +16,7 @@ export const VisitorAvatar = ({ id, className }: VisitorAvatarType) => {
       className={cn("size-8 shrink-0 rounded-full", className)}
     >
       <rect width="100" height="100" fill={t.bg} />
+      <circle cx="50" cy="46" r="34" fill={t.halo} />
       <g
         transform={`translate(50 54) scale(1.14) translate(-50 -50) rotate(${t.tilt} 50 60)`}
       >
@@ -29,9 +31,9 @@ export const VisitorAvatar = ({ id, className }: VisitorAvatarType) => {
         <path d="M43 66 L43 78 Q50 83 57 78 L57 66" fill={t.skin} {...stroke} />
         <path
           d="M43.5 68 Q50 74 56.5 68 L56.5 72 Q50 77 43.5 72 Z"
-          fill="#000"
-          opacity="0.12"
+          fill={t.shade}
         />
+        <Collar kind={t.collar} shirt={t.shirt} skin={t.skin} />
         <path d="M31 47 C25 45 25 55 31 55" fill={t.skin} {...stroke} />
         <path d="M69 47 C75 45 75 55 69 55" fill={t.skin} {...stroke} />
         {t.extra === 0 && (
@@ -47,6 +49,11 @@ export const VisitorAvatar = ({ id, className }: VisitorAvatarType) => {
           fill={t.skin}
           {...stroke}
         />
+        <path
+          d="M62 30 C67 35 68 44 68 52 C68 60 63 66 57 68.5 C63 63 65 57 65 50 C65 42 64 35 62 30 Z"
+          fill={t.shade}
+        />
+        {t.freckles && <Freckles />}
         {t.blush && (
           <g fill="#f7b8b8" opacity="0.75">
             <ellipse cx="37" cy="56" rx="4" ry="2.4" />
@@ -61,6 +68,7 @@ export const VisitorAvatar = ({ id, className }: VisitorAvatarType) => {
           {...stroke}
           strokeWidth={1.8}
         />
+        <FacialHair kind={t.facial} color={t.hairColor} />
         <Mouth kind={t.mouth} />
         {t.extra === 1 ? (
           <g {...stroke}>

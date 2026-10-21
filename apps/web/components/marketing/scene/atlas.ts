@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server"
 import { CanvasTexture, SRGBColorSpace } from "three"
 import { VisitorAvatar } from "@/components/visitor/avatar"
 import { getReferrerIcon } from "@/lib/platform-icons"
+import { LIVE_VISITORS } from "../live-visitors"
 import { SOURCES } from "../sources"
 
 export const CELL = 128
@@ -20,12 +21,18 @@ const load = (svg: string) =>
   })
 
 const sized = (svg: string, size: number, color = "#eef1ff") =>
-  svg.replace("<svg", `<svg width="${size}" height="${size}" color="${color}"`)
+  svg.replace(
+    /^<svg([^>]*)>/,
+    (_, attrs: string) =>
+      `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" color="${color}"${attrs.replace(/\s(xmlns|width|height|color)="[^"]*"/g, "")}>`
+  )
 
 const avatar = (i: number) =>
   sized(
     renderToStaticMarkup(
-      createElement(VisitorAvatar, { id: `visitor-${i * 7919}` })
+      createElement(VisitorAvatar, {
+        id: LIVE_VISITORS[i]?.id ?? `visitor-${i * 7919}`,
+      })
     ),
     128
   )

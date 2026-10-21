@@ -8,6 +8,7 @@ import { rig } from "./rig"
 import { Stars } from "./stars"
 import { Visits } from "./visits"
 import { Chips } from "./chips"
+import { LivePins } from "./live-pins"
 
 type SceneType = { active: boolean; compact: boolean; onReady: () => void }
 
@@ -38,6 +39,7 @@ export const Scene = ({ active, compact, onReady }: SceneType) => {
         <Earth onReady={onReady}>
           <Visits perArc={compact ? 3 : 5} />
           <Chips perArc={compact ? 1 : 2} />
+          <LivePins />
         </Earth>
       </Suspense>
       <CameraRig />

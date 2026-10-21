@@ -74,12 +74,9 @@ export const Hero = ({ signedIn }: HeroType) => {
       <div data-hero-content className="w-full max-w-5xl [perspective:900px]">
         <h1
           aria-label="See who reaches your site."
-          className="text-[clamp(3rem,7.6vw,6rem)] leading-[0.92] tracking-[-0.04em]"
+          className="text-[clamp(3rem,7.6vw,6rem)] leading-[0.92]"
         >
-          <SplitChars
-            text="See who reaches"
-            className="font-heading font-semibold"
-          />
+          <SplitChars text="See who reaches" className="marketing-accent" />
           <SplitChars
             text="your site."
             className="marketing-accent text-ring"

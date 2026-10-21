@@ -64,6 +64,8 @@ export const Experience = ({ signedIn }: ExperienceType) => {
           .to(rig, { sales: 1, duration: 0.6, ease: "power1.out" }, 3)
           .to(rig, { ...shots.revenuePush, duration: 1.2, ease: "none" }, 3.4)
           .to(rig, { ...shots.live, duration: 1 }, 4.6)
+          .to(rig, { live: 1, duration: 0.5, ease: "power1.out" }, 5)
+          .to(rig, { live: 0, duration: 0.4, ease: "power1.in" }, 6.2)
           .to(rig, { ...shots.ai, duration: 1 }, 6.4)
           .to(rig, { ...shots.aiDrift, duration: 0.6, ease: "none" }, 7.4)
           .set({}, {}, 8)
