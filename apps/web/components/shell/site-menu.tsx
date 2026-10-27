@@ -2,21 +2,20 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Check, ChevronsUpDown, LayoutGrid, Plus } from "lucide-react"
+import { Check, ChevronsUpDown, LayoutGrid, Plus, Settings } from "lucide-react"
+import { Button } from "@workspace/ui/components/button"
+import { ButtonGroup } from "@workspace/ui/components/button-group"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu"
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@workspace/ui/components/sidebar"
 import { SiteFavicon } from "@/components/sites/site-favicon"
-import { useAnalyticsNav } from "@/components/dashboard/nav-context"
+import { useSiteNav } from "./use-site-nav"
 
 export type SwitcherSite = { publicId: string; name: string; domain: string }
 
@@ -24,44 +23,45 @@ type SiteMenuType = { sites: SwitcherSite[] }
 
 export const SiteMenu = ({ sites }: SiteMenuType) => {
   const pathname = usePathname()
-  const { siteId } = useAnalyticsNav()
-  const root = `/sites/${siteId}`
-  const view = pathname.slice(root.length).split("/").slice(0, 3).join("/")
+  const { siteId, root } = useSiteNav()
+  const view = siteId
+    ? pathname.slice(root.length).split("/").slice(0, 3).join("/")
+    : "/dashboard"
   const current = sites.find((s) => s.publicId === siteId)
 
   return (
-    <SidebarMenu>
-      <SidebarMenuItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            render={
-              <SidebarMenuButton
-                size="lg"
-                className="h-14 gap-3 rounded-xl px-2.5 hover:bg-sidebar-foreground/[0.06] data-popup-open:bg-background data-popup-open:shadow-[0_0_0_1px_var(--border)]"
-              />
-            }
-          >
-            {current && (
-              <SiteFavicon
-                siteId={current.publicId}
-                domain={current.domain}
-                className="size-9 rounded-lg bg-background p-1.5 shadow-[0_0_0_1px_var(--border)]"
-              />
-            )}
-            <span className="flex min-w-0 flex-1 flex-col leading-tight">
-              <span className="truncate text-[0.95rem] font-semibold">
-                {current?.name ?? "Select a site"}
-              </span>
-              <span className="truncate text-xs text-muted-foreground">
-                {current?.domain}
-              </span>
-            </span>
-            <ChevronsUpDown
-              className="size-4 text-muted-foreground"
-              aria-hidden
+    <ButtonGroup className="w-full group-data-[collapsible=icon]:hidden">
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          render={
+            <Button
+              variant="outline"
+              className="h-9 min-w-0 flex-1 justify-start gap-2 px-2 font-semibold"
             />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="start" className="w-60">
+          }
+        >
+          {current ? (
+            <SiteFavicon
+              siteId={current.publicId}
+              domain={current.domain}
+              className="size-5 rounded-md"
+            />
+          ) : (
+            <LayoutGrid className="size-4 text-muted-foreground" aria-hidden />
+          )}
+          <span className="min-w-0 flex-1 truncate text-left">
+            {current?.name ?? "All sites"}
+          </span>
+          <ChevronsUpDown
+            className="size-4 text-muted-foreground"
+            aria-hidden
+          />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="start" className="w-64">
+          <DropdownMenuGroup>
+            <DropdownMenuLabel className="text-xs text-muted-foreground">
+              Sites
+            </DropdownMenuLabel>
             {sites.map((site) => (
               <DropdownMenuItem
                 key={site.publicId}
@@ -80,18 +80,28 @@ export const SiteMenu = ({ sites }: SiteMenuType) => {
                 )}
               </DropdownMenuItem>
             ))}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem render={<Link href="/sites" />}>
-              <LayoutGrid aria-hidden />
-              All sites
-            </DropdownMenuItem>
-            <DropdownMenuItem render={<Link href="/sites/new" />}>
-              <Plus aria-hidden />
-              Add a site
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </SidebarMenuItem>
-    </SidebarMenu>
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem render={<Link href="/sites" />}>
+            <LayoutGrid aria-hidden />
+            All sites
+          </DropdownMenuItem>
+          <DropdownMenuItem render={<Link href="/sites/new" />}>
+            <Plus aria-hidden />
+            Add a site
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <Button
+        variant="outline"
+        size="icon"
+        aria-label={siteId ? "Site settings" : "Settings"}
+        className="size-9"
+        nativeButton={false}
+        render={<Link href={siteId ? root : "/settings/api-keys"} />}
+      >
+        <Settings aria-hidden />
+      </Button>
+    </ButtonGroup>
   )
 }

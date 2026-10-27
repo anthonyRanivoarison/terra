@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu"
 import { cn } from "@workspace/ui/lib/utils"
+import { VisitorAvatar } from "@/components/visitor/avatar"
 import { authClient } from "@/lib/auth-client"
 
 export type UserMenuType = {
@@ -26,20 +27,25 @@ export const userLabel = ({ name, email }: UserMenuType) => name.trim() || email
 
 type UserAvatarType = UserMenuType & { className?: string }
 
-export const UserAvatar = ({ className, ...user }: UserAvatarType) => (
-  <span
-    className={cn(
-      "flex size-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary text-xs font-semibold text-primary-foreground uppercase",
-      className
-    )}
-  >
-    {user.image ? (
+export const UserAvatar = ({ className, ...user }: UserAvatarType) =>
+  user.image ? (
+    <span
+      className={cn(
+        "flex size-7 shrink-0 overflow-hidden rounded-full",
+        className
+      )}
+    >
       <img src={user.image} alt="" className="size-full object-cover" />
-    ) : (
-      userLabel(user).charAt(0)
-    )}
-  </span>
-)
+    </span>
+  ) : (
+    <VisitorAvatar
+      id={user.email || user.name}
+      className={cn(
+        "size-7 ring-1 ring-black/10 dark:ring-white/10",
+        className
+      )}
+    />
+  )
 
 type UserMenuItemsType = UserMenuType & {
   align?: "start" | "end"

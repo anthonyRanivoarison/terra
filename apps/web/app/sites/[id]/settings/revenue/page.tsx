@@ -6,7 +6,7 @@ import { PageShell } from "@/components/shell/page-shell"
 import { Toolbar } from "@/components/shell/toolbar"
 import { ConnectForm } from "@/components/revenue/connect-form"
 import { ConnectionStatus } from "@/components/revenue/connection-status"
-import { AgentPrompt } from "@/components/sites/agent-prompt"
+import { AgentSetup } from "@/components/setup/agent-setup"
 import { revenuePrompt } from "@/lib/agent-prompt"
 import { getConnection } from "@/lib/revenue/store"
 import { requireOrganization } from "@/lib/session"
@@ -51,12 +51,21 @@ export default async function RevenueSettingsPage({
         ) : (
           <ConnectForm publicId={site.publicId} />
         )}
-        <AgentPrompt
-          title="Wire checkouts with your AI agent"
-          description="Paste this prompt in Claude Code, Cursor or Codex from your project. It passes the Terra visitor id to every Paddle checkout."
-          prompt={revenuePrompt({ domain: site.domain })}
-        />
-        <CheckoutSnippets />
+        <section className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <h2 className="text-lg font-semibold">Link payments to visitors</h2>
+            <p className="text-sm text-muted-foreground">
+              Pass the Terra visitor id to every Paddle checkout. Purchases
+              without it still count as revenue, but cannot be attributed to a
+              channel.
+            </p>
+          </div>
+          <AgentSetup
+            prompt={revenuePrompt({ domain: site.domain })}
+            promptNote="It only touches checkout code. Your Paddle keys stay in Terra."
+            manual={<CheckoutSnippets />}
+          />
+        </section>
       </div>
     </PageShell>
   )

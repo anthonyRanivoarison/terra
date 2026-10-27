@@ -5,6 +5,8 @@ import {
   FileText,
   Gauge,
   LayoutDashboard,
+  LayoutGrid,
+  Plus,
   Plug,
   Radio,
   Rewind,
@@ -17,13 +19,15 @@ export type NavItem = {
   icon: LucideIcon
   keep: boolean
   exact?: boolean
+  live?: boolean
+  children?: NavItem[]
 }
 
 export type NavGroup = { label: string; items: NavItem[] }
 
 export const NAV: NavGroup[] = [
   {
-    label: "Analytics",
+    label: "Menu",
     items: [
       {
         label: "Overview",
@@ -43,12 +47,29 @@ export const NAV: NavGroup[] = [
         path: "/dashboard/realtime",
         icon: Radio,
         keep: true,
+        live: true,
+        children: [
+          {
+            label: "Sessions",
+            path: "/dashboard/sessions",
+            icon: Rewind,
+            keep: true,
+          },
+        ],
       },
       {
         label: "Revenue",
         path: "/dashboard/revenue",
         icon: CircleDollarSign,
         keep: true,
+        children: [
+          {
+            label: "Payments",
+            path: "/settings/revenue",
+            icon: Plug,
+            keep: false,
+          },
+        ],
       },
       {
         label: "Performance",
@@ -60,29 +81,31 @@ export const NAV: NavGroup[] = [
     ],
   },
   {
-    label: "Behavior",
-    items: [
-      {
-        label: "Sessions",
-        path: "/dashboard/sessions",
-        icon: Rewind,
-        keep: true,
-      },
-    ],
-  },
-  {
     label: "Site",
     items: [
       { label: "Tracking", path: "", icon: Code, keep: false, exact: true },
-      {
-        label: "Payments",
-        path: "/settings/revenue",
-        icon: Plug,
-        keep: false,
-      },
     ],
   },
 ]
+
+export const HOME_NAV: NavGroup[] = [
+  {
+    label: "Sites",
+    items: [
+      {
+        label: "All sites",
+        path: "/sites",
+        icon: LayoutGrid,
+        keep: false,
+        exact: true,
+      },
+      { label: "Add a site", path: "/sites/new", icon: Plus, keep: false },
+    ],
+  },
+]
+
+export const flatNav = (groups: NavGroup[]) =>
+  groups.flatMap((g) => g.items.flatMap((i) => [i, ...(i.children ?? [])]))
 
 export const isActive = (pathname: string, href: string, exact?: boolean) =>
   exact ? pathname === href : pathname.startsWith(href)

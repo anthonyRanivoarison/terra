@@ -10,7 +10,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@workspace/ui/components/empty"
-import { AppHeader } from "@/components/app/app-header"
+import { SidebarTrigger } from "@workspace/ui/components/sidebar"
 import { PortfolioSummary } from "@/components/sites/overview/portfolio-summary"
 import { SitePanel } from "@/components/sites/overview/site-panel"
 import { requireOrganization } from "@/lib/session"
@@ -32,10 +32,10 @@ export default async function SitesPage() {
 
   return (
     <>
-      <AppHeader />
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 pt-6 pb-16 sm:px-6">
         <div className="flex items-end justify-between gap-4">
           <div className="flex flex-col gap-1">
+            <SidebarTrigger className="-ms-1.5 mb-2 md:hidden" />
             <h1 className="text-3xl font-semibold tracking-tight">Sites</h1>
             {sites.length > 0 && (
               <p className="text-sm text-muted-foreground">

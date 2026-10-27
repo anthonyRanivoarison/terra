@@ -2,13 +2,12 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { SetupNav } from "@/components/app/setup-nav"
-import { AgentPrompt } from "@/components/sites/agent-prompt"
+import { AgentSetup } from "@/components/setup/agent-setup"
+import { InstallManual } from "@/components/setup/install-manual"
 import { PageShell } from "@/components/shell/page-shell"
 import { Toolbar } from "@/components/shell/toolbar"
-import { BotTrackingSnippet } from "@/components/sites/bot-tracking-snippet"
 import { InstallStatus } from "@/components/sites/install-status"
 import { SiteFavicon } from "@/components/sites/site-favicon"
-import { Snippet } from "@/components/sites/snippet"
 import { installPrompt } from "@/lib/agent-prompt"
 import { requireOrganization } from "@/lib/session"
 import { getSite } from "@/lib/sites"
@@ -29,15 +28,12 @@ export default async function SitePage({
   const organizationId = await requireOrganization()
   const site = await getSite(organizationId, (await params).id)
   if (!site) notFound()
-
-  const script = `<script
-  defer
-  data-website-id="${site.publicId}"
-  data-domain="${site.domain}"
-  src="${ingestUrl()}/js/script.js">
-</script>`
-  const goal = `<button data-goal="signup" data-goal-plan="pro">Sign up</button>
-<script>window.terra?.goal("signup", { plan: "pro" })</script>`
+  const install = {
+    domain: site.domain,
+    publicId: site.publicId,
+    ingestUrl: ingestUrl(),
+    botToken: site.botToken,
+  }
 
   return (
     <PageShell>
@@ -69,39 +65,20 @@ export default async function SitePage({
           domain={site.domain}
           live={site.firstEventAt !== null}
         />
-        <AgentPrompt
-          title="Install with your AI agent"
-          description="Paste this prompt in Claude Code, Cursor or Codex from your project. It adds the script, your goals and AI crawler tracking. It contains your bot token."
-          prompt={installPrompt({
-            domain: site.domain,
-            publicId: site.publicId,
-            ingestUrl: ingestUrl(),
-            botToken: site.botToken,
-          })}
-        />
-        <section className="flex flex-col gap-3">
-          <h2 className="text-lg font-semibold">Tracking script</h2>
-          <p className="text-sm text-muted-foreground">
-            Add it to the head of every page. All subdomains of {site.domain}{" "}
-            share the same visitors and visits.
-          </p>
-          <Snippet code={script} label="tracking script" />
+        <section className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <h2 className="text-lg font-semibold">Install Terra</h2>
+            <p className="text-sm text-muted-foreground">
+              Let your coding agent add the script, your goals and AI crawler
+              tracking, or paste the snippets yourself.
+            </p>
+          </div>
+          <AgentSetup
+            prompt={installPrompt(install)}
+            promptNote="It includes your bot token, so only paste it in an agent you trust."
+            manual={<InstallManual {...install} />}
+          />
         </section>
-        <section className="flex flex-col gap-3">
-          <h2 id="goals" className="scroll-mt-20 text-lg font-semibold">
-            Goals
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            Clicks and outbound links are tracked automatically. Name the ones
-            that matter with an attribute, or from code.
-          </p>
-          <Snippet code={goal} label="goal examples" />
-        </section>
-        <BotTrackingSnippet
-          websiteId={site.publicId}
-          token={site.botToken}
-          ingestUrl={ingestUrl()}
-        />
       </div>
     </PageShell>
   )

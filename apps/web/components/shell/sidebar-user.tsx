@@ -1,16 +1,11 @@
 "use client"
 
-import { ChevronsUpDown } from "lucide-react"
+import { MoreHorizontal } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu"
-import {
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  useSidebar,
-} from "@workspace/ui/components/sidebar"
+import { useSidebar } from "@workspace/ui/components/sidebar"
 import {
   UserAvatar,
   UserMenuItems,
@@ -21,36 +16,22 @@ import {
 export const SidebarUser = (user: UserMenuType) => {
   const { isMobile } = useSidebar()
   return (
-    <SidebarMenu>
-      <SidebarMenuItem>
-        <DropdownMenu>
-          <DropdownMenuTrigger
-            render={
-              <SidebarMenuButton
-                size="lg"
-                className="h-12 gap-3 rounded-xl px-2.5 hover:bg-sidebar-foreground/[0.06] data-popup-open:bg-background"
-              />
-            }
-          >
-            <UserAvatar {...user} className="size-8" />
-            <span className="flex min-w-0 flex-1 flex-col leading-tight">
-              <span className="truncate font-medium">{userLabel(user)}</span>
-              <span className="truncate text-xs text-muted-foreground">
-                {user.email}
-              </span>
-            </span>
-            <ChevronsUpDown
-              className="size-4 text-muted-foreground"
-              aria-hidden
-            />
-          </DropdownMenuTrigger>
-          <UserMenuItems
-            {...user}
-            align="end"
-            side={isMobile ? "bottom" : "right"}
-          />
-        </DropdownMenu>
-      </SidebarMenuItem>
-    </SidebarMenu>
+    <DropdownMenu>
+      <DropdownMenuTrigger className="group/row flex h-10 w-full min-w-0 items-center gap-2 rounded-full border border-sidebar-border bg-sidebar pr-1.5 pl-2 text-left text-sidebar-foreground transition-colors outline-none group-data-[collapsible=icon]:size-8 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:border-0 group-data-[collapsible=icon]:p-0 hover:bg-sidebar-accent focus-visible:ring-2 focus-visible:ring-sidebar-ring data-popup-open:bg-sidebar-accent">
+        <UserAvatar {...user} className="size-6" />
+        <span className="min-w-0 flex-1 truncate text-sm font-medium group-data-[collapsible=icon]:hidden">
+          {userLabel(user)}
+        </span>
+        <span className="grid size-7 shrink-0 place-content-center rounded-full text-sidebar-foreground/70 group-hover/row:text-sidebar-foreground group-data-[collapsible=icon]:hidden">
+          <MoreHorizontal className="size-4" aria-hidden />
+        </span>
+        <span className="sr-only">Open account menu</span>
+      </DropdownMenuTrigger>
+      <UserMenuItems
+        {...user}
+        align="end"
+        side={isMobile ? "bottom" : "right"}
+      />
+    </DropdownMenu>
   )
 }
