@@ -17,7 +17,7 @@ export const PromptBlock = ({ prompt }: PromptBlockType) => {
         <pre
           id="agent-prompt"
           className={cn(
-            "p-4 pr-14 font-mono text-[13px] leading-relaxed whitespace-pre-wrap",
+            "p-4 pr-14 font-mono text-[13px] leading-relaxed wrap-anywhere whitespace-pre-wrap",
             open ? "max-h-[32rem] overflow-y-auto" : "max-h-40 overflow-hidden"
           )}
         >

@@ -27,12 +27,19 @@ export const AgentSetup = ({ prompt, promptNote, manual }: AgentSetupType) => {
   const { copied, copy } = useCopy(prompt)
 
   useEffect(() => {
-    const id = window.location.hash.slice(1)
-    if (!id || !manualRef.current?.querySelector(`#${CSS.escape(id)}`)) return
-    setTab("manual")
-    requestAnimationFrame(() =>
-      document.getElementById(id)?.scrollIntoView({ block: "start" })
-    )
+    const open = () => {
+      const id = window.location.hash.slice(1)
+      if (!id || !manualRef.current?.querySelector(`#${CSS.escape(id)}`)) return
+      requestAnimationFrame(() => {
+        setTab("manual")
+        requestAnimationFrame(() =>
+          document.getElementById(id)?.scrollIntoView({ block: "start" })
+        )
+      })
+    }
+    open()
+    window.addEventListener("hashchange", open)
+    return () => window.removeEventListener("hashchange", open)
   }, [])
 
   return (
