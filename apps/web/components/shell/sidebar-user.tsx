@@ -28,11 +28,11 @@ export const SidebarUser = (user: UserMenuType) => {
             render={
               <SidebarMenuButton
                 size="lg"
-                className="data-popup-open:bg-sidebar-accent"
+                className="h-12 gap-3 rounded-xl px-2.5 hover:bg-sidebar-foreground/[0.06] data-popup-open:bg-background"
               />
             }
           >
-            <UserAvatar {...user} className="size-6" />
+            <UserAvatar {...user} className="size-8" />
             <span className="flex min-w-0 flex-1 flex-col leading-tight">
               <span className="truncate font-medium">{userLabel(user)}</span>
               <span className="truncate text-xs text-muted-foreground">

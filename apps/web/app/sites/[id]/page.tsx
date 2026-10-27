@@ -2,12 +2,14 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { SetupNav } from "@/components/app/setup-nav"
+import { AgentPrompt } from "@/components/sites/agent-prompt"
 import { PageShell } from "@/components/shell/page-shell"
 import { Toolbar } from "@/components/shell/toolbar"
 import { BotTrackingSnippet } from "@/components/sites/bot-tracking-snippet"
 import { InstallStatus } from "@/components/sites/install-status"
 import { SiteFavicon } from "@/components/sites/site-favicon"
 import { Snippet } from "@/components/sites/snippet"
+import { installPrompt } from "@/lib/agent-prompt"
 import { requireOrganization } from "@/lib/session"
 import { getSite } from "@/lib/sites"
 
@@ -66,6 +68,16 @@ export default async function SitePage({
           siteId={site.publicId}
           domain={site.domain}
           live={site.firstEventAt !== null}
+        />
+        <AgentPrompt
+          title="Install with your AI agent"
+          description="Paste this prompt in Claude Code, Cursor or Codex from your project. It adds the script, your goals and AI crawler tracking. It contains your bot token."
+          prompt={installPrompt({
+            domain: site.domain,
+            publicId: site.publicId,
+            ingestUrl: ingestUrl(),
+            botToken: site.botToken,
+          })}
         />
         <section className="flex flex-col gap-3">
           <h2 className="text-lg font-semibold">Tracking script</h2>

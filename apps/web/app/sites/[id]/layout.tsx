@@ -27,7 +27,9 @@ export default async function SiteLayout({
           sites={sites}
           user={{ name: user.name, email: user.email, image: user.image }}
         />
-        <SidebarInset className="min-w-0">{children}</SidebarInset>
+        <SidebarInset className="min-w-0 md:peer-data-[variant=inset]:border md:peer-data-[variant=inset]:shadow-[0_1px_3px_oklch(0_0_0/0.06)]">
+          {children}
+        </SidebarInset>
       </SidebarProvider>
     </AnalyticsNavProvider>
   )

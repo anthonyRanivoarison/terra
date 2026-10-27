@@ -6,6 +6,8 @@ import { PageShell } from "@/components/shell/page-shell"
 import { Toolbar } from "@/components/shell/toolbar"
 import { ConnectForm } from "@/components/revenue/connect-form"
 import { ConnectionStatus } from "@/components/revenue/connection-status"
+import { AgentPrompt } from "@/components/sites/agent-prompt"
+import { revenuePrompt } from "@/lib/agent-prompt"
 import { getConnection } from "@/lib/revenue/store"
 import { requireOrganization } from "@/lib/session"
 import { getSite } from "@/lib/sites"
@@ -49,6 +51,11 @@ export default async function RevenueSettingsPage({
         ) : (
           <ConnectForm publicId={site.publicId} />
         )}
+        <AgentPrompt
+          title="Wire checkouts with your AI agent"
+          description="Paste this prompt in Claude Code, Cursor or Codex from your project. It passes the Terra visitor id to every Paddle checkout."
+          prompt={revenuePrompt({ domain: site.domain })}
+        />
         <CheckoutSnippets />
       </div>
     </PageShell>

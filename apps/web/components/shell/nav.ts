@@ -75,7 +75,7 @@ export const NAV: NavGroup[] = [
     items: [
       { label: "Tracking", path: "", icon: Code, keep: false, exact: true },
       {
-        label: "Revenue connection",
+        label: "Payments",
         path: "/settings/revenue",
         icon: Plug,
         keep: false,

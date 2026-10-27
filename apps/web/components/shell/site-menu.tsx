@@ -37,7 +37,7 @@ export const SiteMenu = ({ sites }: SiteMenuType) => {
             render={
               <SidebarMenuButton
                 size="lg"
-                className="border bg-card data-popup-open:bg-sidebar-accent"
+                className="h-14 gap-3 rounded-xl px-2.5 hover:bg-sidebar-foreground/[0.06] data-popup-open:bg-background data-popup-open:shadow-[0_0_0_1px_var(--border)]"
               />
             }
           >
@@ -45,11 +45,11 @@ export const SiteMenu = ({ sites }: SiteMenuType) => {
               <SiteFavicon
                 siteId={current.publicId}
                 domain={current.domain}
-                className="size-5 rounded"
+                className="size-9 rounded-lg bg-background p-1.5 shadow-[0_0_0_1px_var(--border)]"
               />
             )}
             <span className="flex min-w-0 flex-1 flex-col leading-tight">
-              <span className="truncate font-medium">
+              <span className="truncate text-[0.95rem] font-semibold">
                 {current?.name ?? "Select a site"}
               </span>
               <span className="truncate text-xs text-muted-foreground">
