@@ -3,6 +3,7 @@ import { headers } from "next/headers"
 
 import { Landing } from "@/components/marketing/landing"
 import { auth } from "@/lib/auth"
+import { demoPath } from "@/lib/demo"
 import { metadataFor, siteConfig } from "@/lib/seo"
 
 export const metadata: Metadata = {
@@ -18,5 +19,5 @@ export const metadata: Metadata = {
 export default async function Home() {
   const session = await auth.api.getSession({ headers: await headers() })
 
-  return <Landing signedIn={Boolean(session)} />
+  return <Landing signedIn={Boolean(session)} demo={demoPath !== null} />
 }

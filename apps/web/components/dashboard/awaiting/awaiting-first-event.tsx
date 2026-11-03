@@ -10,6 +10,6 @@ export const AwaitingFirstEvent = ({ site }: AwaitingFirstEventType) =>
     <AwaitingPanel
       publicId={site.publicId}
       domain={site.domain}
-      supportEmail={siteConfig.supportEmail}
+      supportHref={siteConfig.supportHref}
     />
   )

@@ -3,8 +3,12 @@ import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { auth } from "@/lib/auth"
 
+export const getOptionalSession = cache(async () =>
+  auth.api.getSession({ headers: await headers() })
+)
+
 export const requireUser = cache(async () => {
-  const session = await auth.api.getSession({ headers: await headers() })
+  const session = await getOptionalSession()
   if (!session) redirect("/auth/signin")
   return session
 })

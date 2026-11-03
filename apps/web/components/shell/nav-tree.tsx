@@ -20,7 +20,7 @@ import {
   SidebarMenuSubItem,
 } from "@workspace/ui/components/sidebar"
 import { cn } from "@workspace/ui/lib/utils"
-import { HOME_NAV, isActive, NAV, type NavItem } from "./nav"
+import { HOME_NAV, isActive, NAV, readOnlyNav, type NavItem } from "./nav"
 import { useSiteNav } from "./use-site-nav"
 
 export const ITEM =
@@ -39,10 +39,13 @@ const LiveDot = () => (
   </span>
 )
 
-export const NavTree = () => {
+type NavTreeType = { readOnly?: boolean }
+
+export const NavTree = ({ readOnly = false }: NavTreeType) => {
   const pathname = usePathname()
   const { siteId, root, keep } = useSiteNav()
-  const groups = siteId ? NAV : HOME_NAV
+  const nav = siteId ? NAV : HOME_NAV
+  const groups = readOnly ? readOnlyNav(nav) : nav
   const link = (item: NavItem) => {
     const href = `${root}${item.path}`
     return {

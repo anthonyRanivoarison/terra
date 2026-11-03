@@ -104,6 +104,19 @@ export const HOME_NAV: NavGroup[] = [
   },
 ]
 
+export const readOnlyNav = (groups: NavGroup[]): NavGroup[] =>
+  groups
+    .map((group) => ({
+      ...group,
+      items: group.items
+        .filter((item) => item.keep)
+        .map(({ children, ...item }) => {
+          const kept = children?.filter((child) => child.keep)
+          return kept?.length ? { ...item, children: kept } : item
+        }),
+    }))
+    .filter((group) => group.items.length > 0)
+
 export const flatNav = (groups: NavGroup[]) =>
   groups.flatMap((g) => g.items.flatMap((i) => [i, ...(i.children ?? [])]))
 

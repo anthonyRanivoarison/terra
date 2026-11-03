@@ -92,6 +92,8 @@ BACKUP_KEEP_DAYS=14
 BACKUP_HOUR_UTC=3
 ```
 
+Set `DISABLE_SIGNUP=true` once your own account exists to close sign ups on a private instance, then `docker compose -f docker-compose.prod.yml up -d web`. `SUPPORT_EMAIL` is optional; without it, "Contact support" links to GitHub issues.
+
 Optional: `ASN_DB_PATH=/data/dbip-asn.mmdb` after placing a db-ip ASN `.mmdb` in `~/terra/infra/data`.
 
 Use a hex password for Postgres: it goes into a connection URL unescaped. Keep `chmod 600 .env`.
@@ -134,6 +136,23 @@ To deploy by hand, or roll back to an earlier commit:
 ```bash
 TERRA_TAG=<sha> docker compose -f docker-compose.prod.yml up -d
 ```
+
+## Live demo
+
+A public, read-only dashboard at `https://app.<domain>/demo`, filled with a year of sample traffic. It lives in its own workspace with no members, so nobody can sign in to it.
+
+```bash
+cd ~/terra/infra
+docker compose -f docker-compose.prod.yml run --rm demo
+```
+
+Copy the `DEMO_SITE_ID=ws_…` line it prints into `.env`, then `docker compose -f docker-compose.prod.yml up -d web`. Running it again keeps the same id and replaces the sample data, so the demo stays current. Refresh it nightly from the VM's crontab (`crontab -e`):
+
+```bash
+30 4 * * * cd ~/terra/infra && docker compose -f docker-compose.prod.yml run --rm demo >/dev/null 2>&1
+```
+
+Leave `DEMO_SITE_ID` empty to turn the demo off.
 
 ## Backups and restore
 

@@ -4,9 +4,9 @@ import { instrumentSans, spaceGrotesk } from "./fonts"
 import { SmoothScroll } from "./smooth-scroll"
 import "./marketing.css"
 
-type LandingType = { signedIn: boolean }
+type LandingType = { signedIn: boolean; demo: boolean }
 
-export const Landing = ({ signedIn }: LandingType) => (
+export const Landing = ({ signedIn, demo }: LandingType) => (
   <div
     className={cn(
       "dark marketing relative min-h-dvh antialiased",
@@ -21,7 +21,7 @@ export const Landing = ({ signedIn }: LandingType) => (
       Skip to content
     </a>
     <SmoothScroll>
-      <Experience signedIn={signedIn} />
+      <Experience signedIn={signedIn} demo={demo} />
     </SmoothScroll>
     <div
       aria-hidden

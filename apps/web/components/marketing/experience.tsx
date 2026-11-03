@@ -15,9 +15,9 @@ import { pointer, resetRig, rig, shots } from "./scene/rig"
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
-type ExperienceType = { signedIn: boolean }
+type ExperienceType = { signedIn: boolean; demo: boolean }
 
-export const Experience = ({ signedIn }: ExperienceType) => {
+export const Experience = ({ signedIn, demo }: ExperienceType) => {
   const track = useRef<HTMLDivElement>(null)
   const reduced = useRef(false)
 
@@ -88,7 +88,7 @@ export const Experience = ({ signedIn }: ExperienceType) => {
         className="relative z-10 w-full max-w-full overflow-x-clip"
       >
         <div ref={track}>
-          <Hero signedIn={signedIn} />
+          <Hero signedIn={signedIn} demo={demo} />
           <Chapters />
         </div>
         <Install />

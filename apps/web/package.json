@@ -13,7 +13,8 @@
     "typecheck": "tsc --noEmit",
     "test": "bun test",
     "auth:migrate": "bun --env-file=../../.env scripts/migrate-auth.ts",
-    "db:seed": "bun --env-file=../../.env scripts/seed-demo.ts"
+    "db:seed": "bun --env-file=../../.env scripts/seed-demo.ts",
+    "db:seed:public": "bun --env-file=../../.env scripts/seed-public-demo.ts"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

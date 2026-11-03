@@ -12,9 +12,9 @@ import { SplitChars } from "./split-chars"
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
-type HeroType = { signedIn: boolean }
+type HeroType = { signedIn: boolean; demo: boolean }
 
-export const Hero = ({ signedIn }: HeroType) => {
+export const Hero = ({ signedIn, demo }: HeroType) => {
   const root = useRef<HTMLElement>(null)
   const lenis = useLenis()
 
@@ -97,16 +97,22 @@ export const Hero = ({ signedIn }: HeroType) => {
           <PillLink href={ctaHref(signedIn)}>
             {signedIn ? "Open your dashboard" : "Create a free account"}
           </PillLink>
-          <PillLink
-            href="#traffic"
-            variant="ghost"
-            onClick={(event) => {
-              event.preventDefault()
-              scrollToId("traffic", lenis)
-            }}
-          >
-            Take the tour
-          </PillLink>
+          {demo ? (
+            <PillLink href="/demo" variant="ghost">
+              See the live demo
+            </PillLink>
+          ) : (
+            <PillLink
+              href="#traffic"
+              variant="ghost"
+              onClick={(event) => {
+                event.preventDefault()
+                scrollToId("traffic", lenis)
+              }}
+            >
+              Take the tour
+            </PillLink>
+          )}
         </div>
       </div>
     </section>

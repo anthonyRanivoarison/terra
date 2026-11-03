@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { AuthForm } from "@/components/auth/auth-form"
 import { AuthShell } from "@/components/auth/auth-shell"
-import { socialProviders } from "@/lib/auth"
+import { signUpOpen, socialProviders } from "@/lib/auth"
 import { metadataFor } from "@/lib/seo"
 
 export const metadata: Metadata = metadataFor({
@@ -11,10 +11,16 @@ export const metadata: Metadata = metadataFor({
   path: "/auth/signin",
 })
 
+export const dynamic = "force-dynamic"
+
 export default function SignInPage() {
   return (
     <AuthShell mode="signin">
-      <AuthForm mode="signin" providers={socialProviders} />
+      <AuthForm
+        mode="signin"
+        providers={socialProviders}
+        switchable={signUpOpen}
+      />
     </AuthShell>
   )
 }

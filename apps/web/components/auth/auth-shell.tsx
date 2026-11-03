@@ -4,6 +4,7 @@ import Link from "next/link"
 import { buttonVariants } from "@workspace/ui/components/button"
 import { cn } from "@workspace/ui/lib/utils"
 import { Logo } from "@/components/brand/logo"
+import { signUpOpen } from "@/lib/auth"
 
 type AuthShellType = { mode: "signin" | "signup"; children: ReactNode }
 
@@ -38,12 +39,14 @@ export const AuthShell = ({ mode, children }: AuthShellType) => (
         <Link href="/" aria-label="Terra home" className="rounded-md">
           <Logo />
         </Link>
-        <Link
-          href={mode === "signin" ? "/auth/signup" : "/auth/signin"}
-          className={cn(buttonVariants({ variant: "outline" }), "rounded-xl")}
-        >
-          {mode === "signin" ? "Sign up" : "Sign in"}
-        </Link>
+        {(mode === "signup" || signUpOpen) && (
+          <Link
+            href={mode === "signin" ? "/auth/signup" : "/auth/signin"}
+            className={cn(buttonVariants({ variant: "outline" }), "rounded-xl")}
+          >
+            {mode === "signin" ? "Sign up" : "Sign in"}
+          </Link>
+        )}
       </header>
       <div className="-mx-2 flex min-h-0 flex-1 overflow-y-auto px-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div className="m-auto flex w-full max-w-sm flex-col py-6">

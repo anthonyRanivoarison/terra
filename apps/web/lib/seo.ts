@@ -6,6 +6,8 @@ const url = (
   "http://localhost:3000"
 ).replace(/\/$/, "")
 
+const repository = "https://github.com/anthonyRanivoarison/terra"
+
 export const siteConfig = {
   name: "Terra",
   url,
@@ -25,9 +27,10 @@ export const siteConfig = {
     "Paddle analytics",
   ],
   ogImage: "/opengraph-image",
-  github: "https://github.com/terra-analytics/terra",
-  twitter: "@terra_analytics",
-  supportEmail: "support@terra.dev",
+  github: repository,
+  supportHref: process.env.SUPPORT_EMAIL
+    ? `mailto:${process.env.SUPPORT_EMAIL}`
+    : `${repository}/issues`,
 }
 
 export const rootMetadata: Metadata = {
@@ -58,8 +61,6 @@ export const rootMetadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    site: siteConfig.twitter,
-    creator: siteConfig.twitter,
     title: siteConfig.name,
     description: siteConfig.description,
     images: ["/twitter-image"],

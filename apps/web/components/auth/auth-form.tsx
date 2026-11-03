@@ -18,7 +18,11 @@ import type { SocialProvider } from "@/lib/auth"
 import { authClient } from "@/lib/auth-client"
 import { SocialButtons } from "./social-buttons"
 
-type AuthFormType = { mode: "signin" | "signup"; providers: SocialProvider[] }
+type AuthFormType = {
+  mode: "signin" | "signup"
+  providers: SocialProvider[]
+  switchable?: boolean
+}
 
 const COPY = {
   signin: {
@@ -39,10 +43,14 @@ const COPY = {
   },
 }
 
-export const AuthForm = ({ mode, providers }: AuthFormType) => {
+export const AuthForm = ({
+  mode,
+  providers,
+  switchable = true,
+}: AuthFormType) => {
   const router = useRouter()
   const next = useSearchParams().get("next") ?? "/sites"
-  const callbackUrl = next.startsWith("/") ? next : "/sites"
+  const callbackUrl = /^\/(?![/\\])/.test(next) ? next : "/sites"
   const [error, setError] = useState<string | null>(null)
   const [pending, startTransition] = useTransition()
   const copy = COPY[mode]
@@ -152,15 +160,17 @@ export const AuthForm = ({ mode, providers }: AuthFormType) => {
           {copy.submit}
         </Button>
       </form>
-      <p className="text-sm text-muted-foreground">
-        {copy.switchText}{" "}
-        <Link
-          href={copy.switchHref}
-          className="font-medium text-primary underline-offset-4 hover:underline"
-        >
-          {copy.switchLink}
-        </Link>
-      </p>
+      {switchable && (
+        <p className="text-sm text-muted-foreground">
+          {copy.switchText}{" "}
+          <Link
+            href={copy.switchHref}
+            className="font-medium text-primary underline-offset-4 hover:underline"
+          >
+            {copy.switchLink}
+          </Link>
+        </p>
+      )}
     </div>
   )
 }

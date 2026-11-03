@@ -10,7 +10,7 @@ import { useSiteLive } from "./use-site-live"
 type AwaitingPanelType = {
   publicId: string
   domain: string
-  supportEmail: string
+  supportHref: string
 }
 
 const link =
@@ -19,7 +19,7 @@ const link =
 export const AwaitingPanel = ({
   publicId,
   domain,
-  supportEmail,
+  supportHref,
 }: AwaitingPanelType) => {
   const live = useSiteLive(publicId)
   const [collapsed, setCollapsed] = useLocalFlag("terra:awaiting-collapsed")
@@ -48,7 +48,7 @@ export const AwaitingPanel = ({
     <>Refresh your dashboard</>,
     <>
       Still not working?{" "}
-      <a href={`mailto:${supportEmail}`} className={link}>
+      <a href={supportHref} className={link}>
         Contact support
       </a>
     </>,

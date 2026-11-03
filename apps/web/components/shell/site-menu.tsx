@@ -19,9 +19,9 @@ import { useSiteNav } from "./use-site-nav"
 
 export type SwitcherSite = { publicId: string; name: string; domain: string }
 
-type SiteMenuType = { sites: SwitcherSite[] }
+type SiteMenuType = { sites: SwitcherSite[]; readOnly?: boolean }
 
-export const SiteMenu = ({ sites }: SiteMenuType) => {
+export const SiteMenu = ({ sites, readOnly = false }: SiteMenuType) => {
   const pathname = usePathname()
   const { siteId, root } = useSiteNav()
   const view = siteId
@@ -81,27 +81,33 @@ export const SiteMenu = ({ sites }: SiteMenuType) => {
               </DropdownMenuItem>
             ))}
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem render={<Link href="/sites" />}>
-            <LayoutGrid aria-hidden />
-            All sites
-          </DropdownMenuItem>
-          <DropdownMenuItem render={<Link href="/sites/new" />}>
-            <Plus aria-hidden />
-            Add a site
-          </DropdownMenuItem>
+          {!readOnly && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem render={<Link href="/sites" />}>
+                <LayoutGrid aria-hidden />
+                All sites
+              </DropdownMenuItem>
+              <DropdownMenuItem render={<Link href="/sites/new" />}>
+                <Plus aria-hidden />
+                Add a site
+              </DropdownMenuItem>
+            </>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
-      <Button
-        variant="outline"
-        size="icon"
-        aria-label={siteId ? "Site settings" : "Settings"}
-        className="size-9"
-        nativeButton={false}
-        render={<Link href={siteId ? root : "/settings/api-keys"} />}
-      >
-        <Settings aria-hidden />
-      </Button>
+      {!readOnly && (
+        <Button
+          variant="outline"
+          size="icon"
+          aria-label={siteId ? "Site settings" : "Settings"}
+          className="size-9"
+          nativeButton={false}
+          render={<Link href={siteId ? root : "/settings/api-keys"} />}
+        >
+          <Settings aria-hidden />
+        </Button>
+      )}
     </ButtonGroup>
   )
 }
