@@ -2,14 +2,17 @@ import { cache } from "react"
 import { revalidateTag, unstable_cache } from "next/cache"
 import { getFunnel } from "./funnel"
 import { getHeatmap, getPoints, getQuality, getVitals } from "./insights"
-import { getEvents, getSection, type Section } from "./metrics"
-import { getOverview } from "./overview"
+import { getEvents, type Section } from "./metrics"
 import { getPages } from "./pages"
 import { FRESHNESS, type AnalyticsParams } from "./params"
 import { getOnline, getRealtime } from "./realtime"
 import { getAttribution } from "./revenue"
-import { getSeries } from "./series"
 import { getVisit, getVisits } from "./sessions"
+import {
+  overviewWithImported,
+  sectionWithImported,
+  seriesWithImported,
+} from "./with-imported"
 
 const TAG = "analytics"
 
@@ -28,12 +31,12 @@ function cached<A extends [string, AnalyticsParams, ...unknown[]], T>(
   )
 }
 
-export const overview = cached("overview", getOverview)
-export const series = cached("series", getSeries)
+export const overview = cached("overview", overviewWithImported)
+export const series = cached("series", seriesWithImported)
 export const section = cached(
   "section",
   (siteId: string, params: AnalyticsParams, name: Section, limit?: number) =>
-    getSection(siteId, params, name, limit)
+    sectionWithImported(siteId, params, name, limit)
 )
 export const events = cached("events", getEvents)
 export const pages = cached("pages", getPages)

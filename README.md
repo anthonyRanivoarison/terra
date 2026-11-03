@@ -20,6 +20,7 @@ Free, open source web analytics for many sites. Add a site, paste one script tag
 - AI crawlers (ChatGPT, Claude, Perplexity, Google) verified against their published IP ranges
 - Core Web Vitals per page, light and dark themes
 - Public REST API with scoped keys, an OpenAPI document and a typed TypeScript client
+- Import your history from Plausible, Umami, Google Analytics 4, Vercel or any daily CSV ([guide](docs/import.md))
 
 ## Local quickstart
 

@@ -4,7 +4,7 @@ import type { NextConfig } from "next"
 const nextConfig: NextConfig = {
   output: "standalone",
   outputFileTracingRoot: path.join(import.meta.dirname, "../.."),
-  transpilePackages: ["@workspace/ui", "@terra/db"],
+  transpilePackages: ["@workspace/ui", "@terra/db", "@terra/core"],
   redirects: async () => [
     { source: "/sign-in", destination: "/auth/signin", permanent: true },
     { source: "/sign-up", destination: "/auth/signup", permanent: true },

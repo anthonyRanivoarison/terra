@@ -25,7 +25,7 @@ mock.module("@terra/db/client", () => ({
     }),
 }))
 
-const TABLES = /\b(?:FROM|JOIN)\s+(?:visits|views|events)\b/g
+const TABLES = /\b(?:FROM|JOIN)\s+(?:visits|views|events|imported_stats)\b/g
 const SCOPED = /site_id = (?:\$1::uuid|\w+\.site_id)/g
 const JOINED = /\w+\.site_id = \w+\.site_id/g
 const count = (text: string, re: RegExp) => (text.match(re) ?? []).length
@@ -49,6 +49,7 @@ beforeAll(async () => {
   const sessions = await import("./sessions")
   const realtime = await import("./realtime")
   const pages = await import("./pages")
+  const imported = await import("./with-imported")
   for (const p of params) {
     await overview.getOverview(SITE, p)
     await series.getSeries(SITE, p)
@@ -64,6 +65,9 @@ beforeAll(async () => {
     await insights.getPoints(SITE, p)
     await insights.getQuality(SITE, p)
     await sessions.getVisits(SITE, p, 0)
+    await imported.overviewWithImported(SITE, p)
+    await imported.seriesWithImported(SITE, p)
+    await imported.sectionWithImported(SITE, p, "sources")
   }
   await sessions.getVisit(SITE, VISIT)
   await realtime.getRealtime(SITE)

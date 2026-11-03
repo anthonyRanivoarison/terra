@@ -3,6 +3,7 @@ import {
   CircleDollarSign,
   Code,
   FileText,
+  FileUp,
   Gauge,
   LayoutDashboard,
   LayoutGrid,
@@ -84,6 +85,12 @@ export const NAV: NavGroup[] = [
     label: "Site",
     items: [
       { label: "Tracking", path: "", icon: Code, keep: false, exact: true },
+      {
+        label: "Import",
+        path: "/settings/import",
+        icon: FileUp,
+        keep: false,
+      },
     ],
   },
 ]
