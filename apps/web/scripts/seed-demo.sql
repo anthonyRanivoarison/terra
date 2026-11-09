@@ -11,7 +11,7 @@ seed AS (
       SELECT CASE
         WHEN i <= greatest(3, p.visits / 1500) THEN now() - interval '1 second' * random() * 90
         WHEN i <= greatest(8, p.visits / 600) THEN now() - interval '1 minute' * random() * 30
-        ELSE now() - interval '1 day' * power(random(), 1.6) * 400
+        ELSE now() - interval '1 day' * (1 - sqrt(random())) * 400
           - ((CASE WHEN random() < 0.6 THEN (random() * 8)::int ELSE 0 END) || ' hours')::interval
       END AS t
       FROM generate_series(1, p.visits) i
@@ -132,7 +132,7 @@ refund AS (
   RETURNING 1
 )
 INSERT INTO crawls (site_id, at, crawler, company, category, hostname, path, status, ip_verified)
-SELECT p.site_id, now() - interval '1 day' * power(random(), 1.4) * 400, c.crawler, c.company, c.category,
+SELECT p.site_id, now() - interval '1 day' * (1 - sqrt(random())) * 400, c.crawler, c.company, c.category,
   p.domain,
   (p.pages || ARRAY['/robots.txt', '/llms.txt', '/sitemap.xml'])[1 + floor(random() * (array_length(p.pages, 1) + 3))::int],
   CASE WHEN random() < 0.05 THEN 404 ELSE 200 END, random() < 0.85
