@@ -8,16 +8,16 @@ import { useGSAP } from "@gsap/react"
 import { useLenis } from "lenis/react"
 import { cn } from "@workspace/ui/lib/utils"
 import { Logo } from "@/components/brand/logo"
-import { ctaHref } from "./cta"
+import type { Cta } from "./cta"
 import { chapters } from "./data"
 import { readouts, tally } from "./scene/rig"
 import { scrollToId } from "./scroll-to"
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
-type HudType = { signedIn: boolean }
+type HudType = { cta: Cta }
 
-export const Hud = ({ signedIn }: HudType) => {
+export const Hud = ({ cta }: HudType) => {
   const lenis = useLenis()
   const [active, setActive] = useState<string | null>(null)
   const visits = useRef<HTMLSpanElement>(null)
@@ -103,10 +103,10 @@ export const Hud = ({ signedIn }: HudType) => {
             </ol>
           </nav>
           <Link
-            href={ctaHref(signedIn)}
+            href={cta.href}
             className="flex h-11 items-center rounded-full border border-foreground/20 bg-background/40 px-5 text-sm font-medium whitespace-nowrap backdrop-blur-md transition-colors hover:border-foreground/50 active:scale-[0.97]"
           >
-            {signedIn ? "Dashboard" : "Start free"}
+            {cta.short}
           </Link>
         </div>
       </header>

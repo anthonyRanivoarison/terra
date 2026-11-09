@@ -5,16 +5,16 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
 import { useLenis } from "lenis/react"
-import { ctaHref } from "./cta"
+import type { Cta } from "./cta"
 import { PillLink } from "./pill-link"
 import { scrollToId } from "./scroll-to"
 import { SplitChars } from "./split-chars"
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
-type HeroType = { signedIn: boolean; demo: boolean }
+type HeroType = { cta: Cta; demo: boolean }
 
-export const Hero = ({ signedIn, demo }: HeroType) => {
+export const Hero = ({ cta, demo }: HeroType) => {
   const root = useRef<HTMLElement>(null)
   const lenis = useLenis()
 
@@ -94,9 +94,7 @@ export const Hero = ({ signedIn, demo }: HeroType) => {
           the sale. Live, private, and set up with one script.
         </p>
         <div data-hero-fade className="mt-10 flex flex-wrap items-center gap-3">
-          <PillLink href={ctaHref(signedIn)}>
-            {signedIn ? "Open your dashboard" : "Create a free account"}
-          </PillLink>
+          <PillLink href={cta.href}>{cta.label}</PillLink>
           {demo ? (
             <PillLink href="/demo" variant="ghost">
               See the live demo

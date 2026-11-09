@@ -1,5 +1,16 @@
-export const ctaHref = (signedIn: boolean) =>
-  signedIn ? "/sites" : "/auth/signup"
+export type Cta = { href: string; label: string; short: string }
 
-export const ctaLabel = (signedIn: boolean) =>
-  signedIn ? "Open your dashboard" : "Start for free"
+export const landingCta = (
+  signedIn: boolean,
+  signUpOpen: boolean,
+  repository: string
+): Cta =>
+  signedIn
+    ? { href: "/sites", label: "Open your dashboard", short: "Dashboard" }
+    : signUpOpen
+      ? {
+          href: "/auth/signup",
+          label: "Create a free account",
+          short: "Start free",
+        }
+      : { href: repository, label: "Self-host Terra", short: "Self-host" }

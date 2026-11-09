@@ -110,6 +110,7 @@ Repository settings > Secrets and variables > Actions:
 
 | Name                     | Kind     | Value                                                                                                         |
 | ------------------------ | -------- | ------------------------------------------------------------------------------------------------------------- |
+| `DEPLOY_ENABLED`         | variable | `true` to build and deploy on every push to `main`. Unset, the workflow does nothing                          |
 | `DEPLOY_HOST`            | secret   | VM public IP                                                                                                  |
 | `DEPLOY_USER`            | secret   | `ubuntu`                                                                                                      |
 | `DEPLOY_SSH_KEY`         | secret   | Private key of a key pair whose public key is in `~/.ssh/authorized_keys`                                     |
@@ -153,6 +154,27 @@ Copy the `DEMO_SITE_IDS=ws_…,ws_…,ws_…` line it prints into `.env`, then `
 ```
 
 Leave `DEMO_SITE_IDS` empty to turn the demo off.
+
+## Demo only, on Vercel and Neon
+
+For a public demo without a server, run `apps/web` on Vercel and its database on Neon. No ingest, no tracking: just the read-only dashboards with sample data.
+
+1. Neon: create a project and copy its pooled connection string.
+2. Vercel: import the repository, set **Root Directory** to `apps/web` (`apps/web/vercel.json` sets the install command), and add these environment variables:
+
+   | Name                     | Value                                 |
+   | ------------------------ | ------------------------------------- |
+   | `DATABASE_URL`           | the Neon connection string            |
+   | `BETTER_AUTH_SECRET`     | `openssl rand -base64 32`             |
+   | `BETTER_AUTH_URL`        | `https://<project>.vercel.app`        |
+   | `ENCRYPTION_KEY`         | `openssl rand -base64 32`             |
+   | `DISABLE_SIGNUP`         | `true`                                |
+   | `NEXT_PUBLIC_INGEST_URL` | `https://ingest.example.com` (unused) |
+   | `DEMO_SITE_IDS`          | printed by the first seed, see below  |
+
+3. GitHub: add the secrets `DEMO_DATABASE_URL` (the same connection string) and `DEMO_BETTER_AUTH_SECRET`, and the variable `DEMO_ENABLED=true`. The `Demo` workflow migrates the database and reseeds the three demo sites every night; run it once by hand, copy the `DEMO_SITE_IDS=…` line from its log into Vercel and redeploy.
+
+With sign ups closed, the landing page buttons point to this repository instead of the sign up page.
 
 ## Backups and restore
 

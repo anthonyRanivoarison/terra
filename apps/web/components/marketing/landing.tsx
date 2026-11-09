@@ -1,12 +1,13 @@
 import { cn } from "@workspace/ui/lib/utils"
+import type { Cta } from "./cta"
 import { Experience } from "./experience"
 import { instrumentSans, spaceGrotesk } from "./fonts"
 import { SmoothScroll } from "./smooth-scroll"
 import "./marketing.css"
 
-type LandingType = { signedIn: boolean; demo: boolean }
+type LandingType = { cta: Cta; demo: boolean }
 
-export const Landing = ({ signedIn, demo }: LandingType) => (
+export const Landing = ({ cta, demo }: LandingType) => (
   <div
     className={cn(
       "dark marketing relative min-h-dvh antialiased",
@@ -21,7 +22,7 @@ export const Landing = ({ signedIn, demo }: LandingType) => (
       Skip to content
     </a>
     <SmoothScroll>
-      <Experience signedIn={signedIn} demo={demo} />
+      <Experience cta={cta} demo={demo} />
     </SmoothScroll>
     <div
       aria-hidden

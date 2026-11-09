@@ -18,6 +18,7 @@ env:
 
 jobs:
   images:
+    if: vars.DEPLOY_ENABLED == 'true'
     runs-on: ${{ vars.ARM_RUNNER || 'ubuntu-latest' }}
     strategy:
       matrix:

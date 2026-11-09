@@ -8,6 +8,7 @@ import {
   SidebarRail,
 } from "@workspace/ui/components/sidebar"
 import type { UserMenuType } from "@/components/app/user-menu"
+import type { Cta } from "@/components/marketing/cta"
 import { NavTree } from "./nav-tree"
 import { SearchCommand } from "./search-command"
 import { DemoCta } from "./demo-cta"
@@ -15,9 +16,13 @@ import { InformationCard } from "./information-card"
 import { SidebarUser } from "./sidebar-user"
 import { SiteMenu, type SwitcherSite } from "./site-menu"
 
-type SiteSidebarType = { sites: SwitcherSite[]; user: UserMenuType | null }
+type SiteSidebarType = {
+  sites: SwitcherSite[]
+  user: UserMenuType | null
+  cta: Cta
+}
 
-export const SiteSidebar = ({ sites, user }: SiteSidebarType) => (
+export const SiteSidebar = ({ sites, user, cta }: SiteSidebarType) => (
   <Sidebar collapsible="icon" variant="inset">
     <SidebarHeader className="gap-2.5 p-2.5 pb-3">
       <SiteMenu sites={sites} readOnly={!user} />
@@ -34,7 +39,7 @@ export const SiteSidebar = ({ sites, user }: SiteSidebarType) => (
           <SidebarUser {...user} />
         </>
       ) : (
-        <DemoCta />
+        <DemoCta cta={cta} />
       )}
     </SidebarFooter>
     <SidebarRail />

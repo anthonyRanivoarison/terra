@@ -1,8 +1,11 @@
 import type { Metadata } from "next"
 import { cookies } from "next/headers"
 import { SidebarInset, SidebarProvider } from "@workspace/ui/components/sidebar"
+import { landingCta } from "@/components/marketing/cta"
 import { SiteSidebar } from "@/components/shell/site-sidebar"
+import { signUpOpen } from "@/lib/auth"
 import { demoSiteIds } from "@/lib/demo"
+import { siteConfig } from "@/lib/seo"
 import { getOptionalSession, requireOrganization } from "@/lib/session"
 import { getDemoSite, listSites } from "@/lib/sites"
 
@@ -28,6 +31,7 @@ export default async function SitesLayout({
           name,
           domain,
         }))}
+        cta={landingCta(false, signUpOpen, siteConfig.github)}
         user={user && { name: user.name, email: user.email, image: user.image }}
       />
       <SidebarInset className="min-w-0 md:peer-data-[variant=inset]:border md:peer-data-[variant=inset]:shadow-[0_1px_3px_oklch(0_0_0/0.06)]">

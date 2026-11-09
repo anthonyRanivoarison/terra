@@ -1,0 +1,29 @@
+name: Demo
+
+on:
+  schedule:
+    - cron: "30 3 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: demo
+  cancel-in-progress: false
+
+jobs:
+  seed:
+    if: vars.DEMO_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: ${{ secrets.DEMO_DATABASE_URL }}
+      BETTER_AUTH_SECRET: ${{ secrets.DEMO_BETTER_AUTH_SECRET }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: package.json
+      - run: bun install --frozen-lockfile
+      - run: bun packages/db/src/migrate.ts
+      - run: bun scripts/migrate-auth.ts
+        working-directory: apps/web
+      - run: bun scripts/seed-public-demo.ts
+        working-directory: apps/web

@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { siteConfig } from "@/lib/seo"
-import { ctaHref } from "./cta"
+import type { Cta } from "./cta"
 import { PillLink } from "./pill-link"
 
 const links = [
@@ -10,9 +10,9 @@ const links = [
   { href: siteConfig.github, label: "GitHub" },
 ]
 
-type ClosingType = { signedIn: boolean }
+type ClosingType = { cta: Cta }
 
-export const Closing = ({ signedIn }: ClosingType) => (
+export const Closing = ({ cta }: ClosingType) => (
   <footer className="relative border-t bg-(--marketing-space) px-5 pt-24 pb-32 md:px-12">
     <div className="mx-auto w-full max-w-6xl">
       <p className="max-w-[14ch] font-heading text-[clamp(2.5rem,6.4vw,5.5rem)] leading-[0.95] font-semibold tracking-[-0.04em] text-balance">
@@ -20,9 +20,7 @@ export const Closing = ({ signedIn }: ClosingType) => (
         <span className="marketing-accent text-ring">unseen.</span>
       </p>
       <div className="mt-10">
-        <PillLink href={ctaHref(signedIn)}>
-          {signedIn ? "Open your dashboard" : "Create a free account"}
-        </PillLink>
+        <PillLink href={cta.href}>{cta.label}</PillLink>
       </div>
       <div className="mt-24 flex flex-col gap-6 border-t pt-6 text-sm text-muted-foreground md:flex-row md:items-start md:justify-between">
         <div className="flex max-w-md flex-col gap-2 leading-relaxed">

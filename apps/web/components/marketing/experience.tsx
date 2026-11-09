@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useGSAP } from "@gsap/react"
 import { Chapters } from "./chapters"
 import { Closing } from "./closing"
+import type { Cta } from "./cta"
 import { Faq } from "./faq"
 import { Hero } from "./hero"
 import { Hud } from "./hud"
@@ -15,9 +16,9 @@ import { pointer, resetRig, rig, shots } from "./scene/rig"
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
-type ExperienceType = { signedIn: boolean; demo: boolean }
+type ExperienceType = { cta: Cta; demo: boolean }
 
-export const Experience = ({ signedIn, demo }: ExperienceType) => {
+export const Experience = ({ cta, demo }: ExperienceType) => {
   const track = useRef<HTMLDivElement>(null)
   const reduced = useRef(false)
 
@@ -82,18 +83,18 @@ export const Experience = ({ signedIn, demo }: ExperienceType) => {
   return (
     <>
       <SceneLayer onReady={handleReady} />
-      <Hud signedIn={signedIn} />
+      <Hud cta={cta} />
       <main
         id="content"
         className="relative z-10 w-full max-w-full overflow-x-clip"
       >
         <div ref={track}>
-          <Hero signedIn={signedIn} demo={demo} />
+          <Hero cta={cta} demo={demo} />
           <Chapters />
         </div>
         <Install />
         <Faq />
-        <Closing signedIn={signedIn} />
+        <Closing cta={cta} />
       </main>
     </>
   )
