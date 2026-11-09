@@ -1,7 +1,10 @@
 import { siteRoute } from "@/lib/api/site-route"
+import { demoIcon } from "@/lib/demo-sites"
 import { fetchFavicon } from "@/lib/favicon"
 
-export const GET = siteRoute(async (site) => {
+export const GET = siteRoute(async (site, request) => {
+  const local = demoIcon(site.domain)
+  if (local) return Response.redirect(new URL(local, request.url), 302)
   const icon = await fetchFavicon(site.domain)
   if (!icon)
     return new Response(null, {

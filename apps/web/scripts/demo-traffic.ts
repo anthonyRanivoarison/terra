@@ -1,36 +1,28 @@
 import { sql } from "@terra/db/client"
+import type { DemoSite } from "../lib/demo-sites"
+import { DEMO_SITES } from "../lib/demo-sites"
 import { createSite } from "../lib/sites"
 
-export type DemoSite = {
-  name: string
-  domain: string
-  visits: number
-  crawls: number
-}
-
-export const DEMO_SITES: DemoSite[] = [
-  { name: "Launch.now", domain: "launch-now.dev", visits: 16000, crawls: 4000 },
-  { name: "Rova Studio", domain: "rova.studio", visits: 7000, crawls: 1500 },
-  {
-    name: "Field Notes",
-    domain: "fieldnotes.blog",
-    visits: 3500,
-    crawls: 2500,
-  },
-]
-
-export async function ensureDemoSite(
-  organizationId: string,
-  site: DemoSite
-): Promise<string> {
-  const [found] = await sql()`
-    SELECT public_id FROM sites
-    WHERE organization_id = ${organizationId} AND domain = ${site.domain}
+export async function ensureDemoSites(
+  organizationId: string
+): Promise<string[]> {
+  const db = sql()
+  const existing = await db<{ public_id: string }[]>`
+    SELECT public_id FROM sites WHERE organization_id = ${organizationId}
+    ORDER BY created_at, public_id
   `
-  return (
-    found?.public_id ??
-    (await createSite(organizationId, site.name, site.domain))
-  )
+  const ids: string[] = []
+  for (const [i, site] of DEMO_SITES.entries()) {
+    const current = existing[i]?.public_id
+    if (current) {
+      await db`
+        UPDATE sites SET name = ${site.name}, domain = ${site.domain}
+        WHERE public_id = ${current}
+      `
+      ids.push(current)
+    } else ids.push(await createSite(organizationId, site.name, site.domain))
+  }
+  return ids
 }
 
 export async function seedTraffic(
@@ -48,7 +40,23 @@ export async function seedTraffic(
 
   await db.unsafe(
     await Bun.file(new URL("./seed-demo.sql", import.meta.url)).text(),
-    [siteId, demo.domain, demo.visits, demo.crawls, demo.name]
+    [
+      siteId,
+      demo.domain,
+      demo.visits,
+      demo.crawls,
+      demo.name,
+      demo.pages,
+      [
+        demo.domain,
+        demo.domain,
+        ...demo.subdomains.map((sub) => `${sub}.${demo.domain}`),
+      ],
+      demo.events,
+      demo.priceCents,
+      demo.buyRate,
+      demo.campaigns,
+    ]
   )
   await db`
     UPDATE visits v SET entry_page = f.page, exit_page = l.page
@@ -72,5 +80,5 @@ export async function seedTraffic(
       (SELECT count(*) FROM events WHERE site_id = ${siteId})::int AS events,
       (SELECT count(*) FROM crawls WHERE site_id = ${siteId})::int AS crawls
   `
-  console.log(`Seeded ${publicId}`, counts)
+  console.log(`Seeded ${demo.name} ${publicId}`, counts)
 }

@@ -1,6 +1,7 @@
 import { sql } from "@terra/db/client"
 import { auth } from "../lib/auth"
-import { DEMO_SITES, ensureDemoSite, seedTraffic } from "./demo-traffic"
+import { DEMO_SITES } from "../lib/demo-sites"
+import { ensureDemoSites, seedTraffic } from "./demo-traffic"
 
 const DEMO = {
   name: "Demo",
@@ -37,7 +38,7 @@ const orgId =
     })
   )?.id
 
-for (const site of DEMO_SITES)
-  await seedTraffic(await ensureDemoSite(orgId, site), site)
+const ids = await ensureDemoSites(orgId)
+for (const [i, site] of DEMO_SITES.entries()) await seedTraffic(ids[i]!, site)
 await db.end()
 process.exit(0)
