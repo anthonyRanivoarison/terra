@@ -63,18 +63,18 @@ export const BotTrafficSample = () => (
         ))}
       </ul>
     </div>
-    <div className="flex flex-col gap-3 rounded-xl border p-4">
+    <div className="flex flex-col gap-3 rounded-lg border p-4">
       <div className="flex items-center gap-3">
         <span className="flex size-9 items-center justify-center rounded-lg border bg-muted/40">
           <CrawlerLogo crawler="chatgpt-user" className="size-4.5" />
         </span>
         <div>
-          <p className="font-heading font-semibold">ChatGPT</p>
+          <p className="font-semibold">ChatGPT</p>
           <p className="text-xs text-muted-foreground">OpenAI</p>
         </div>
       </div>
       <div>
-        <p className="font-heading text-2xl font-semibold tabular-nums">1.4k</p>
+        <p className="text-2xl font-semibold tabular-nums">1.4k</p>
         <p className="text-xs text-muted-foreground">
           crawls · Last 7 days · AI answers
         </p>

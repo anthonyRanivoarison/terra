@@ -1,10 +1,8 @@
 import { AwaitingFirstEvent } from "@/components/dashboard/awaiting/awaiting-first-event"
-import { AnalyticsHeader } from "@/components/dashboard/analytics-header"
-import {
-  AnalyticsNavProvider,
-  PendingShell,
-} from "@/components/dashboard/nav-context"
+import { PendingShell } from "@/components/dashboard/nav-context"
 import { VisitsTable } from "@/components/dashboard/sessions/visits-table"
+import { PageShell } from "@/components/shell/page-shell"
+import { Toolbar } from "@/components/shell/toolbar"
 import {
   first,
   requireDashboard,
@@ -22,7 +20,7 @@ export default async function SessionsPage({
   params: Promise<{ id: string }>
   searchParams: Promise<SearchParams>
 }) {
-  const { site, sites, settings } = await requireDashboard((await params).id)
+  const { site, settings } = await requireDashboard((await params).id)
   const search = await searchParams
   const query = parseParams(search, Date.now(), settings.timezone)
   const page = Math.max(0, Number(first(search, "page_n")) || 0)
@@ -40,27 +38,24 @@ export default async function SessionsPage({
   }
 
   return (
-    <AnalyticsNavProvider siteId={site.publicId}>
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-8 sm:px-6">
-        <AnalyticsHeader
-          sites={sites}
-          description={`Every visit to ${site.domain}`}
-          params={query}
-          from={first(search, "from")}
-          to={first(search, "to")}
+    <PageShell>
+      <Toolbar
+        title="Sessions"
+        params={query}
+        from={first(search, "from")}
+        to={first(search, "to")}
+      />
+      <PendingShell>
+        <VisitsTable
+          rows={rows}
+          page={page}
+          hasMore={hasMore}
+          hrefFor={hrefFor}
+          base={base}
+          currency={settings.currency}
         />
-        <PendingShell>
-          <VisitsTable
-            rows={rows}
-            page={page}
-            hasMore={hasMore}
-            hrefFor={hrefFor}
-            base={base}
-            currency={settings.currency}
-          />
-        </PendingShell>
-      </div>
+      </PendingShell>
       <AwaitingFirstEvent site={site} />
-    </AnalyticsNavProvider>
+    </PageShell>
   )
 }

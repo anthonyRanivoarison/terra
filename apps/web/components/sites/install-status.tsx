@@ -21,7 +21,7 @@ export const InstallStatus = ({ siteId, domain, live }: InstallStatusType) => {
 
   if (isLive) {
     return (
-      <div className="flex items-center gap-3 rounded-lg bg-emerald-500/10 p-4 text-sm text-emerald-800">
+      <div className="flex items-center gap-3 rounded-lg bg-up/10 p-4 text-sm text-up">
         <CircleCheck className="size-5 shrink-0" aria-hidden />
         <p>
           <span className="font-medium">Receiving events.</span> Terra is
@@ -32,7 +32,7 @@ export const InstallStatus = ({ siteId, domain, live }: InstallStatusType) => {
   }
 
   return (
-    <div className="flex gap-3 rounded-lg bg-amber-500/10 p-4 text-sm text-amber-900">
+    <div className="flex gap-3 rounded-lg bg-amber-500/10 p-4 text-sm text-amber-900 dark:text-amber-100">
       <LoaderCircle
         className="mt-0.5 size-5 shrink-0 animate-spin motion-reduce:animate-none"
         aria-hidden

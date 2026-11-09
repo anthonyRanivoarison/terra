@@ -1,6 +1,6 @@
 import { sql } from "@terra/db/client"
 import { auth } from "../lib/auth"
-import { createSite } from "../lib/sites"
+import { DEMO_SITES, ensureDemoSite, seedTraffic } from "./demo-traffic"
 
 const DEMO = {
   name: "Demo",
@@ -37,34 +37,7 @@ const orgId =
     })
   )?.id
 
-const [found] = await db`
-  SELECT public_id FROM sites WHERE organization_id = ${orgId} AND domain = 'launch-now.dev'
-`
-const publicId =
-  found?.public_id ?? (await createSite(orgId, "Launch.now", "launch-now.dev"))
-const [site] = await db`SELECT id FROM sites WHERE public_id = ${publicId}`
-const siteId = site!.id as string
-
-await db`DELETE FROM visits WHERE site_id = ${siteId}`
-await db`DELETE FROM views WHERE site_id = ${siteId}`
-await db`DELETE FROM events WHERE site_id = ${siteId}`
-await db`DELETE FROM crawls WHERE site_id = ${siteId}`
-
-await db.unsafe(
-  await Bun.file(new URL("./seed-demo.sql", import.meta.url)).text(),
-  [siteId]
-)
-await db`
-  UPDATE sites SET first_event_at = COALESCE(first_event_at, now())
-  WHERE id = ${siteId}
-`
-
-const [counts] = await db`
-  SELECT (SELECT count(*) FROM visits WHERE site_id = ${siteId})::int AS visits,
-    (SELECT count(*) FROM views WHERE site_id = ${siteId})::int AS views,
-    (SELECT count(*) FROM events WHERE site_id = ${siteId})::int AS events,
-    (SELECT count(*) FROM crawls WHERE site_id = ${siteId})::int AS crawls
-`
-console.log(`Seeded ${publicId}`, counts)
+for (const site of DEMO_SITES)
+  await seedTraffic(await ensureDemoSite(orgId, site), site)
 await db.end()
 process.exit(0)

@@ -121,5 +121,31 @@ export async function migrate(sql: Sql): Promise<void> {
     )`
     await tx`CREATE INDEX IF NOT EXISTS idx_crawls_site_at
       ON crawls (site_id, at)`
+    await tx`CREATE TABLE IF NOT EXISTS imports (
+      id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+      site_id uuid NOT NULL REFERENCES sites (id) ON DELETE CASCADE,
+      source text NOT NULL,
+      first_date date NOT NULL,
+      last_date date NOT NULL,
+      rows integer NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT now()
+    )`
+    await tx`CREATE INDEX IF NOT EXISTS idx_imports_site ON imports (site_id)`
+    await tx`CREATE TABLE IF NOT EXISTS imported_stats (
+      site_id uuid NOT NULL REFERENCES sites (id) ON DELETE CASCADE,
+      import_id uuid NOT NULL REFERENCES imports (id) ON DELETE CASCADE,
+      date date NOT NULL,
+      dimension text NOT NULL,
+      value text NOT NULL,
+      visitors bigint NOT NULL DEFAULT 0,
+      visits bigint NOT NULL DEFAULT 0,
+      pageviews bigint NOT NULL DEFAULT 0,
+      bounces bigint NOT NULL DEFAULT 0,
+      duration bigint NOT NULL DEFAULT 0
+    )`
+    await tx`CREATE INDEX IF NOT EXISTS idx_imported_site_dimension
+      ON imported_stats (site_id, dimension, date)`
+    await tx`CREATE INDEX IF NOT EXISTS idx_imported_import
+      ON imported_stats (import_id)`
   })
 }

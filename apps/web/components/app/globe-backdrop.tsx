@@ -20,7 +20,7 @@ const PROJECTION: Projection = {
 const VIEW: Box = [16, TOP, WIDTH - 16, HEIGHT - 40]
 
 const PALETTE =
-  "[--globe-hi:#f1f4f8] [--globe-ocean:#e9edf3] [--globe-deep:#dde2ea] [--globe-land:rgb(255_255_255/0.45)] [--globe-line:#c3cad6] [--globe-label:#7c8698] [--globe-glow:rgb(37_99_235/0.4)]]]])])]]]"
+  "[--globe-hi:#f1f4f8] [--globe-ocean:#e9edf3] [--globe-deep:#dde2ea] [--globe-land:rgb(255_255_255/0.45)] [--globe-line:#c3cad6] [--globe-label:#7c8698] [--globe-glow:rgb(91_106_224/0.4)] dark:[--globe-hi:#2a2b30] dark:[--globe-ocean:#222327] dark:[--globe-deep:#1b1b1d] dark:[--globe-land:rgb(255_255_255/0.06)] dark:[--globe-line:#3a3b42] dark:[--globe-label:#8b8d96] dark:[--globe-glow:rgb(165_176_246/0.35)]"
 
 const FRAME =
   "[--globe-w:max(100vw,1100px)] [--globe-y:62svh] sm:[--globe-y:53svh]"

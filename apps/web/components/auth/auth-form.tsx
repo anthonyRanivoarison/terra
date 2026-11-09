@@ -18,7 +18,11 @@ import type { SocialProvider } from "@/lib/auth"
 import { authClient } from "@/lib/auth-client"
 import { SocialButtons } from "./social-buttons"
 
-type AuthFormType = { mode: "signin" | "signup"; providers: SocialProvider[] }
+type AuthFormType = {
+  mode: "signin" | "signup"
+  providers: SocialProvider[]
+  switchable?: boolean
+}
 
 const COPY = {
   signin: {
@@ -39,10 +43,14 @@ const COPY = {
   },
 }
 
-export const AuthForm = ({ mode, providers }: AuthFormType) => {
+export const AuthForm = ({
+  mode,
+  providers,
+  switchable = true,
+}: AuthFormType) => {
   const router = useRouter()
   const next = useSearchParams().get("next") ?? "/sites"
-  const callbackUrl = next.startsWith("/") ? next : "/sites"
+  const callbackUrl = /^\/(?![/\\])/.test(next) ? next : "/sites"
   const [error, setError] = useState<string | null>(null)
   const [pending, startTransition] = useTransition()
   const copy = COPY[mode]
@@ -71,10 +79,10 @@ export const AuthForm = ({ mode, providers }: AuthFormType) => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1.5">
-        <h1 className="font-heading text-2xl font-semibold tracking-tight">
+        <h1 className="text-[1.75rem] leading-[1.1] font-semibold tracking-[-0.035em] sm:text-4xl">
           {copy.title}
         </h1>
-        <p className="text-sm text-pretty text-muted-foreground">
+        <p className="text-base text-pretty text-muted-foreground">
           {copy.subtitle}
         </p>
       </div>
@@ -94,9 +102,12 @@ export const AuthForm = ({ mode, providers }: AuthFormType) => {
         <FieldGroup className="gap-5">
           {signUp && (
             <Field>
-              <FieldLabel htmlFor="name">Name</FieldLabel>
+              <FieldLabel className="text-base" htmlFor="name">
+                Name
+              </FieldLabel>
               <Input
                 id="name"
+                className="h-12 rounded-xl px-3.5 text-base md:text-base"
                 name="name"
                 autoComplete="name"
                 placeholder="Ada Lovelace"
@@ -105,9 +116,12 @@ export const AuthForm = ({ mode, providers }: AuthFormType) => {
             </Field>
           )}
           <Field>
-            <FieldLabel htmlFor="email">Email</FieldLabel>
+            <FieldLabel className="text-base" htmlFor="email">
+              Email
+            </FieldLabel>
             <Input
               id="email"
+              className="h-12 rounded-xl px-3.5 text-base md:text-base"
               name="email"
               type="email"
               autoComplete="email"
@@ -116,9 +130,12 @@ export const AuthForm = ({ mode, providers }: AuthFormType) => {
             />
           </Field>
           <Field>
-            <FieldLabel htmlFor="password">Password</FieldLabel>
+            <FieldLabel className="text-base" htmlFor="password">
+              Password
+            </FieldLabel>
             <Input
               id="password"
+              className="h-12 rounded-xl px-3.5 text-base md:text-base"
               name="password"
               type="password"
               autoComplete={signUp ? "new-password" : "current-password"}
@@ -134,20 +151,26 @@ export const AuthForm = ({ mode, providers }: AuthFormType) => {
           </Field>
         </FieldGroup>
         {error && <FieldError>{error}</FieldError>}
-        <Button type="submit" disabled={pending} className="w-full">
+        <Button
+          type="submit"
+          disabled={pending}
+          className="h-12 w-full rounded-xl text-base font-semibold shadow-sm shadow-primary/20 transition-[scale,filter] duration-150 active:scale-[0.96]"
+        >
           {pending && <Spinner />}
           {copy.submit}
         </Button>
       </form>
-      <p className="text-sm text-muted-foreground">
-        {copy.switchText}{" "}
-        <Link
-          href={copy.switchHref}
-          className="font-medium text-primary underline-offset-4 hover:underline"
-        >
-          {copy.switchLink}
-        </Link>
-      </p>
+      {switchable && (
+        <p className="text-sm text-muted-foreground">
+          {copy.switchText}{" "}
+          <Link
+            href={copy.switchHref}
+            className="font-medium text-primary underline-offset-4 hover:underline"
+          >
+            {copy.switchLink}
+          </Link>
+        </p>
+      )}
     </div>
   )
 }

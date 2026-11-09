@@ -92,7 +92,9 @@ BACKUP_KEEP_DAYS=14
 BACKUP_HOUR_UTC=3
 ```
 
-Optional: `TERRA_FREE_EVENTS_QUOTA`, the `PADDLE_*` billing variables (see `.env.example`), and `ASN_DB_PATH=/data/dbip-asn.mmdb` after placing a db-ip ASN `.mmdb` in `~/terra/infra/data`.
+Set `DISABLE_SIGNUP=true` once your own account exists to close sign ups on a private instance, then `docker compose -f docker-compose.prod.yml up -d web`. `SUPPORT_EMAIL` is optional; without it, "Contact support" links to GitHub issues.
+
+Optional: `ASN_DB_PATH=/data/dbip-asn.mmdb` after placing a db-ip ASN `.mmdb` in `~/terra/infra/data`.
 
 Use a hex password for Postgres: it goes into a connection URL unescaped. Keep `chmod 600 .env`.
 
@@ -108,6 +110,7 @@ Repository settings > Secrets and variables > Actions:
 
 | Name                     | Kind     | Value                                                                                                         |
 | ------------------------ | -------- | ------------------------------------------------------------------------------------------------------------- |
+| `DEPLOY_ENABLED`         | variable | `true` to build and deploy on every push to `main`. Unset, the workflow does nothing                          |
 | `DEPLOY_HOST`            | secret   | VM public IP                                                                                                  |
 | `DEPLOY_USER`            | secret   | `ubuntu`                                                                                                      |
 | `DEPLOY_SSH_KEY`         | secret   | Private key of a key pair whose public key is in `~/.ssh/authorized_keys`                                     |
@@ -134,6 +137,44 @@ To deploy by hand, or roll back to an earlier commit:
 ```bash
 TERRA_TAG=<sha> docker compose -f docker-compose.prod.yml up -d
 ```
+
+## Live demo
+
+A public, read-only dashboard at `https://app.<domain>/demo` with three sample sites (a SaaS, a shop and a blog) and a year of traffic each. Visitors switch between them but cannot change anything, so there is nothing to reset: the nightly run below regenerates the data. It lives in its own workspace with no members, so nobody can sign in to it.
+
+```bash
+cd ~/terra/infra
+docker compose -f docker-compose.prod.yml run --rm demo
+```
+
+Copy the `DEMO_SITE_IDS=ws_…,ws_…,ws_…` line it prints into `.env`, then `docker compose -f docker-compose.prod.yml up -d web`. Running it again keeps the same ids and replaces the sample data, so the demo stays current. Refresh it nightly from the VM's crontab (`crontab -e`):
+
+```bash
+30 4 * * * cd ~/terra/infra && docker compose -f docker-compose.prod.yml run --rm demo >/dev/null 2>&1
+```
+
+Leave `DEMO_SITE_IDS` empty to turn the demo off.
+
+## Demo only, on Vercel and Neon
+
+For a public demo without a server, run `apps/web` on Vercel and its database on Neon. No ingest, no tracking: just the read-only dashboards with sample data.
+
+1. Neon: create a project and copy its pooled connection string.
+2. Vercel: import the repository, set **Root Directory** to `apps/web` (`apps/web/vercel.json` sets the install command), and add these environment variables:
+
+   | Name                     | Value                                 |
+   | ------------------------ | ------------------------------------- |
+   | `DATABASE_URL`           | the Neon connection string            |
+   | `BETTER_AUTH_SECRET`     | `openssl rand -base64 32`             |
+   | `BETTER_AUTH_URL`        | `https://<project>.vercel.app`        |
+   | `ENCRYPTION_KEY`         | `openssl rand -base64 32`             |
+   | `DISABLE_SIGNUP`         | `true`                                |
+   | `NEXT_PUBLIC_INGEST_URL` | `https://ingest.example.com` (unused) |
+   | `DEMO_SITE_IDS`          | printed by the first seed, see below  |
+
+3. GitHub: add the secrets `DEMO_DATABASE_URL` (the same connection string) and `DEMO_BETTER_AUTH_SECRET`, and the variable `DEMO_ENABLED=true`. The `Demo` workflow migrates the database and reseeds the three demo sites every night; run it once by hand, copy the `DEMO_SITE_IDS=…` line from its log into Vercel and redeploy.
+
+With sign ups closed, the landing page buttons point to this repository instead of the sign up page.
 
 ## Backups and restore
 

@@ -45,7 +45,7 @@ type GoalsEmptyType = { publicId: string }
 
 export const GoalsEmpty = ({ publicId }: GoalsEmptyType) => (
   <SamplePreview sample={<SampleGoals />} className="min-h-0 flex-1 px-4 pb-4">
-    <div className="flex max-w-xs flex-col items-center gap-3 rounded-xl border bg-background/95 p-5 text-center shadow-lg">
+    <div className="flex max-w-xs flex-col items-center gap-3 rounded-lg border bg-background/95 p-5 text-center shadow-lg">
       <Link
         href={`/sites/${publicId}#goals`}
         className={buttonVariants({ size: "sm" })}

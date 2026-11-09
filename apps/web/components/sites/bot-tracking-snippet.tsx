@@ -72,7 +72,7 @@ export const BotTrackingSnippet = ({
 TERRA_BOT_TOKEN=${token}
 TERRA_INGEST_URL=${ingestUrl.replace(/\/+$/, "")}`
   return (
-    <div id="bot-tracking" className="flex flex-col gap-4">
+    <div id="bot-tracking" className="flex scroll-mt-20 flex-col gap-4">
       <ol className="flex flex-col gap-4 text-sm">
         <li className="flex flex-col gap-2">
           <span className="font-medium">1. Install the package</span>

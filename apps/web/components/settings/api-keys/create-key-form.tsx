@@ -27,7 +27,7 @@ export const CreateKeyForm = () => {
       {state.key && (
         <div
           role="status"
-          className="flex flex-col gap-2 rounded-xl border border-primary/30 bg-primary/5 p-4"
+          className="flex flex-col gap-2 rounded-lg border border-primary/30 bg-primary/5 p-4"
         >
           <p className="font-medium">{state.name} is ready</p>
           <p className="text-sm text-muted-foreground">

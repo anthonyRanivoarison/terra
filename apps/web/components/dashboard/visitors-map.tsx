@@ -103,7 +103,7 @@ export const VisitorsMap = ({
         aria-label={`World map of visitors across ${countries.length} countries`}
         className="size-full"
       />
-      <div className="absolute right-3 bottom-3 flex flex-col overflow-hidden rounded-md bg-background shadow-[0_0_0_1px_oklch(0_0_0/0.08),0_1px_2px_oklch(0_0_0/0.06)])]">
+      <div className="absolute right-3 bottom-3 flex flex-col overflow-hidden rounded-md border bg-card">
         <button
           type="button"
           onClick={() => zoom(1.5)}
@@ -129,11 +129,11 @@ export const VisitorsMap = ({
           <RotateCcw className="size-3.5" strokeWidth={2} aria-hidden />
         </button>
       </div>
-      <div className="backdrop-blur-sm)] absolute bottom-3 left-3 flex items-center gap-2 rounded-md bg-background/80 px-2.5 py-1.5 text-[11px] text-muted-foreground shadow-[0_0_0_1px_oklch(0_0_0/0.06)]">
+      <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-md border bg-card/80 px-2.5 py-1.5 text-[11px] text-muted-foreground backdrop-blur-sm">
         Fewer
         <span
           aria-hidden="true"
-          className="to-[#1d4ed8]]]] h-1.5 w-20 rounded-full bg-linear-to-r from-[#dbeafe] via-[#60a5fa]"
+          className="h-1.5 w-20 rounded-full bg-linear-to-r from-dataviz/15 via-dataviz/60 to-dataviz"
         />
         More visitors
       </div>

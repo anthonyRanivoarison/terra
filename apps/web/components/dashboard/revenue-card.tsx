@@ -95,7 +95,7 @@ export const RevenueCard = ({ attribution, currency }: RevenueCardType) => {
             >
               <span
                 aria-hidden="true"
-                className="absolute inset-y-0 left-0 rounded-md bg-emerald-500/10"
+                className="absolute inset-y-0 left-0 rounded-md bg-revenue/15"
                 style={{
                   width: `${(Math.abs(row.revenueCents) / max) * 100}%`,
                 }}

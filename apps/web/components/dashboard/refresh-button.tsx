@@ -25,7 +25,6 @@ export const RefreshButton = ({ action }: RefreshButtonType) => {
       disabled={isPending}
       aria-label={isPending ? "Refreshing data" : "Refresh data"}
       aria-busy={isPending}
-      className="active:scale-[0.96]"
     >
       <RotateCw
         className={cn("size-4", isPending && "animate-spin")}

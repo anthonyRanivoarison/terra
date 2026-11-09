@@ -21,8 +21,8 @@ export const VerifiedBadge = ({ share, compact }: VerifiedBadgeType) => {
       variant="outline"
       className={cn(
         good
-          ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700"
-          : "border-amber-500/30 bg-amber-500/10 text-amber-700"
+          ? "border-up/30 bg-up/10 text-up"
+          : "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300"
       )}
     >
       <Icon aria-hidden />

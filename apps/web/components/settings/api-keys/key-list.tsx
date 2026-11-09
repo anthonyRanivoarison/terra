@@ -41,7 +41,7 @@ export const KeyList = ({ keys }: KeyListType) => {
     )
   }
   return (
-    <div className="rounded-xl border">
+    <div className="rounded-lg border">
       <Table>
         <TableHeader>
           <TableRow>

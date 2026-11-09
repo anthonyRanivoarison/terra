@@ -26,8 +26,11 @@ const overview = obj({
 const point = obj({
   bucket: { ...str, description: "Bucket start in the site timezone." },
   visitors: num,
+  visits: num,
   views: num,
+  bounceRate: { ...num, description: "Share of visits, 0 to 1." },
   revenueCents: num,
+  conversionRate: { ...num, description: "Share of visitors who bought." },
 })
 
 const visit = obj({

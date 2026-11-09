@@ -1,18 +1,7 @@
-import { headers } from "next/headers"
-import { auth } from "@/lib/auth"
+import { siteRoute } from "@/lib/api/site-route"
 import { fetchFavicon } from "@/lib/favicon"
-import { getSite } from "@/lib/sites"
 
-export async function GET(
-  _: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  const session = await auth.api.getSession({ headers: await headers() })
-  const organizationId = session?.session.activeOrganizationId
-  if (!organizationId)
-    return Response.json({ error: "unauthorized" }, { status: 401 })
-  const site = await getSite(organizationId, (await params).id)
-  if (!site) return Response.json({ error: "not found" }, { status: 404 })
+export const GET = siteRoute(async (site) => {
   const icon = await fetchFavicon(site.domain)
   if (!icon)
     return new Response(null, {
@@ -28,4 +17,4 @@ export async function GET(
         "default-src 'none'; style-src 'unsafe-inline'; sandbox",
     },
   })
-}
+})

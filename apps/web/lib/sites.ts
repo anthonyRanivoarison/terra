@@ -1,4 +1,5 @@
 import { sql } from "@terra/db/client"
+import { isDemoSite } from "@/lib/demo"
 
 export type SiteSummary = {
   id: string
@@ -67,6 +68,16 @@ export async function getSite(
   const [row] = await sql()<SiteSummary[]>`
     SELECT ${columns()} FROM sites
     WHERE organization_id = ${organizationId} AND public_id = ${publicId}
+  `
+  return row ?? null
+}
+
+export async function getDemoSite(
+  publicId: string
+): Promise<SiteSummary | null> {
+  if (!isDemoSite(publicId)) return null
+  const [row] = await sql()<SiteSummary[]>`
+    SELECT ${columns()} FROM sites WHERE public_id = ${publicId}
   `
   return row ?? null
 }

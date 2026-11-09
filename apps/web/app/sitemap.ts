@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next"
 
+import { signUpOpen } from "@/lib/auth"
 import { siteConfig } from "@/lib/seo"
 
 const ROUTES = [
@@ -10,12 +11,16 @@ const ROUTES = [
   { path: "/auth/signin", priority: 0.3, changeFrequency: "yearly" },
 ] as const
 
+export const dynamic = "force-dynamic"
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
-  return ROUTES.map(({ path, priority, changeFrequency }) => ({
-    url: `${siteConfig.url}${path === "/" ? "" : path}`,
-    lastModified,
-    changeFrequency,
-    priority,
-  }))
+  return ROUTES.filter(({ path }) => signUpOpen || path !== "/auth/signup").map(
+    ({ path, priority, changeFrequency }) => ({
+      url: `${siteConfig.url}${path === "/" ? "" : path}`,
+      lastModified,
+      changeFrequency,
+      priority,
+    })
+  )
 }

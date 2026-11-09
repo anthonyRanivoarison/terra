@@ -2,13 +2,38 @@
 
 import * as React from "react"
 import { Dialog as SheetPrimitive } from "@base-ui/react/dialog"
+import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer"
 import { cn } from "cn"
 
 import { Button } from "@workspace/ui/components/button"
+import {
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+} from "@workspace/ui/components/drawer"
+import { useIsMobile } from "@workspace/ui/hooks/use-mobile"
 import { XIcon } from "lucide-react"
 
-function Sheet({ ...props }: SheetPrimitive.Root.Props) {
-  return <SheetPrimitive.Root data-slot="sheet" {...props} />
+const SheetAsDrawer = React.createContext(false)
+
+function Sheet({
+  responsive = true,
+  ...props
+}: SheetPrimitive.Root.Props & { responsive?: boolean }) {
+  const isMobile = useIsMobile()
+  const asDrawer = responsive && isMobile
+  return (
+    <SheetAsDrawer.Provider value={asDrawer}>
+      {asDrawer ? (
+        <DrawerPrimitive.Root
+          data-slot="sheet"
+          {...(props as DrawerPrimitive.Root.Props)}
+        />
+      ) : (
+        <SheetPrimitive.Root data-slot="sheet" {...props} />
+      )}
+    </SheetAsDrawer.Provider>
+  )
 }
 
 function SheetTrigger({ ...props }: SheetPrimitive.Trigger.Props) {
@@ -46,6 +71,26 @@ function SheetContent({
   side?: "top" | "right" | "bottom" | "left"
   showCloseButton?: boolean
 }) {
+  const asDrawer = React.useContext(SheetAsDrawer)
+  if (asDrawer)
+    return (
+      <DrawerContent
+        {...(props as DrawerPrimitive.Popup.Props)}
+        data-slot="sheet-content"
+        className="h-[calc(100dvh-3rem)]"
+      >
+        <DrawerBody
+          className={cn(
+            "gap-4 overflow-hidden",
+            typeof className === "string" ? className : undefined,
+            "w-full max-w-none"
+          )}
+        >
+          {children}
+        </DrawerBody>
+        {showCloseButton && <DrawerCloseButton />}
+      </DrawerContent>
+    )
   return (
     <SheetPortal>
       <SheetOverlay />
@@ -103,10 +148,7 @@ function SheetTitle({ className, ...props }: SheetPrimitive.Title.Props) {
   return (
     <SheetPrimitive.Title
       data-slot="sheet-title"
-      className={cn(
-        "font-heading text-base font-medium text-foreground",
-        className
-      )}
+      className={cn("text-base font-medium text-foreground", className)}
       {...props}
     />
   )

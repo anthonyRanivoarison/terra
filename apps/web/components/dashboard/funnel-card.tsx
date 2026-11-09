@@ -31,7 +31,7 @@ export const FunnelCard = ({ funnel, currency }: FunnelCardType) => {
     funnel.visitors > 0 ? (funnel.purchases / funnel.visitors) * 100 : 0
 
   return (
-    <Card className="h-[29rem]">
+    <Card className="h-[29rem] overflow-hidden">
       <CardHeader>
         <CardTitle>Conversion funnel</CardTitle>
         <CardDescription>

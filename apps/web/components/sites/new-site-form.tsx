@@ -31,11 +31,9 @@ export const NewSiteForm = () => {
     error: null,
   })
   return (
-    <Card className="shadow-lg">
+    <Card>
       <CardHeader className="border-b">
-        <CardTitle className="font-heading text-lg">
-          Add a new website
-        </CardTitle>
+        <CardTitle className="text-lg">Add a new website</CardTitle>
       </CardHeader>
       <CardContent>
         <form action={action} className="flex flex-col gap-6">

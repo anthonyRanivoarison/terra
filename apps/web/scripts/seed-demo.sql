@@ -1,4 +1,7 @@
-WITH params AS (SELECT $1::uuid AS site_id),
+WITH params AS (
+  SELECT $1::uuid AS site_id, $2::text AS domain, $3::int AS visits,
+    $4::int AS crawls, $5::text AS title
+),
 v AS (
   INSERT INTO visits (
     id, site_id, visitor_id, started_at, last_seen_at, entry_page, exit_page,
@@ -6,11 +9,11 @@ v AS (
     channel, utm_source, utm_campaign, country, city, latitude, longitude,
     device, browser, os, language, screen, as_org
   )
-  SELECT gen_random_uuid(), p.site_id, 'v' || (random() * 2500)::int, t,
-    t + ((random() * 420)::int || ' seconds')::interval,
-    (ARRAY['/', '/', '/pricing', '/docs', '/blog/launch'])[1 + (random() * 4)::int],
-    (ARRAY['/', '/pricing', '/docs', '/thanks'])[1 + (random() * 3)::int],
-    (ARRAY['launch-now.dev', 'launch-now.dev', 'docs.launch-now.dev', 'app.launch-now.dev'])[1 + (random() * 3)::int],
+  SELECT gen_random_uuid(), p.site_id, 'v' || (random() * 9000)::int, t,
+    LEAST(now(), t + ((random() * 420)::int || ' seconds')::interval),
+    (ARRAY['/', '/', '/pricing', '/docs', '/blog/launch', '/blog/ai-crawlers', '/features', '/integrations/paddle'])[1 + (random() * 7)::int],
+    (ARRAY['/', '/pricing', '/docs', '/thanks', '/signup', '/docs/api', '/features'])[1 + (random() * 6)::int],
+    (ARRAY[p.domain, p.domain, 'docs.' || p.domain, 'app.' || p.domain])[1 + (random() * 3)::int],
     1 + (random() * 5)::int, (random() * 3)::int, random() < 0.04, random() < 0.65,
     NULL, src.host, src.channel,
     CASE WHEN random() < 0.15 THEN 'twitter' END,
@@ -24,9 +27,13 @@ v AS (
     (ARRAY['Comcast', 'Orange', 'Deutsche Telekom', 'Telma', 'Free SAS'])[1 + (random() * 4)::int]
   FROM params p,
     LATERAL (
-      SELECT now() - (random() * 30 || ' days')::interval
-        - ((CASE WHEN random() < 0.6 THEN (random() * 8)::int ELSE 0 END) || ' hours')::interval AS t
-      FROM generate_series(1, 3200)
+      SELECT CASE
+        WHEN i <= 14 THEN now() - interval '1 second' * random() * 90
+        WHEN i <= 60 THEN now() - interval '1 minute' * random() * 30
+        ELSE now() - interval '1 day' * power(random(), 1.6) * 400
+          - ((CASE WHEN random() < 0.6 THEN (random() * 8)::int ELSE 0 END) || ' hours')::interval
+      END AS t
+      FROM generate_series(1, p.visits) i
     ) g,
     LATERAL (
       SELECT * FROM (VALUES
@@ -52,8 +59,8 @@ pv AS (
     entered_at, last_seen_at, duration_s, scroll_pct, lcp_ms, inp_ms, cls, fcp_ms, ttfb_ms
   )
   SELECT gen_random_uuid(), v.site_id, v.id, v.visitor_id, v.hostname,
-    (ARRAY['/', '/pricing', '/docs', '/docs/install', '/blog/launch', '/changelog'])[1 + (random() * 5)::int],
-    'Launch.now', v.is_bot,
+    (ARRAY['/', '/', '/pricing', '/pricing', '/docs', '/docs/install', '/docs/api', '/docs/tracking', '/blog/launch', '/blog/ai-crawlers', '/blog/how-we-grew', '/changelog', '/features', '/integrations/paddle', '/about', '/careers', '/signup'])[1 + (random() * 16)::int],
+    (SELECT title FROM params), v.is_bot,
     v.started_at + (n * 40 || ' seconds')::interval,
     v.started_at + (n * 40 + 30 || ' seconds')::interval,
     (random() * 120)::int, (20 + random() * 80)::int,
@@ -93,11 +100,11 @@ refund AS (
   RETURNING 1
 )
 INSERT INTO crawls (site_id, at, crawler, company, category, hostname, path, status, ip_verified)
-SELECT p.site_id, now() - (random() * 30 || ' days')::interval, c.crawler, c.company, c.category,
-  'launch-now.dev',
+SELECT p.site_id, now() - interval '1 day' * power(random(), 1.4) * 400, c.crawler, c.company, c.category,
+  p.domain,
   (ARRAY['/', '/pricing', '/docs', '/robots.txt', '/llms.txt', '/sitemap.xml', '/blog/launch'])[1 + (random() * 6)::int],
   CASE WHEN random() < 0.05 THEN 404 ELSE 200 END, random() < 0.85
-FROM params p, generate_series(1, 900) g, LATERAL (
+FROM params p, generate_series(1, p.crawls) g, LATERAL (
   SELECT * FROM (VALUES
     ('chatgpt-user', 'OpenAI', 'answers'), ('chatgpt-user', 'OpenAI', 'answers'),
     ('gptbot', 'OpenAI', 'training'), ('claudebot', 'Anthropic', 'training'),

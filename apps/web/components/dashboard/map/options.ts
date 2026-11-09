@@ -4,20 +4,20 @@ import { countryName } from "@/lib/country"
 
 const PALETTE = {
   light: {
-    land: "#e8ebf2",
+    land: "#eceef2",
     border: "#ffffff",
-    hover: "#d5dbe7",
-    ramp: ["#dbeafe", "#60a5fa", "#1d4ed8"],
-    dot: "#2563eb",
-    ripple: "rgba(37, 99, 235, 0.35)",
+    hover: "#dde0e8",
+    ramp: ["#dfe3fb", "#8f9cf0", "#4c5bd4"],
+    dot: "#5b6ae0",
+    ripple: "rgba(91, 106, 224, 0.35)",
   },
   dark: {
-    land: "#1e2330",
-    border: "#0a0c12",
-    hover: "#2b3244",
-    ramp: ["#1e3a8a", "#3b82f6", "#bfdbfe"],
-    dot: "#60a5fa",
-    ripple: "rgba(96, 165, 250, 0.35)",
+    land: "#2a2b30",
+    border: "#1b1b1d",
+    hover: "#36373d",
+    ramp: ["#2c3361", "#6f7fe0", "#c7cefa"],
+    dot: "#a5b0f6",
+    ripple: "rgba(165, 176, 246, 0.35)",
   },
 }
 
@@ -72,7 +72,7 @@ export const buildMapOption = ({
       padding: [8, 10],
       backgroundColor: "rgba(0,0,0,0)",
       extraCssText:
-        "background:var(--popover);color:var(--popover-foreground);border-radius:10px;box-shadow:0 0 0 1px oklch(0 0 0 / 0.08),0 4px 12px -2px oklch(0 0 0 / 0.16);font:12px/1.4 var(--font-sans), system-ui;",
+        "background:var(--popover);color:var(--popover-foreground);border-radius:6px;box-shadow:0 0 0 1px oklch(0 0 0 / 0.08),0 4px 12px -2px oklch(0 0 0 / 0.16);font:12px/1.4 var(--font-sans), system-ui;",
       formatter: (raw: unknown) => {
         const p = raw as TooltipParam
         if (p.seriesType !== "map") {

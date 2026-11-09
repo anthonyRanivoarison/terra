@@ -1,12 +1,15 @@
 import type { AnalyticsParams, Filters, Granularity, Window } from "./params"
-import { revenueScope } from "./overview"
+import { BOUNCED, revenueScope } from "./overview"
 import { QueryBuilder, runAll, safe, type Query } from "./query"
 
 export type SeriesPoint = {
   bucket: string
   visitors: number
+  visits: number
   views: number
+  bounceRate: number
   revenueCents: number
+  conversionRate: number
 }
 
 export type Series = { current: SeriesPoint[]; previous: SeriesPoint[] | null }
@@ -45,6 +48,11 @@ function seriesQuery(
         SELECT ${local("v.started_at")} AS bucket, v.visitor_id FROM v GROUP BY 1, 2
       ) t GROUP BY 1
     ),
+    vs AS (
+      SELECT ${local("v.started_at")} AS bucket, COUNT(*) AS visits,
+        AVG(CASE WHEN ${BOUNCED} THEN 1 ELSE 0 END) AS bounce
+      FROM v GROUP BY 1
+    ),
     pv AS (
       ${
         filters.page
@@ -55,16 +63,23 @@ function seriesQuery(
       }
     ),
     rv AS (
-      SELECT ${local("e.created_at")} AS bucket, SUM(e.amount_cents) AS cents
+      SELECT ${local("e.created_at")} AS bucket, SUM(e.amount_cents) AS cents,
+        COUNT(DISTINCT e.visitor_id) FILTER (WHERE e.name = 'purchase') AS buyers
       FROM events e WHERE ${revenue} GROUP BY 1
     )
     SELECT
       to_char(buckets.bucket, 'YYYY-MM-DD"T"HH24:MI') AS bucket,
       COALESCE(vv.visitors, 0)::int AS visitors,
+      COALESCE(vs.visits, 0)::int AS visits,
       COALESCE(pv.views, 0)::int AS views,
-      COALESCE(rv.cents, 0)::float8 AS "revenueCents"
+      COALESCE(vs.bounce, 0)::float8 AS "bounceRate",
+      COALESCE(rv.cents, 0)::float8 AS "revenueCents",
+      CASE WHEN COALESCE(vv.visitors, 0) = 0 THEN 0
+        ELSE LEAST(1, COALESCE(rv.buyers, 0)::float8 / vv.visitors)
+      END AS "conversionRate"
     FROM buckets
     LEFT JOIN vv USING (bucket)
+    LEFT JOIN vs USING (bucket)
     LEFT JOIN pv USING (bucket)
     LEFT JOIN rv USING (bucket)
     ORDER BY buckets.bucket

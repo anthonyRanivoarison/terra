@@ -28,13 +28,6 @@ export const formatPercent = (ratio: number): string => {
   return `${pct.toFixed(pct > 0 && pct < 10 ? 1 : 0)}%`
 }
 
-export const SERIES = {
-  blue: { light: "#2a78d6", dark: "#3987e5" },
-  orange: { light: "#eb6834", dark: "#d95926" },
-  aqua: { light: "#1baf7a", dark: "#199e70" },
-  other: { light: "#a1a1aa", dark: "#52525b" },
-} as const
-
 export function dimensionLabel(key: string, value: string): string {
   if (!value) {
     if (key === "referrer") return "Direct"

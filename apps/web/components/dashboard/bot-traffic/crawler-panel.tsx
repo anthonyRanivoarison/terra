@@ -66,9 +66,7 @@ export const CrawlerPanel = ({
                 <CrawlerLogo crawler={id} className="size-5" />
               </span>
               <div className="min-w-0">
-                <SheetTitle className="truncate font-heading">
-                  {crawlerName(id)}
-                </SheetTitle>
+                <SheetTitle className="truncate">{crawlerName(id)}</SheetTitle>
                 <SheetDescription>
                   {stat.company} · {category?.label}
                 </SheetDescription>
@@ -78,7 +76,7 @@ export const CrawlerPanel = ({
               <dl className="grid grid-cols-2 gap-3">
                 <div className="rounded-lg border p-3">
                   <dt className="text-xs text-muted-foreground">Crawls</dt>
-                  <dd className="font-heading text-2xl font-semibold tabular-nums">
+                  <dd className="text-2xl font-semibold tabular-nums">
                     {formatNumber(stat.hits)}
                   </dd>
                 </div>

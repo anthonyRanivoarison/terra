@@ -1,12 +1,14 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { AppHeader } from "@/components/app/app-header"
 import { SetupNav } from "@/components/app/setup-nav"
-import { BotTrackingSnippet } from "@/components/sites/bot-tracking-snippet"
+import { AgentSetup } from "@/components/setup/agent-setup"
+import { InstallManual } from "@/components/setup/install-manual"
+import { PageShell } from "@/components/shell/page-shell"
+import { Toolbar } from "@/components/shell/toolbar"
 import { InstallStatus } from "@/components/sites/install-status"
 import { SiteFavicon } from "@/components/sites/site-favicon"
-import { Snippet } from "@/components/sites/snippet"
+import { installPrompt } from "@/lib/agent-prompt"
 import { requireOrganization } from "@/lib/session"
 import { getSite } from "@/lib/sites"
 
@@ -26,26 +28,23 @@ export default async function SitePage({
   const organizationId = await requireOrganization()
   const site = await getSite(organizationId, (await params).id)
   if (!site) notFound()
-
-  const script = `<script
-  defer
-  data-website-id="${site.publicId}"
-  data-domain="${site.domain}"
-  src="${ingestUrl()}/js/script.js">
-</script>`
-  const goal = `<button data-goal="signup" data-goal-plan="pro">Sign up</button>
-<script>window.terra?.goal("signup", { plan: "pro" })</script>`
+  const install = {
+    domain: site.domain,
+    publicId: site.publicId,
+    ingestUrl: ingestUrl(),
+    botToken: site.botToken,
+  }
 
   return (
-    <>
-      <AppHeader />
-      <main className="mx-auto flex w-full max-w-2xl flex-col gap-10 px-4 pt-6 pb-12">
+    <PageShell>
+      <Toolbar />
+      <div className="mx-auto flex w-full max-w-2xl flex-col gap-10 pt-2 pb-12">
         <SetupNav
           current={1}
           revenueHref={`/sites/${site.publicId}/settings/revenue`}
         />
         <div className="flex flex-col gap-2">
-          <h1 className="flex items-center gap-3 font-heading text-3xl font-semibold tracking-tight">
+          <h1 className="flex items-center gap-3 text-2xl font-semibold tracking-tight">
             <SiteFavicon
               siteId={site.publicId}
               domain={site.domain}
@@ -66,35 +65,21 @@ export default async function SitePage({
           domain={site.domain}
           live={site.firstEventAt !== null}
         />
-        <section className="flex flex-col gap-3">
-          <h2 className="font-heading text-lg font-semibold">
-            Tracking script
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            Add it to the head of every page. All subdomains of {site.domain}{" "}
-            share the same visitors and visits.
-          </p>
-          <Snippet code={script} label="tracking script" />
+        <section className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1">
+            <h2 className="text-lg font-semibold">Install Terra</h2>
+            <p className="text-sm text-muted-foreground">
+              Let your coding agent add the script, your goals and AI crawler
+              tracking, or paste the snippets yourself.
+            </p>
+          </div>
+          <AgentSetup
+            prompt={installPrompt(install)}
+            promptNote="It includes your bot token, so only paste it in an agent you trust."
+            manual={<InstallManual {...install} />}
+          />
         </section>
-        <section className="flex flex-col gap-3">
-          <h2
-            id="goals"
-            className="scroll-mt-20 font-heading text-lg font-semibold"
-          >
-            Goals
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            Clicks and outbound links are tracked automatically. Name the ones
-            that matter with an attribute, or from code.
-          </p>
-          <Snippet code={goal} label="goal examples" />
-        </section>
-        <BotTrackingSnippet
-          websiteId={site.publicId}
-          token={site.botToken}
-          ingestUrl={ingestUrl()}
-        />
-      </main>
-    </>
+      </div>
+    </PageShell>
   )
 }

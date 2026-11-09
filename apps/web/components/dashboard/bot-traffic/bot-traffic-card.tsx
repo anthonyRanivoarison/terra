@@ -64,7 +64,7 @@ export const BotTrafficCard = ({
   return (
     <Card className="gap-4">
       <CardHeader>
-        <CardTitle className="font-heading">Bot traffic</CardTitle>
+        <CardTitle>Bot traffic</CardTitle>
         <CardDescription>
           AI assistants, search engines and training crawlers reading your site
         </CardDescription>

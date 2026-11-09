@@ -100,7 +100,7 @@ export function zonedMidnight(date: string, tz: string): number {
   return guess - offsetMs(guess, tz)
 }
 
-function shiftDate(date: string, days: number, months = 0): string {
+export function shiftDate(date: string, days: number, months = 0): string {
   const d = new Date(`${date}T00:00:00Z`)
   d.setUTCMonth(d.getUTCMonth() + months, d.getUTCDate() + days)
   return d.toISOString().slice(0, 10)

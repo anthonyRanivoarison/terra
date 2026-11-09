@@ -1,6 +1,7 @@
 {
   "name": "terra",
   "version": "0.0.1",
+  "license": "AGPL-3.0-only",
   "private": true,
   "scripts": {
     "build": "turbo build",
@@ -10,7 +11,8 @@
     "typecheck": "turbo typecheck",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "db:migrate": "bun --env-file=.env packages/db/src/migrate.ts && bun run --cwd apps/web auth:migrate"
+    "db:migrate": "bun --env-file=.env packages/db/src/migrate.ts && bun run --cwd apps/web auth:migrate",
+    "db:seed": "bun --env-file=.env apps/web/scripts/seed-demo.ts"
   },
   "devDependencies": {
     "@workspace/eslint-config": "workspace:*",

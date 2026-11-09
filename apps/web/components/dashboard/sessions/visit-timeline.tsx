@@ -58,7 +58,7 @@ export const VisitTimeline = ({ items, currency }: VisitTimelineType) => (
             </span>
           )}
           {item.amountCents !== null && (
-            <span className="text-xs font-medium text-emerald-700">
+            <span className="text-xs font-medium text-up">
               {formatMoney(item.amountCents, currency)}
             </span>
           )}

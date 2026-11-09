@@ -1,10 +1,9 @@
 "use server"
 
+import { resolveSite } from "@/lib/analytics/access"
 import { refreshAnalytics } from "@/lib/analytics/cache"
-import { requireOrganization } from "@/lib/session"
-import { getSite } from "@/lib/sites"
 
 export async function refreshDashboard(publicId: string): Promise<void> {
-  const site = await getSite(await requireOrganization(), publicId)
+  const site = await resolveSite(publicId)
   if (site) refreshAnalytics(site.id)
 }

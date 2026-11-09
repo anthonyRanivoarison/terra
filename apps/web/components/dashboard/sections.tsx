@@ -1,10 +1,11 @@
 import * as data from "@/lib/analytics/cache"
-import type { Section, Tab } from "@/lib/analytics/metrics"
+import type { MetricRow, Section, Tab } from "@/lib/analytics/metrics"
 import type { AnalyticsParams } from "@/lib/analytics/params"
-import { MapCard } from "./map-card"
-import { MetricTable } from "./metric-table"
-import { OverviewCards } from "./overview-cards"
-import { TrafficChart } from "./traffic-chart"
+import { MainChart } from "./overview/main-chart"
+import { StatStrip } from "./overview/stat-strip"
+import { LocationMap } from "./report/location-map"
+import { ReportCard } from "./report/report-card"
+import type { ReportTab } from "./report/types"
 
 export type SectionType = {
   siteId: string
@@ -44,34 +45,11 @@ const TITLES: Record<Section, string> = {
   pages: "Pages",
   sources: "Sources",
   environment: "Environment",
-  location: "Location",
+  location: "Locations",
 }
 
-export const OverviewSection = async ({
-  siteId,
-  params,
-  currency,
-}: SectionType) => {
-  const { current, previous } = await data.overview(siteId, params)
-  return (
-    <OverviewCards current={current} previous={previous} currency={currency} />
-  )
-}
-
-export const ChartSection = async ({ siteId, params }: SectionType) => (
-  <TrafficChart
-    series={await data.series(siteId, params)}
-    granularity={params.granularity}
-  />
-)
-
-export const MetricSection = async ({
-  siteId,
-  params,
-  name,
-}: SectionType & { name: Section }) => {
-  const rows = await data.section(siteId, params, name)
-  const tabs = Object.entries(rows).map(([key, list]) => {
+const toTabs = (rows: Record<string, MetricRow[]>): ReportTab[] =>
+  Object.entries(rows).map(([key, list]) => {
     const meta = TABS[key as Tab]
     return {
       key,
@@ -81,13 +59,64 @@ export const MetricSection = async ({
       filter: meta.filter,
     }
   })
-  return <MetricTable title={TITLES[name]} tabs={tabs} />
+
+export const OverviewSection = async ({
+  siteId,
+  params,
+  currency,
+}: SectionType) => {
+  const [{ current, previous }, series] = await Promise.all([
+    data.overview(siteId, params),
+    data.series(siteId, params),
+  ])
+  return (
+    <StatStrip
+      current={current}
+      previous={previous}
+      points={series.current}
+      currency={currency}
+    />
+  )
 }
 
-export const MapSection = async ({ siteId, params }: SectionType) => {
-  const [location, points] = await Promise.all([
-    data.section(siteId, params, "location"),
-    data.points(siteId, params),
-  ])
-  return <MapCard countries={location.country ?? []} points={points} />
+export const ChartSection = async ({
+  siteId,
+  params,
+  currency,
+}: SectionType) => (
+  <MainChart
+    series={await data.series(siteId, params)}
+    granularity={params.granularity}
+    currency={currency}
+  />
+)
+
+export const MetricSection = async ({
+  siteId,
+  params,
+  name,
+  domain,
+}: SectionType & { name: Section; domain: string }) => {
+  const rows = await data.section(siteId, params, name, 100)
+  if (name !== "location")
+    return (
+      <ReportCard title={TITLES[name]} tabs={toTabs(rows)} domain={domain} />
+    )
+  const points = await data.points(siteId, params)
+  return (
+    <ReportCard
+      title={TITLES[name]}
+      tabs={toTabs(rows)}
+      domain={domain}
+      extras={[
+        {
+          key: "map",
+          label: "Map",
+          content: (
+            <LocationMap countries={rows.country ?? []} points={points} />
+          ),
+        },
+      ]}
+    />
+  )
 }
