@@ -1,5 +1,5 @@
 import { sql } from "@terra/db/client"
-import { ensureDemoSite, seedTraffic } from "./demo-traffic"
+import { DEMO_SITES, ensureDemoSite, seedTraffic } from "./demo-traffic"
 
 const SLUG = "terra-public-demo"
 
@@ -10,8 +10,12 @@ await db`
   ON CONFLICT (slug) DO NOTHING
 `
 const [org] = await db`SELECT id FROM organization WHERE slug = ${SLUG}`
-const publicId = await ensureDemoSite(org!.id)
-await seedTraffic(publicId)
-console.log(`Set DEMO_SITE_ID=${publicId}`)
+const ids: string[] = []
+for (const site of DEMO_SITES) {
+  const publicId = await ensureDemoSite(org!.id, site)
+  await seedTraffic(publicId, site)
+  ids.push(publicId)
+}
+console.log(`Set DEMO_SITE_IDS=${ids.join(",")}`)
 await db.end()
 process.exit(0)

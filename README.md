@@ -1,6 +1,8 @@
 # Terra
 
-Free, open source web analytics for many sites. Add a site, paste one script tag, and see traffic, pages, sources, goals, revenue and AI crawlers. No plans, no paywall: every feature is available to everyone, on the hosted dashboard or on your own server.
+Free, open source web analytics for many sites, made to run on your own server. Add a site, paste one script tag, and see traffic, pages, sources, goals, revenue and AI crawlers. No plans, no paywall: every feature is available to everyone who runs it.
+
+There is no public hosted version. Try the read-only live demo at `/demo` of any instance that enables it, then deploy your own with [infra/README.md](infra/README.md).
 
 ```html
 <script
@@ -36,7 +38,7 @@ bun run --cwd packages/tracker build
 bun run dev
 ```
 
-Set `BETTER_AUTH_SECRET` and `ENCRYPTION_KEY` in `.env` first (`openssl rand -base64 32`). The dashboard runs on http://localhost:3000 and the ingest server on http://localhost:4000. `bun run db:seed` loads a demo site with a year of realistic traffic; its accounts are in `apps/web/scripts/seed-demo.ts`.
+Set `BETTER_AUTH_SECRET` and `ENCRYPTION_KEY` in `.env` first (`openssl rand -base64 32`). The dashboard runs on http://localhost:3000 and the ingest server on http://localhost:4000. `bun run db:seed` loads three demo sites with a year of realistic traffic; its accounts are in `apps/web/scripts/seed-demo.ts`. To try the public read-only demo locally, run `bun run --cwd apps/web db:seed:public` and put the `DEMO_SITE_IDS` it prints in `.env`.
 
 ## Layout
 
@@ -48,7 +50,7 @@ See [AGENTS.md](AGENTS.md) for conventions and commands, and [CONTRIBUTING.md](C
 
 ## Self-hosting
 
-Terra runs for free on an Oracle Cloud Always Free ARM VM behind a Cloudflare Tunnel, with nightly backups to Cloudflare R2. Follow [infra/README.md](infra/README.md).
+One small ARM server with Docker runs everything (an Oracle Cloud Always Free VM or a Hetzner CAX11, for example), behind a Cloudflare Tunnel, with nightly backups to Cloudflare R2. Follow [infra/README.md](infra/README.md).
 
 ## License
 

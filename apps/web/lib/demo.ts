@@ -1,10 +1,15 @@
-export const demoSiteId = process.env.DEMO_SITE_ID || null
+export const demoSiteIds = (process.env.DEMO_SITE_IDS ?? "")
+  .split(",")
+  .map((id) => id.trim())
+  .filter(Boolean)
 
-export const isDemoSite = (publicId: string) =>
-  demoSiteId !== null && publicId === demoSiteId
+export const isDemoSite = (publicId: string) => demoSiteIds.includes(publicId)
 
-export const demoPath = demoSiteId ? `/sites/${demoSiteId}/dashboard` : null
+export const demoPath = demoSiteIds[0]
+  ? `/sites/${demoSiteIds[0]}/dashboard`
+  : null
 
-export const isDemoPath = (pathname: string) =>
-  demoPath !== null &&
-  (pathname === demoPath || pathname.startsWith(`${demoPath}/`))
+export const isDemoPath = (pathname: string) => {
+  const [, root, id, section] = pathname.split("/")
+  return root === "sites" && isDemoSite(id ?? "") && section === "dashboard"
+}

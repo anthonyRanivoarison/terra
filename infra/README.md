@@ -139,20 +139,20 @@ TERRA_TAG=<sha> docker compose -f docker-compose.prod.yml up -d
 
 ## Live demo
 
-A public, read-only dashboard at `https://app.<domain>/demo`, filled with a year of sample traffic. It lives in its own workspace with no members, so nobody can sign in to it.
+A public, read-only dashboard at `https://app.<domain>/demo` with three sample sites (a SaaS, a shop and a blog) and a year of traffic each. Visitors switch between them but cannot change anything, so there is nothing to reset: the nightly run below regenerates the data. It lives in its own workspace with no members, so nobody can sign in to it.
 
 ```bash
 cd ~/terra/infra
 docker compose -f docker-compose.prod.yml run --rm demo
 ```
 
-Copy the `DEMO_SITE_ID=ws_…` line it prints into `.env`, then `docker compose -f docker-compose.prod.yml up -d web`. Running it again keeps the same id and replaces the sample data, so the demo stays current. Refresh it nightly from the VM's crontab (`crontab -e`):
+Copy the `DEMO_SITE_IDS=ws_…,ws_…,ws_…` line it prints into `.env`, then `docker compose -f docker-compose.prod.yml up -d web`. Running it again keeps the same ids and replaces the sample data, so the demo stays current. Refresh it nightly from the VM's crontab (`crontab -e`):
 
 ```bash
 30 4 * * * cd ~/terra/infra && docker compose -f docker-compose.prod.yml run --rm demo >/dev/null 2>&1
 ```
 
-Leave `DEMO_SITE_ID` empty to turn the demo off.
+Leave `DEMO_SITE_IDS` empty to turn the demo off.
 
 ## Backups and restore
 

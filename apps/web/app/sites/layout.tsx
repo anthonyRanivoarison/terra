@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { cookies } from "next/headers"
 import { SidebarInset, SidebarProvider } from "@workspace/ui/components/sidebar"
 import { SiteSidebar } from "@/components/shell/site-sidebar"
-import { demoSiteId } from "@/lib/demo"
+import { demoSiteIds } from "@/lib/demo"
 import { getOptionalSession, requireOrganization } from "@/lib/session"
 import { getDemoSite, listSites } from "@/lib/sites"
 
@@ -38,6 +38,6 @@ export default async function SitesLayout({
 }
 
 const demoSites = async () => {
-  const site = demoSiteId ? await getDemoSite(demoSiteId) : null
-  return site ? [site] : []
+  const sites = await Promise.all(demoSiteIds.map(getDemoSite))
+  return sites.filter((site) => site !== null)
 }

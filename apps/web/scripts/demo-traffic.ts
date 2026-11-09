@@ -1,20 +1,42 @@
 import { sql } from "@terra/db/client"
 import { createSite } from "../lib/sites"
 
-export const DEMO_DOMAIN = "launch-now.dev"
+export type DemoSite = {
+  name: string
+  domain: string
+  visits: number
+  crawls: number
+}
 
-export async function ensureDemoSite(organizationId: string): Promise<string> {
+export const DEMO_SITES: DemoSite[] = [
+  { name: "Launch.now", domain: "launch-now.dev", visits: 16000, crawls: 4000 },
+  { name: "Rova Studio", domain: "rova.studio", visits: 7000, crawls: 1500 },
+  {
+    name: "Field Notes",
+    domain: "fieldnotes.blog",
+    visits: 3500,
+    crawls: 2500,
+  },
+]
+
+export async function ensureDemoSite(
+  organizationId: string,
+  site: DemoSite
+): Promise<string> {
   const [found] = await sql()`
     SELECT public_id FROM sites
-    WHERE organization_id = ${organizationId} AND domain = ${DEMO_DOMAIN}
+    WHERE organization_id = ${organizationId} AND domain = ${site.domain}
   `
   return (
     found?.public_id ??
-    (await createSite(organizationId, "Launch.now", DEMO_DOMAIN))
+    (await createSite(organizationId, site.name, site.domain))
   )
 }
 
-export async function seedTraffic(publicId: string): Promise<void> {
+export async function seedTraffic(
+  publicId: string,
+  demo: DemoSite
+): Promise<void> {
   const db = sql()
   const [site] = await db`SELECT id FROM sites WHERE public_id = ${publicId}`
   const siteId = site!.id as string
@@ -26,7 +48,7 @@ export async function seedTraffic(publicId: string): Promise<void> {
 
   await db.unsafe(
     await Bun.file(new URL("./seed-demo.sql", import.meta.url)).text(),
-    [siteId]
+    [siteId, demo.domain, demo.visits, demo.crawls, demo.name]
   )
   await db`
     UPDATE visits v SET entry_page = f.page, exit_page = l.page

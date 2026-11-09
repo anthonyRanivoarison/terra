@@ -1,4 +1,7 @@
-WITH params AS (SELECT $1::uuid AS site_id),
+WITH params AS (
+  SELECT $1::uuid AS site_id, $2::text AS domain, $3::int AS visits,
+    $4::int AS crawls, $5::text AS title
+),
 v AS (
   INSERT INTO visits (
     id, site_id, visitor_id, started_at, last_seen_at, entry_page, exit_page,
@@ -10,7 +13,7 @@ v AS (
     LEAST(now(), t + ((random() * 420)::int || ' seconds')::interval),
     (ARRAY['/', '/', '/pricing', '/docs', '/blog/launch', '/blog/ai-crawlers', '/features', '/integrations/paddle'])[1 + (random() * 7)::int],
     (ARRAY['/', '/pricing', '/docs', '/thanks', '/signup', '/docs/api', '/features'])[1 + (random() * 6)::int],
-    (ARRAY['launch-now.dev', 'launch-now.dev', 'docs.launch-now.dev', 'app.launch-now.dev'])[1 + (random() * 3)::int],
+    (ARRAY[p.domain, p.domain, 'docs.' || p.domain, 'app.' || p.domain])[1 + (random() * 3)::int],
     1 + (random() * 5)::int, (random() * 3)::int, random() < 0.04, random() < 0.65,
     NULL, src.host, src.channel,
     CASE WHEN random() < 0.15 THEN 'twitter' END,
@@ -30,7 +33,7 @@ v AS (
         ELSE now() - interval '1 day' * power(random(), 1.6) * 400
           - ((CASE WHEN random() < 0.6 THEN (random() * 8)::int ELSE 0 END) || ' hours')::interval
       END AS t
-      FROM generate_series(1, 16000) i
+      FROM generate_series(1, p.visits) i
     ) g,
     LATERAL (
       SELECT * FROM (VALUES
@@ -57,7 +60,7 @@ pv AS (
   )
   SELECT gen_random_uuid(), v.site_id, v.id, v.visitor_id, v.hostname,
     (ARRAY['/', '/', '/pricing', '/pricing', '/docs', '/docs/install', '/docs/api', '/docs/tracking', '/blog/launch', '/blog/ai-crawlers', '/blog/how-we-grew', '/changelog', '/features', '/integrations/paddle', '/about', '/careers', '/signup'])[1 + (random() * 16)::int],
-    'Launch.now', v.is_bot,
+    (SELECT title FROM params), v.is_bot,
     v.started_at + (n * 40 || ' seconds')::interval,
     v.started_at + (n * 40 + 30 || ' seconds')::interval,
     (random() * 120)::int, (20 + random() * 80)::int,
@@ -98,10 +101,10 @@ refund AS (
 )
 INSERT INTO crawls (site_id, at, crawler, company, category, hostname, path, status, ip_verified)
 SELECT p.site_id, now() - interval '1 day' * power(random(), 1.4) * 400, c.crawler, c.company, c.category,
-  'launch-now.dev',
+  p.domain,
   (ARRAY['/', '/pricing', '/docs', '/robots.txt', '/llms.txt', '/sitemap.xml', '/blog/launch'])[1 + (random() * 6)::int],
   CASE WHEN random() < 0.05 THEN 404 ELSE 200 END, random() < 0.85
-FROM params p, generate_series(1, 4000) g, LATERAL (
+FROM params p, generate_series(1, p.crawls) g, LATERAL (
   SELECT * FROM (VALUES
     ('chatgpt-user', 'OpenAI', 'answers'), ('chatgpt-user', 'OpenAI', 'answers'),
     ('gptbot', 'OpenAI', 'training'), ('claudebot', 'Anthropic', 'training'),
