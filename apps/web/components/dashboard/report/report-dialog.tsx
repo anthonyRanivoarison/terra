@@ -30,12 +30,14 @@ export const ReportDialog = ({ title, tab, domain }: ReportDialogType) => {
         render={
           <Button
             variant="ghost"
-            size="icon-xs"
+            size="xs"
+            className="tracking-wide text-muted-foreground uppercase"
             aria-label={`Show all ${tab.label.toLowerCase()}`}
           />
         }
       >
-        <CornersOutIcon aria-hidden />
+        <CornersOutIcon data-icon="inline-start" aria-hidden />
+        Details
       </DialogTrigger>
       <DialogContent className="flex max-h-[85vh] flex-col gap-3 sm:max-w-2xl">
         <DialogHeader>

@@ -100,10 +100,10 @@ export const UserMenuItems = ({
 export const UserMenu = (user: UserMenuType) => (
   <DropdownMenu>
     <DropdownMenuTrigger
-      render={<Button variant="ghost" className="h-9 gap-2 px-1.5" />}
+      render={<Button variant="ghost" className="h-8 gap-2 px-1.5" />}
     >
       <UserAvatar {...user} />
-      <span className="max-w-40 truncate text-sm font-medium">
+      <span className="max-w-40 truncate text-sm font-medium max-md:hidden">
         {userLabel(user)}
       </span>
       <CaretDownIcon className="size-4 text-muted-foreground" aria-hidden />

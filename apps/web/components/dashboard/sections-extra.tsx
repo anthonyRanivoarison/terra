@@ -1,4 +1,6 @@
 import * as data from "@/lib/analytics/cache"
+import { loadCrawls } from "./bot-traffic/bot-traffic-section"
+import { CrawlersSummaryCard } from "./bot-traffic/crawlers-summary-card"
 import { EventsCard } from "./events-card"
 import { FunnelCard } from "./funnel-card"
 import { HeatmapCard } from "./heatmap-card"
@@ -43,3 +45,14 @@ export const QualitySection = async ({ siteId, params }: SectionType) => {
   const { networks, bots } = await data.quality(siteId, params)
   return <TrafficQualityCard networks={networks} bots={bots} />
 }
+
+export const CrawlersSection = async ({ siteId, params }: SectionType) => (
+  <CrawlersSummaryCard
+    data={await loadCrawls(siteId, {
+      from: params.current.from,
+      to: params.current.to,
+      granularity: params.granularity,
+      tz: params.tz,
+    })}
+  />
+)

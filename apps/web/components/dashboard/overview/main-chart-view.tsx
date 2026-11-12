@@ -1,7 +1,6 @@
 "use client"
 
 import { ChartLineIcon } from "@phosphor-icons/react/ssr"
-import { Card } from "@workspace/ui/components/card"
 import { EChartsAreaChart } from "@/components/evilcharts/charts/echarts-area-chart"
 import type { ChartConfig } from "@/components/evilcharts/ui/echarts-chart"
 import type { Series, SeriesPoint } from "@/lib/analytics/series"
@@ -49,16 +48,13 @@ export const MainChart = ({ series, granularity, currency }: MainChartType) => {
   const empty = !series.current.some((p) => p.views > 0)
 
   return (
-    <Card className="gap-3 py-4">
-      <div className="flex items-center justify-between gap-2 px-4">
-        <h2 className="text-base font-medium">{stat.label}</h2>
-        {compare && !empty && (
-          <span className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <span className="h-px w-4 border-t border-dashed border-current" />
-            Previous period
-          </span>
-        )}
-      </div>
+    <div className="flex flex-col gap-2 pb-3">
+      {compare && !empty && (
+        <span className="flex items-center gap-1.5 self-end px-4 text-xs text-muted-foreground">
+          <span className="h-px w-4 border-t border-dashed border-current" />
+          Previous period
+        </span>
+      )}
       {empty ? (
         <div className="flex h-[300px] px-4">
           <NoData
@@ -96,6 +92,6 @@ export const MainChart = ({ series, granularity, currency }: MainChartType) => {
           <EChartsAreaChart.Tooltip />
         </EChartsAreaChart>
       )}
-    </Card>
+    </div>
   )
 }

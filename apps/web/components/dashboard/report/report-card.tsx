@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from "react"
 import { Card } from "@workspace/ui/components/card"
 import { Tabs, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
+import { CardFooterLink } from "./card-footer-link"
 import { ReportDialog } from "./report-dialog"
 import { ReportList } from "./report-list"
 import type { ReportTab } from "./types"
@@ -15,6 +16,7 @@ type ReportCardType = {
   domain: string
   extras?: ReportExtra[]
   limit?: number
+  report?: { label: string; path: string }
 }
 
 export const ReportCard = ({
@@ -23,13 +25,15 @@ export const ReportCard = ({
   domain,
   extras = [],
   limit = 10,
+  report,
 }: ReportCardType) => {
   const [active, setActive] = useState(tabs[0]?.key ?? extras[0]?.key)
   const tab = tabs.find((t) => t.key === active)
   const extra = extras.find((e) => e.key === active)
+  const more = tab && tab.rows.length > limit
 
   return (
-    <Card className="h-[29rem] gap-2.5 py-3">
+    <Card className="h-[29rem] gap-2.5 pt-3 pb-2">
       <div className="flex items-center justify-between gap-2 px-4">
         <Tabs
           value={active}
@@ -48,9 +52,6 @@ export const ReportCard = ({
             ))}
           </TabsList>
         </Tabs>
-        {tab && tab.rows.length > limit && (
-          <ReportDialog title={title} tab={tab} domain={domain} />
-        )}
       </div>
       {tab && (
         <ReportList
@@ -61,6 +62,12 @@ export const ReportCard = ({
         />
       )}
       {extra && <div className="relative min-h-0 flex-1">{extra.content}</div>}
+      {tab && (more || report) && (
+        <div className="mt-auto flex justify-center gap-1">
+          {more && <ReportDialog title={title} tab={tab} domain={domain} />}
+          {report && <CardFooterLink {...report} />}
+        </div>
+      )}
     </Card>
   )
 }

@@ -5,7 +5,7 @@ import {
   SunIcon,
 } from "@phosphor-icons/react/ssr"
 import type { Icon } from "@phosphor-icons/react"
-import { flatNav, HOME_NAV, NAV } from "./nav"
+import { HOME_NAV, NAV, SETTINGS_NAV } from "./nav"
 import type { SwitcherSite } from "./site-menu"
 
 export type SearchItem = {
@@ -27,13 +27,13 @@ type BuildType = {
 }
 
 export const buildGroups = ({ siteId, root, keep, sites }: BuildType) => {
-  const pages = flatNav(siteId ? NAV : []).map((item) => ({
+  const pages = (siteId ? [...NAV, ...SETTINGS_NAV] : []).map((item) => ({
     key: `page:${item.label}`,
     label: item.label,
     icon: item.icon,
     href: item.keep ? keep(`${root}${item.path}`) : `${root}${item.path}`,
   }))
-  const home = flatNav(HOME_NAV).map((item) => ({
+  const home = HOME_NAV.map((item) => ({
     key: `home:${item.label}`,
     label: item.label,
     icon: item.icon,

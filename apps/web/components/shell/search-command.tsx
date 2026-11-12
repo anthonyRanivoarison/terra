@@ -86,13 +86,13 @@ export const SearchCommand = ({ sites }: SearchCommandType) => {
       <Button
         variant="outline"
         onClick={() => setOpen(true)}
-        className="h-9 w-full justify-between gap-2 px-3 font-normal text-muted-foreground group-data-[collapsible=icon]:hidden"
+        className="h-8 justify-between gap-2 px-2.5 font-normal text-muted-foreground xl:w-52"
       >
         <span className="flex items-center gap-2">
           <MagnifyingGlassIcon className="size-4" aria-hidden />
-          Search…
+          <span className="max-xl:sr-only">Search…</span>
         </span>
-        <kbd className="rounded-md border bg-muted px-1.5 font-sans text-[13px] text-foreground/80">
+        <kbd className="rounded-md border bg-muted px-1.5 font-sans text-[13px] text-foreground/80 max-xl:hidden">
           {apple ? "⌘K" : "Ctrl K"}
         </kbd>
       </Button>
