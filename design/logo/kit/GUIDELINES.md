@@ -55,10 +55,10 @@ Garder autour du logo un espace vide au moins égal au rayon de la planète, soi
 
 ## Régénérer
 
-Toute la géométrie vient de `../build/` (Python 3, sans dépendance) :
+Toute la géométrie vient de `../source/` (Python 3, sans dépendance) :
 
 ```bash
-cd design/logo/build && python3 kit.py
+cd design/logo/source && python3 kit.py
 ```
 
 Les réglages sont dans `kit.py` (`MAIN`, `SMALL`) : rayon de la planète, largeur de l'anneau, épaisseur du trait, espace aux croisements, taille du point.
