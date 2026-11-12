@@ -15,14 +15,14 @@ export const OnlineBadge = () => {
   return (
     <Link
       href={`${base}/realtime`}
-      className="inline-flex h-8 items-center gap-2 rounded-md px-2 text-sm font-medium transition-colors hover:bg-muted"
+      className="inline-flex h-8 shrink-0 items-center gap-2 rounded-md px-2 text-sm font-medium transition-colors hover:bg-muted"
     >
       <span className="relative flex size-2" aria-hidden="true">
         <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-500 opacity-60 motion-reduce:hidden" />
         <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
       </span>
       <span className="tabular-nums">{online ?? "–"}</span>
-      <span className="text-muted-foreground">online</span>
+      <span className="text-muted-foreground max-sm:sr-only">online</span>
     </Link>
   )
 }

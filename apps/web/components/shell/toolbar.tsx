@@ -24,12 +24,12 @@ export const Toolbar = ({
   refresh,
 }: ToolbarType) => (
   <header className="flex flex-col gap-2">
-    <div className="flex flex-wrap items-center justify-between gap-2">
-      <div className="flex items-center gap-2">
+    <div className="flex items-center justify-between gap-1.5 sm:gap-2">
+      <div className="flex shrink-0 items-center gap-2">
         {title && <h1 className="sr-only">{title}</h1>}
         {params && <FilterPicker />}
       </div>
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
         <OnlineBadge />
         {refresh && <RefreshButton action={refresh} />}
         {params && (

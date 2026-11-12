@@ -75,9 +75,13 @@ export const FilterPicker = () => {
         if (!next) setDim(null)
       }}
     >
-      <PopoverTrigger render={<Button variant="outline" size="sm" />}>
+      <PopoverTrigger
+        render={
+          <Button variant="outline" size="sm" className="max-sm:px-2.5" />
+        }
+      >
         <FunnelSimpleIcon aria-hidden />
-        Filter
+        <span className="max-sm:sr-only">Filter</span>
       </PopoverTrigger>
       <PopoverContent align="start" className="w-72 gap-0 p-0">
         {dim === null ? (
