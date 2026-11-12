@@ -76,12 +76,12 @@ export const DateRange = ({ range, from, to, compare }: DateRangeType) => {
           <Button
             variant="outline"
             size="sm"
-            className="min-w-36 justify-between gap-2"
+            className="justify-between gap-2 max-sm:px-2.5 sm:min-w-36"
           />
         }
       >
         <CalendarBlankIcon
-          className="size-4 text-muted-foreground"
+          className="size-4 text-muted-foreground max-sm:hidden"
           aria-hidden
         />
         <span className="flex-1 text-left">{label}</span>
