@@ -1,4 +1,7 @@
 export const brand = {
+  lime: "#9BE15D",
+  forest: "#1F6B3A",
+  night: "#0E1512",
   blue: "#2563EB",
   navy: "#0B1B3F",
   sky: "#7DD3FC",
@@ -8,10 +11,10 @@ export const brand = {
 }
 
 export const swatches = [
-  { name: "Terra Blue", hex: brand.blue },
-  { name: "Deep Navy", hex: brand.navy },
-  { name: "Sky", hex: brand.sky },
-  { name: "Ink", hex: brand.ink },
+  { name: "Terra Lime", hex: brand.lime },
+  { name: "Terra Forest", hex: brand.forest },
+  { name: "Terra Night", hex: brand.night },
+  { name: "Interface Blue", hex: brand.blue },
   { name: "Paper", hex: brand.paper },
   { name: "Line", hex: brand.line },
 ]

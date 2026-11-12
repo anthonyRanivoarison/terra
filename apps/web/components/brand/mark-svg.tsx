@@ -1,24 +1,23 @@
-import { LOGO_CIRCLE, LOGO_DOT, LOGO_LINE } from "@/components/brand/logo"
+import { ORBIT, ORBIT_SMALL } from "@/components/brand/logo-paths"
 
 type MarkSvgType = {
   size: number
   color: string
-  strokeWidth?: number
+  small?: boolean
 }
 
-export const MarkSvg = ({ size, color, strokeWidth = 2 }: MarkSvgType) => (
-  <svg
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke={color}
-    strokeWidth={strokeWidth}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <circle {...LOGO_CIRCLE} />
-    <path d={LOGO_LINE} />
-    <circle {...LOGO_DOT} fill={color} stroke="none" />
-  </svg>
-)
+export const MarkSvg = ({ size, color, small = false }: MarkSvgType) => {
+  const art = small ? ORBIT_SMALL : ORBIT
+  return (
+    <svg
+      width={size}
+      height={Math.round((size * art.height) / art.width)}
+      viewBox={art.viewBox}
+      fill={color}
+    >
+      {art.paths.map((d) => (
+        <path key={d} d={d} />
+      ))}
+    </svg>
+  )
+}

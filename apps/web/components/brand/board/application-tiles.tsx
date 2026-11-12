@@ -21,7 +21,7 @@ export const DigitalTile = () => (
         </span>
       </div>
       <div className="flex items-center justify-between px-4 pt-3 text-[11px]">
-        <Logo className="text-sm text-[#2563EB]" />
+        <Logo className="text-sm" markClassName="text-[#1F6B3A]" />
         <span className="font-mono text-[#0A0A0B]/50">Install</span>
       </div>
       <pre className="m-3 overflow-hidden rounded-lg bg-[#0A0A0B] p-3 font-mono text-[10px] leading-relaxed sm:text-[11px]">
@@ -52,13 +52,13 @@ export const PhysicalTile = () => (
           <div className="font-mono text-[10px] text-[#0A0A0B]/60">
             hello@terra.dev
           </div>
-          <LogoMark className="size-7 text-[#2563EB]" />
+          <LogoMark className="size-7 text-[#1F6B3A]" />
         </div>
       </div>
       <div className="absolute inset-x-10 top-14 h-40 rotate-3 rounded-2xl bg-[#0B1B3F] p-5 text-white shadow-2xl shadow-[#0B1B3F]/40">
         <div className="flex h-full flex-col justify-between">
           <div className="flex items-center justify-between">
-            <Logo className="text-lg" markClassName="text-[#7DD3FC]" />
+            <Logo className="text-lg" markClassName="text-[#9BE15D]" />
             <span className="rounded-full bg-white/10 px-2 py-0.5 font-mono text-[9px] tracking-widest uppercase">
               Crew
             </span>

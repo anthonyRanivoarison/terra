@@ -13,7 +13,7 @@ export const AppHeader = async () => {
         aria-label="Terra, all sites"
         className="rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
       >
-        <Logo className="text-lg" markClassName="text-primary" />
+        <Logo className="text-lg" />
       </Link>
       <div className="flex items-center gap-1">
         <ThemeToggle />

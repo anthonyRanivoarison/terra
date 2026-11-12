@@ -60,7 +60,7 @@ export const SocialImage = () => (
     <Grid />
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
-        <MarkSvg size={72} color={brand.sky} />
+        <MarkSvg size={72} color={brand.lime} />
         <div style={{ fontSize: 60, fontWeight: 700, letterSpacing: -2 }}>
           Terra
         </div>

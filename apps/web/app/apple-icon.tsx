@@ -15,10 +15,10 @@ export default function AppleIcon() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: brand.blue,
+        background: brand.night,
       }}
     >
-      <MarkSvg size={108} color="#FFFFFF" />
+      <MarkSvg size={120} color={brand.lime} small />
     </div>,
     size
   )
