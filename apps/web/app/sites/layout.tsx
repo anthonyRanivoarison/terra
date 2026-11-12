@@ -1,8 +1,7 @@
 import type { Metadata } from "next"
-import { cookies } from "next/headers"
-import { SidebarInset, SidebarProvider } from "@workspace/ui/components/sidebar"
 import { landingCta } from "@/components/marketing/cta"
-import { SiteSidebar } from "@/components/shell/site-sidebar"
+import { InformationCard } from "@/components/shell/information-card"
+import { SiteHeader } from "@/components/shell/site-header"
 import { signUpOpen } from "@/lib/auth"
 import { demoSiteIds } from "@/lib/demo"
 import { siteConfig } from "@/lib/seo"
@@ -14,18 +13,15 @@ export const metadata: Metadata = { robots: { index: false, follow: false } }
 export default async function SitesLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const [session, store] = await Promise.all([getOptionalSession(), cookies()])
+  const session = await getOptionalSession()
   const user = session?.user ?? null
   const sites = user
     ? await requireOrganization().then(listSites)
     : await demoSites()
 
   return (
-    <SidebarProvider
-      defaultOpen={store.get("sidebar_state")?.value !== "false"}
-      style={{ "--sidebar-width": "17rem" } as React.CSSProperties}
-    >
-      <SiteSidebar
+    <div className="flex min-h-svh flex-col bg-background">
+      <SiteHeader
         sites={sites.map(({ publicId, name, domain }) => ({
           publicId,
           name,
@@ -34,10 +30,13 @@ export default async function SitesLayout({
         cta={landingCta(false, signUpOpen, siteConfig.github)}
         user={user && { name: user.name, email: user.email, image: user.image }}
       />
-      <SidebarInset className="min-w-0 md:peer-data-[variant=inset]:border md:peer-data-[variant=inset]:shadow-[0_1px_3px_oklch(0_0_0/0.06)]">
-        {children}
-      </SidebarInset>
-    </SidebarProvider>
+      <div className="flex min-w-0 flex-1 flex-col">{children}</div>
+      {user && (
+        <aside className="fixed bottom-4 left-4 z-20 hidden w-60 2xl:block">
+          <InformationCard />
+        </aside>
+      )}
+    </div>
   )
 }
 

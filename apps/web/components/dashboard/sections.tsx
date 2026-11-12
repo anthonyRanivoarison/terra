@@ -1,8 +1,9 @@
+import { Card } from "@workspace/ui/components/card"
 import * as data from "@/lib/analytics/cache"
 import type { MetricRow, Section, Tab } from "@/lib/analytics/metrics"
 import type { AnalyticsParams } from "@/lib/analytics/params"
-import { MainChart } from "./overview/main-chart"
-import { StatStrip } from "./overview/stat-strip"
+import { MainChart, MainChartSkeleton } from "./overview/main-chart"
+import { StatStrip, StatStripSkeleton } from "./overview/stat-strip"
 import { LocationMap } from "./report/location-map"
 import { ReportCard } from "./report/report-card"
 import type { ReportTab } from "./report/types"
@@ -48,6 +49,8 @@ const TITLES: Record<Section, string> = {
   location: "Locations",
 }
 
+const PAGES_REPORT = { label: "Full report", path: "/dashboard/pages" }
+
 const toTabs = (rows: Record<string, MetricRow[]>): ReportTab[] =>
   Object.entries(rows).map(([key, list]) => {
     const meta = TABS[key as Tab]
@@ -70,25 +73,22 @@ export const OverviewSection = async ({
     data.series(siteId, params),
   ])
   return (
-    <StatStrip
-      current={current}
-      previous={previous}
-      points={series.current}
-      currency={currency}
-    />
+    <Card className="gap-0 py-0">
+      <StatStrip current={current} previous={previous} currency={currency} />
+      <MainChart
+        series={series}
+        granularity={params.granularity}
+        currency={currency}
+      />
+    </Card>
   )
 }
 
-export const ChartSection = async ({
-  siteId,
-  params,
-  currency,
-}: SectionType) => (
-  <MainChart
-    series={await data.series(siteId, params)}
-    granularity={params.granularity}
-    currency={currency}
-  />
+export const OverviewSkeleton = () => (
+  <Card className="gap-0 py-0">
+    <StatStripSkeleton />
+    <MainChartSkeleton />
+  </Card>
 )
 
 export const MetricSection = async ({
@@ -100,7 +100,12 @@ export const MetricSection = async ({
   const rows = await data.section(siteId, params, name, 100)
   if (name !== "location")
     return (
-      <ReportCard title={TITLES[name]} tabs={toTabs(rows)} domain={domain} />
+      <ReportCard
+        title={TITLES[name]}
+        tabs={toTabs(rows)}
+        domain={domain}
+        report={name === "pages" ? PAGES_REPORT : undefined}
+      />
     )
   const points = await data.points(siteId, params)
   return (

@@ -1,4 +1,8 @@
-import { getCrawls, type CrawlData } from "@/lib/analytics/crawls"
+import {
+  getCrawls,
+  type CrawlData,
+  type CrawlRange,
+} from "@/lib/analytics/crawls"
 import { BotTrafficCard } from "./bot-traffic-card"
 
 type BotTrafficSectionType = {
@@ -21,6 +25,12 @@ const EMPTY: CrawlData = {
   files: [],
 }
 
+export const loadCrawls = (siteId: string, range: CrawlRange) =>
+  getCrawls(siteId, range).catch((error: unknown) => {
+    console.error("[bot-traffic] query failed", error)
+    return EMPTY
+  })
+
 export const BotTrafficSection = async ({
   siteId,
   from,
@@ -29,12 +39,7 @@ export const BotTrafficSection = async ({
   tz,
   setupHref,
 }: BotTrafficSectionType) => {
-  const data = await getCrawls(siteId, { from, to, granularity, tz }).catch(
-    (error: unknown) => {
-      console.error("[bot-traffic] query failed", error)
-      return EMPTY
-    }
-  )
+  const data = await loadCrawls(siteId, { from, to, granularity, tz })
   return (
     <BotTrafficCard
       siteId={siteId}

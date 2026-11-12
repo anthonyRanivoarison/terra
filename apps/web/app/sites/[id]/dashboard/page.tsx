@@ -1,15 +1,14 @@
 import { Suspense, type ReactNode } from "react"
 import { AwaitingFirstEvent } from "@/components/dashboard/awaiting/awaiting-first-event"
 import { PendingShell } from "@/components/dashboard/nav-context"
-import { MainChartSkeleton } from "@/components/dashboard/overview/main-chart"
-import { StatStripSkeleton } from "@/components/dashboard/overview/stat-strip"
 import { ReportCardSkeleton } from "@/components/dashboard/report/report-card"
 import {
-  ChartSection,
   MetricSection,
   OverviewSection,
+  OverviewSkeleton,
 } from "@/components/dashboard/sections"
 import {
+  CrawlersSection,
   EventsSection,
   FunnelSection,
   HeatmapSection,
@@ -44,11 +43,8 @@ export default async function DashboardPage(page: {
         refresh={refreshDashboard.bind(null, site.publicId)}
       />
       <PendingShell>
-        <Suspense fallback={<StatStripSkeleton />}>
+        <Suspense fallback={<OverviewSkeleton />}>
           <OverviewSection {...props} />
-        </Suspense>
-        <Suspense fallback={<MainChartSkeleton />}>
-          <ChartSection {...props} />
         </Suspense>
         <div className="grid gap-3 lg:grid-cols-2">
           <Slot>
@@ -58,13 +54,10 @@ export default async function DashboardPage(page: {
             <MetricSection {...report} name="pages" />
           </Slot>
           <Slot>
-            <MetricSection {...report} name="environment" />
-          </Slot>
-          <Slot>
             <MetricSection {...report} name="location" />
           </Slot>
           <Slot>
-            <EventsSection {...props} />
+            <MetricSection {...report} name="environment" />
           </Slot>
           <Slot>
             <RevenueSection {...props} />
@@ -73,9 +66,15 @@ export default async function DashboardPage(page: {
             <FunnelSection {...props} />
           </Slot>
           <Slot>
-            <HeatmapSection {...props} />
+            <EventsSection {...props} />
+          </Slot>
+          <Slot>
+            <CrawlersSection {...props} />
           </Slot>
         </div>
+        <Suspense fallback={<ReportCardSkeleton />}>
+          <HeatmapSection {...props} />
+        </Suspense>
       </PendingShell>
       <AwaitingFirstEvent site={site} />
     </PageShell>

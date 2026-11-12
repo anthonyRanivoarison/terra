@@ -7,7 +7,6 @@ import {
   CaretUpDownIcon,
   GridFourIcon,
   PlusIcon,
-  GearIcon,
 } from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import { ButtonGroup } from "@workspace/ui/components/button-group"
@@ -21,6 +20,7 @@ import {
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu"
 import { SiteFavicon } from "@/components/sites/site-favicon"
+import { SettingsMenu } from "./settings-menu"
 import { useSiteNav } from "./use-site-nav"
 
 export type SwitcherSite = { publicId: string; name: string; domain: string }
@@ -36,13 +36,13 @@ export const SiteMenu = ({ sites, readOnly = false }: SiteMenuType) => {
   const current = sites.find((s) => s.publicId === siteId)
 
   return (
-    <ButtonGroup className="w-full group-data-[collapsible=icon]:hidden">
+    <ButtonGroup className="min-w-0">
       <DropdownMenu>
         <DropdownMenuTrigger
           render={
             <Button
               variant="outline"
-              className="h-9 min-w-0 flex-1 justify-start gap-2 px-2 font-semibold"
+              className="h-8 max-w-52 min-w-0 justify-start gap-2 px-2 font-semibold"
             />
           }
         >
@@ -105,18 +105,7 @@ export const SiteMenu = ({ sites, readOnly = false }: SiteMenuType) => {
           )}
         </DropdownMenuContent>
       </DropdownMenu>
-      {!readOnly && (
-        <Button
-          variant="outline"
-          size="icon"
-          aria-label={siteId ? "Site settings" : "Settings"}
-          className="size-9"
-          nativeButton={false}
-          render={<Link href={siteId ? root : "/settings/api-keys"} />}
-        >
-          <GearIcon aria-hidden />
-        </Button>
-      )}
+      {!readOnly && <SettingsMenu />}
     </ButtonGroup>
   )
 }

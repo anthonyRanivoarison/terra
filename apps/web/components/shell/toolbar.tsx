@@ -1,6 +1,5 @@
 "use client"
 
-import { SidebarTrigger } from "@workspace/ui/components/sidebar"
 import { DateRange } from "@/components/dashboard/date-range"
 import { FilterChips } from "@/components/dashboard/filter-chips"
 import { OnlineBadge } from "@/components/dashboard/online-badge"
@@ -27,7 +26,6 @@ export const Toolbar = ({
   <header className="flex flex-col gap-2">
     <div className="flex flex-wrap items-center justify-between gap-2">
       <div className="flex items-center gap-2">
-        <SidebarTrigger className="md:hidden" />
         {title && <h1 className="sr-only">{title}</h1>}
         {params && <FilterPicker />}
       </div>
