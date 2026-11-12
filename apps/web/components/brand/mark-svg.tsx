@@ -8,11 +8,10 @@ type MarkSvgType = {
 
 export const MarkSvg = ({ size, color, small = false }: MarkSvgType) => {
   const art = small ? ORBIT_SMALL : ORBIT
-  const [, , w, h] = art.viewBox.split(" ").map(Number)
   return (
     <svg
       width={size}
-      height={Math.round((size * h) / w)}
+      height={Math.round((size * art.height) / art.width)}
       viewBox={art.viewBox}
       fill={color}
     >

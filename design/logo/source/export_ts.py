@@ -27,7 +27,7 @@ def symbol(params):
 def entry(name, paths, w, h):
     x0, y0, x1, y1 = bbox(paths, w, h)
     body = ",\n".join(f'    "{d}"' for d in paths)
-    return f'export const {name} = {{\n  viewBox: "{x0} {y0} {x1 - x0} {y1 - y0}",\n  paths: [\n{body},\n  ],\n}}\n'
+    return f'export const {name} = {{\n  viewBox: "{x0} {y0} {x1 - x0} {y1 - y0}",\n  width: {x1 - x0},\n  height: {y1 - y0},\n  paths: [\n{body},\n  ],\n}}\n'
 
 words, end = letters(Frame(0, 1, (12, -TOP + 4)))
 out = "\n".join([
