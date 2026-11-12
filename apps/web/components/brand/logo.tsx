@@ -1,31 +1,41 @@
 import { cn } from "@workspace/ui/lib/utils"
+import { ORBIT, ORBIT_SMALL, WORDMARK } from "./logo-paths"
 
-type LogoMarkType = {
+type Artwork = { viewBox: string; paths: string[] }
+
+type ShapeType = {
+  art: Artwork
   className?: string
   title?: string
 }
 
-export const LOGO_CIRCLE = { cx: 10, cy: 14, r: 8 }
-export const LOGO_LINE = "M5 16.5 9 12.5 12.5 16 20.5 8"
-export const LOGO_DOT = { cx: 20.5, cy: 8, r: 1.9 }
-
-export const LogoMark = ({ className, title }: LogoMarkType) => (
+const Shape = ({ art, className, title }: ShapeType) => (
   <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    viewBox={art.viewBox}
+    fill="currentColor"
     role={title ? "img" : undefined}
     aria-hidden={title ? undefined : true}
-    className={cn("size-6 shrink-0", className)}
+    className={cn("shrink-0", className)}
   >
     {title ? <title>{title}</title> : null}
-    <circle {...LOGO_CIRCLE} />
-    <path d={LOGO_LINE} />
-    <circle {...LOGO_DOT} fill="currentColor" stroke="none" />
+    {art.paths.map((d) => (
+      <path key={d} d={d} />
+    ))}
   </svg>
+)
+
+type LogoMarkType = {
+  className?: string
+  title?: string
+  small?: boolean
+}
+
+export const LogoMark = ({ className, title, small = false }: LogoMarkType) => (
+  <Shape
+    art={small ? ORBIT_SMALL : ORBIT}
+    title={title}
+    className={cn("size-6 text-logo", className)}
+  />
 )
 
 type LogoType = {
@@ -35,12 +45,10 @@ type LogoType = {
 
 export const Logo = ({ className, markClassName }: LogoType) => (
   <span
-    className={cn(
-      "inline-flex items-center gap-2 font-heading text-xl font-semibold tracking-tight",
-      className
-    )}
+    className={cn("inline-flex items-center gap-[0.35em] text-xl", className)}
   >
-    <LogoMark className={cn("size-[1.15em]", markClassName)} />
-    <span>Terra</span>
+    <LogoMark className={cn("h-[1.25em] w-auto", markClassName)} />
+    <Shape art={WORDMARK} className="h-[0.95em] w-auto" />
+    <span className="sr-only">Terra</span>
   </span>
 )

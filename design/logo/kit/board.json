@@ -1,0 +1,44 @@
+{
+  "brand": "Terra",
+  "tagline": "Know where your revenue comes from",
+  "brief": "Free, self-hostable, multi-site web analytics: traffic, goals, revenue attribution and AI crawlers. The mark should stand apart from bar-chart and blue-violet analytics brands, borrow Matomo's confident monoline style, and work as a 16 px favicon.",
+  "adjectives": ["open", "grounded", "precise", "growing"],
+  "criteria": "Distinct from every competitor on the shelf, readable at 16 px, one colour friendly, ownable colour.",
+  "industry": "software",
+  "mockups": [
+    "website",
+    "favicon-tab",
+    "app-icon",
+    "readme",
+    "terminal",
+    "social"
+  ],
+  "nav": ["Features", "Self-host", "Pricing"],
+  "brand_color": "#1F6B3A",
+  "tile_color": "#0E1512",
+  "greyscale": false,
+  "designer": "Terra",
+  "round": 2,
+  "concepts": [
+    {
+      "name": "Orbit",
+      "symbol": "terra-symbol-forest.svg",
+      "lockup": "terra-horizontal-forest.svg",
+      "symbol_on_tile": "terra-symbol-lime.svg",
+      "lockup_on_dark": "terra-horizontal-lime.svg",
+      "idea": "A planet (terra) circled by a rising orbit that passes behind it and in front, ending in one data point.",
+      "rationale": [
+        "Over-under weave gives depth with a single monoline, in the spirit of Matomo",
+        "The orbit rises at 30°: growth without another bar chart",
+        "The satellite dot carries over the data point of the previous logo",
+        "Green is unclaimed in the category (Plausible violet, DataFast coral, Matomo teal)"
+      ]
+    }
+  ],
+  "recommendation": "Orbit, lime on Terra Night for the product and app icon, Forest on light backgrounds.",
+  "next_steps": [
+    "Replace the logo in the web app and favicon",
+    "Run a trademark search before public launch",
+    "Extend the orbit line into illustrations and empty states"
+  ]
+}

@@ -69,7 +69,7 @@ export const Hud = ({ cta }: HudType) => {
           aria-label="Terra, back to top"
           className="pointer-events-auto flex min-h-11 items-center rounded-full pr-2 outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <Logo className="text-lg" markClassName="text-primary" />
+          <Logo className="text-lg" />
         </a>
         <div className="pointer-events-auto flex items-start gap-8">
           <nav aria-label="Chapters" className="hidden md:block">

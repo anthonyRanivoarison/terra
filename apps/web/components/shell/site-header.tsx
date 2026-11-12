@@ -21,9 +21,9 @@ export const SiteHeader = ({ sites, user, cta }: SiteHeaderType) => (
       <Link
         href={user ? "/sites" : "/"}
         aria-label="Terra"
-        className="grid size-8 shrink-0 place-content-center rounded-md text-primary outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+        className="grid size-8 shrink-0 place-content-center rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
       >
-        <LogoMark className="size-5" />
+        <LogoMark className="size-7" />
       </Link>
       <SiteMenu sites={sites} readOnly={!user} />
       <HeaderNav className="ms-2 hidden lg:flex" />

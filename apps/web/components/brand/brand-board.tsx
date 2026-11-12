@@ -19,7 +19,7 @@ export const BrandBoard = () => (
     <div className="mx-auto max-w-[88rem]">
       <header className="mb-8 flex flex-wrap items-end justify-between gap-4 sm:mb-12">
         <div>
-          <Logo className="text-2xl" markClassName="text-[#2563EB]" />
+          <Logo className="text-2xl" markClassName="text-[#1F6B3A]" />
           <h1 className="mt-3 font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
             Brand kit
           </h1>
