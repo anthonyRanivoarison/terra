@@ -12,7 +12,7 @@ import {
   DrawerContent,
 } from "@workspace/ui/components/drawer"
 import { useIsMobile } from "@workspace/ui/hooks/use-mobile"
-import { XIcon } from "lucide-react"
+import { XIcon } from "@phosphor-icons/react/ssr"
 
 const SheetAsDrawer = React.createContext(false)
 

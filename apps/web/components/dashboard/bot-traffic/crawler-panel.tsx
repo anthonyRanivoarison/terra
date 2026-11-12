@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Search } from "lucide-react"
+import { MagnifyingGlassIcon } from "@phosphor-icons/react/ssr"
 import { Input } from "@workspace/ui/components/input"
 import {
   Sheet,
@@ -109,7 +109,7 @@ export const CrawlerPanel = ({
                   </span>
                 </div>
                 <div className="relative">
-                  <Search
+                  <MagnifyingGlassIcon
                     aria-hidden
                     className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-muted-foreground"
                   />

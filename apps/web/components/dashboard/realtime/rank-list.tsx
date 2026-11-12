@@ -1,4 +1,4 @@
-import { UserRound } from "lucide-react"
+import { UserIcon } from "@phosphor-icons/react/ssr"
 import { Card, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import { DimensionIcon } from "../dimension-icon"
 import { dimensionLabel, formatNumber } from "../format"
@@ -28,7 +28,7 @@ export const RankList = ({ title, rows, kind, hint }: RankListType) => {
       {rows.length === 0 ? (
         <div className="flex flex-1 px-6 pb-6">
           <NoData
-            icon={UserRound}
+            icon={UserIcon}
             title="Nobody right now"
             description="This fills up as soon as someone lands on the site."
           />

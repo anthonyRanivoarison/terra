@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowRightIcon } from "@phosphor-icons/react/ssr"
 import { cn } from "@workspace/ui/lib/utils"
 
 type PillLinkType = {
@@ -29,7 +29,7 @@ export const PillLink = ({
     >
       {children}
       <span className="grid size-8 place-items-center rounded-full bg-primary-foreground/20 transition-transform duration-300 group-hover:translate-x-0.5">
-        <ArrowRight className="size-4" aria-hidden />
+        <ArrowRightIcon className="size-4" aria-hidden />
       </span>
     </Link>
   ) : (

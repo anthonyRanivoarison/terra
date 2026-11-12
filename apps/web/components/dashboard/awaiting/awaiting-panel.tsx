@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useId, type ReactNode } from "react"
-import { ChevronDown, TriangleAlert } from "lucide-react"
+import { CaretDownIcon, WarningIcon } from "@phosphor-icons/react/ssr"
 import { cn } from "@workspace/ui/lib/utils"
 import { useLocalFlag } from "../empty/use-local-flag"
 import { useSiteLive } from "./use-site-live"
@@ -66,12 +66,12 @@ export const AwaitingPanel = ({
         onClick={() => setCollapsed(!collapsed)}
         className="flex w-full items-center gap-2.5 rounded-lg px-4 py-3 text-left text-sm font-semibold outline-none focus-visible:ring-3 focus-visible:ring-amber-500/50"
       >
-        <TriangleAlert
+        <WarningIcon
           aria-hidden
           className="size-4 shrink-0 text-amber-600 dark:text-amber-400"
         />
         <span className="flex-1">Awaiting the first event…</span>
-        <ChevronDown
+        <CaretDownIcon
           aria-hidden
           className={cn(
             "size-4 shrink-0 motion-safe:transition-transform",

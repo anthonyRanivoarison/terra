@@ -1,6 +1,6 @@
 "use client"
 
-import { FileText } from "lucide-react"
+import { FileTextIcon } from "@phosphor-icons/react/ssr"
 import { cn } from "@workspace/ui/lib/utils"
 import type { MetricRow } from "@/lib/analytics/metrics"
 import { NoData } from "../no-data"
@@ -27,7 +27,7 @@ export const ReportList = ({
     return (
       <div className="flex flex-1 px-3">
         <NoData
-          icon={FileText}
+          icon={FileTextIcon}
           title={`No ${tab.label.toLowerCase()} yet`}
           description="Nothing was recorded for this period and these filters."
           className="border-0"

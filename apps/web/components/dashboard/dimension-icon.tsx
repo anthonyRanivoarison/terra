@@ -2,24 +2,24 @@
 
 import { Icon as Iconify } from "@iconify/react"
 import {
-  BadgeDollarSign,
-  Bot,
-  Network,
-  FileText,
-  Globe,
-  Handshake,
-  Languages,
-  Link2,
-  Mail,
-  MapPin,
-  Megaphone,
-  MousePointerClick,
-  Ruler,
-  Search,
-  Share2,
-  Sparkles,
-  type LucideIcon,
-} from "lucide-react"
+  CurrencyDollarSimpleIcon,
+  RobotIcon,
+  TreeStructureIcon,
+  FileTextIcon,
+  GlobeIcon,
+  HandshakeIcon,
+  TranslateIcon,
+  LinkSimpleIcon,
+  EnvelopeSimpleIcon,
+  MapPinIcon,
+  MegaphoneIcon,
+  CursorClickIcon,
+  RulerIcon,
+  MagnifyingGlassIcon,
+  ShareNetworkIcon,
+  SparkleIcon,
+} from "@phosphor-icons/react/ssr"
+import type { Icon } from "@phosphor-icons/react"
 import type { ReactNode } from "react"
 import {
   getBrowserIcon,
@@ -29,16 +29,16 @@ import {
 } from "@/lib/platform-icons"
 import { cn } from "@workspace/ui/lib/utils"
 
-const CHANNELS: Record<string, LucideIcon> = {
-  Direct: MousePointerClick,
-  "Organic Search": Search,
-  "Paid Search": BadgeDollarSign,
-  "Organic Social": Share2,
-  "Paid Social": Megaphone,
-  Email: Mail,
-  AI: Sparkles,
-  Affiliate: Handshake,
-  Referral: Link2,
+const CHANNELS: Record<string, Icon> = {
+  Direct: CursorClickIcon,
+  "Organic Search": MagnifyingGlassIcon,
+  "Paid Search": CurrencyDollarSimpleIcon,
+  "Organic Social": ShareNetworkIcon,
+  "Paid Social": MegaphoneIcon,
+  Email: EnvelopeSimpleIcon,
+  AI: SparkleIcon,
+  Affiliate: HandshakeIcon,
+  Referral: LinkSimpleIcon,
 }
 
 const CHANNEL_TONES: Record<string, string> = {
@@ -53,20 +53,20 @@ const CHANNEL_TONES: Record<string, string> = {
   Referral: "bg-teal-500/10 text-teal-600",
 }
 
-const SIMPLE: Record<string, LucideIcon> = {
-  page: FileText,
-  hostname: Globe,
-  entry: FileText,
-  exit: FileText,
-  utm_medium: Megaphone,
-  utm_campaign: Megaphone,
-  campaign: Megaphone,
-  region: MapPin,
-  city: MapPin,
-  language: Languages,
-  screen: Ruler,
-  bot: Bot,
-  network: Network,
+const SIMPLE: Record<string, Icon> = {
+  page: FileTextIcon,
+  hostname: GlobeIcon,
+  entry: FileTextIcon,
+  exit: FileTextIcon,
+  utm_medium: MegaphoneIcon,
+  utm_campaign: MegaphoneIcon,
+  campaign: MegaphoneIcon,
+  region: MapPinIcon,
+  city: MapPinIcon,
+  language: TranslateIcon,
+  screen: RulerIcon,
+  bot: RobotIcon,
+  network: TreeStructureIcon,
 }
 
 const tile =
@@ -123,12 +123,12 @@ export const DimensionIcon = ({
       />
     ) : (
       <span className={cn(tile, className)}>
-        <MapPin className="size-3.5 text-muted-foreground" aria-hidden />
+        <MapPinIcon className="size-3.5 text-muted-foreground" aria-hidden />
       </span>
     )
   }
   if (kind === "channel") {
-    const Icon = CHANNELS[value] ?? Link2
+    const Icon = CHANNELS[value] ?? LinkSimpleIcon
     return (
       <span
         className={cn(

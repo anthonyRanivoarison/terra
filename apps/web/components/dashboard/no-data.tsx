@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react"
+import type { Icon } from "@phosphor-icons/react"
 import {
   Empty,
   EmptyDescription,
@@ -9,7 +9,7 @@ import {
 import { cn } from "@workspace/ui/lib/utils"
 
 type NoDataType = {
-  icon: LucideIcon
+  icon: Icon
   title: string
   description?: string
   className?: string

@@ -1,4 +1,4 @@
-import { CalendarClock } from "lucide-react"
+import { CalendarDotsIcon } from "@phosphor-icons/react/ssr"
 import {
   Card,
   CardContent,
@@ -59,7 +59,7 @@ export const HeatmapCard = ({ cells, tz }: HeatmapCardType) => {
       <CardContent className="flex min-h-0 flex-1 flex-col gap-5">
         {!stats ? (
           <NoData
-            icon={CalendarClock}
+            icon={CalendarDotsIcon}
             title="No traffic yet"
             description="Busy days and hours show up once visitors arrive."
           />

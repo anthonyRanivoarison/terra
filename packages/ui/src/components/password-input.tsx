@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { Eye, EyeOff, Lock } from "lucide-react"
+import { EyeIcon, EyeSlashIcon, LockIcon } from "@phosphor-icons/react/ssr"
 
 import { Button } from "@workspace/ui/components/button"
 import { ButtonGroup } from "@workspace/ui/components/button-group"
@@ -28,7 +28,7 @@ function PasswordInput({
           className="h-12 flex-1 text-base"
         />
         <InputGroupAddon>
-          <Lock />
+          <LockIcon />
         </InputGroupAddon>
       </InputGroup>
       <Button
@@ -38,7 +38,7 @@ function PasswordInput({
         onClick={() => setVisible((v) => !v)}
         className="h-12"
       >
-        {visible ? <EyeOff /> : <Eye />}
+        {visible ? <EyeSlashIcon /> : <EyeIcon />}
       </Button>
     </ButtonGroup>
   )

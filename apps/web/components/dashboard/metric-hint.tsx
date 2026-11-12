@@ -1,6 +1,6 @@
 "use client"
 
-import { CircleHelp } from "lucide-react"
+import { QuestionIcon } from "@phosphor-icons/react/ssr"
 import {
   HoverCard,
   HoverCardContent,
@@ -74,7 +74,7 @@ export const InfoHint = ({
         />
       }
     >
-      <CircleHelp className="size-3.5" strokeWidth={2} aria-hidden />
+      <QuestionIcon className="size-3.5" aria-hidden />
     </HoverCardTrigger>
     <HoverCardContent side="bottom" align="start" className="w-72">
       <div className="flex flex-col gap-2 text-sm">

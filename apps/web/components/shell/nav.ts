@@ -1,23 +1,23 @@
 import {
-  Bot,
-  CircleDollarSign,
-  Code,
-  FileText,
-  FileUp,
-  Gauge,
-  LayoutDashboard,
-  LayoutGrid,
-  Plus,
-  Plug,
-  Radio,
-  Rewind,
-  type LucideIcon,
-} from "lucide-react"
+  RobotIcon,
+  CurrencyCircleDollarIcon,
+  CodeIcon,
+  FileTextIcon,
+  FileArrowUpIcon,
+  GaugeIcon,
+  SquaresFourIcon,
+  GridFourIcon,
+  PlusIcon,
+  PlugIcon,
+  BroadcastIcon,
+  RewindIcon,
+} from "@phosphor-icons/react/ssr"
+import type { Icon } from "@phosphor-icons/react"
 
 export type NavItem = {
   label: string
   path: string
-  icon: LucideIcon
+  icon: Icon
   keep: boolean
   exact?: boolean
   live?: boolean
@@ -33,27 +33,27 @@ export const NAV: NavGroup[] = [
       {
         label: "Overview",
         path: "/dashboard",
-        icon: LayoutDashboard,
+        icon: SquaresFourIcon,
         keep: true,
         exact: true,
       },
       {
         label: "Pages",
         path: "/dashboard/pages",
-        icon: FileText,
+        icon: FileTextIcon,
         keep: true,
       },
       {
         label: "Realtime",
         path: "/dashboard/realtime",
-        icon: Radio,
+        icon: BroadcastIcon,
         keep: true,
         live: true,
         children: [
           {
             label: "Sessions",
             path: "/dashboard/sessions",
-            icon: Rewind,
+            icon: RewindIcon,
             keep: true,
           },
         ],
@@ -61,13 +61,13 @@ export const NAV: NavGroup[] = [
       {
         label: "Revenue",
         path: "/dashboard/revenue",
-        icon: CircleDollarSign,
+        icon: CurrencyCircleDollarIcon,
         keep: true,
         children: [
           {
             label: "Payments",
             path: "/settings/revenue",
-            icon: Plug,
+            icon: PlugIcon,
             keep: false,
           },
         ],
@@ -75,20 +75,25 @@ export const NAV: NavGroup[] = [
       {
         label: "Performance",
         path: "/dashboard/performance",
-        icon: Gauge,
+        icon: GaugeIcon,
         keep: true,
       },
-      { label: "AI & bots", path: "/dashboard/bots", icon: Bot, keep: true },
+      {
+        label: "AI & bots",
+        path: "/dashboard/bots",
+        icon: RobotIcon,
+        keep: true,
+      },
     ],
   },
   {
     label: "Site",
     items: [
-      { label: "Tracking", path: "", icon: Code, keep: false, exact: true },
+      { label: "Tracking", path: "", icon: CodeIcon, keep: false, exact: true },
       {
         label: "Import",
         path: "/settings/import",
-        icon: FileUp,
+        icon: FileArrowUpIcon,
         keep: false,
       },
     ],
@@ -102,11 +107,11 @@ export const HOME_NAV: NavGroup[] = [
       {
         label: "All sites",
         path: "/sites",
-        icon: LayoutGrid,
+        icon: GridFourIcon,
         keep: false,
         exact: true,
       },
-      { label: "Add a site", path: "/sites/new", icon: Plus, keep: false },
+      { label: "Add a site", path: "/sites/new", icon: PlusIcon, keep: false },
     ],
   },
 ]

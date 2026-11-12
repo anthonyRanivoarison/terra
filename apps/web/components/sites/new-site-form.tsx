@@ -1,7 +1,7 @@
 "use client"
 
 import { useActionState } from "react"
-import { Globe } from "lucide-react"
+import { GlobeIcon } from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import {
   Card,
@@ -42,7 +42,7 @@ export const NewSiteForm = () => {
               <FieldLabel htmlFor="domain">Domain</FieldLabel>
               <InputGroup>
                 <InputGroupAddon className="gap-2 border-r pr-3">
-                  <Globe aria-hidden />
+                  <GlobeIcon aria-hidden />
                   <InputGroupText>https://</InputGroupText>
                 </InputGroupAddon>
                 <InputGroupInput

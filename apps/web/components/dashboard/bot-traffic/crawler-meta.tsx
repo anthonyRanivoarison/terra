@@ -12,7 +12,7 @@ import Mistral from "@thesvg/react/mistral"
 import Openai from "@thesvg/react/openai"
 import Perplexity from "@thesvg/react/perplexity"
 import Yandex from "@thesvg/react/yandex"
-import { Bot } from "lucide-react"
+import { RobotIcon } from "@phosphor-icons/react/ssr"
 import type { ComponentType, SVGProps } from "react"
 import type { CrawlCategory } from "@/lib/analytics/crawls"
 import { cn } from "@workspace/ui/lib/utils"
@@ -81,7 +81,7 @@ export const CrawlerLogo = ({ crawler, className }: CrawlerLogoType) => {
   const Icon = meta?.logo
   if (!Icon) {
     return (
-      <Bot
+      <RobotIcon
         aria-hidden
         className={cn("size-4 text-muted-foreground", className)}
       />

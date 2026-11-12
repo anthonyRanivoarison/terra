@@ -1,6 +1,6 @@
 "use client"
 
-import { Check, Copy } from "lucide-react"
+import { CheckIcon, CopyIcon } from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import { useCopy } from "@/hooks/use-copy"
 
@@ -20,7 +20,7 @@ export const Snippet = ({ code, label }: SnippetType) => {
         aria-label={copied ? "Copied" : `Copy ${label}`}
         className="absolute top-2 right-2"
       >
-        {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
+        {copied ? <CheckIcon aria-hidden /> : <CopyIcon aria-hidden />}
       </Button>
     </div>
   )

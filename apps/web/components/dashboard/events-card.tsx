@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronRight } from "lucide-react"
+import { CaretRightIcon } from "@phosphor-icons/react/ssr"
 import {
   Card,
   CardHeader,
@@ -53,7 +53,7 @@ export const EventsCard = ({ events }: EventsCardType) => {
                   aria-label={`Show properties of ${event.label}`}
                   className="relative rounded p-1.5 text-muted-foreground enabled:hover:text-foreground disabled:opacity-30"
                 >
-                  <ChevronRight
+                  <CaretRightIcon
                     className={cn(
                       "size-3.5 transition-transform",
                       expanded && "rotate-90"

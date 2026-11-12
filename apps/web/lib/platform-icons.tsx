@@ -48,16 +48,16 @@ import X from "@thesvg/react/x"
 import YCombinator from "@thesvg/react/y-combinator"
 import Youtube from "@thesvg/react/youtube"
 import {
-  Bot,
-  CircleHelp,
-  Globe,
-  MousePointerClick,
-  Laptop,
-  Monitor,
-  Smartphone,
-  Tablet,
-  type LucideIcon,
-} from "lucide-react"
+  RobotIcon,
+  QuestionIcon,
+  GlobeIcon,
+  CursorClickIcon,
+  LaptopIcon,
+  MonitorIcon,
+  DeviceMobileIcon,
+  DeviceTabletIcon,
+} from "@phosphor-icons/react/ssr"
+import type { Icon } from "@phosphor-icons/react"
 import type { ComponentType, ReactNode, SVGProps } from "react"
 import { renderBrandIcon as render } from "./brand-icon"
 
@@ -95,11 +95,11 @@ const OS_MATCHERS: [string, IconComponent][] = [
   ["linux", Linux],
 ]
 
-const DEVICE_ICONS: Record<string, LucideIcon> = {
-  desktop: Monitor,
-  mobile: Smartphone,
-  tablet: Tablet,
-  bot: Bot,
+const DEVICE_ICONS: Record<string, Icon> = {
+  desktop: MonitorIcon,
+  mobile: DeviceMobileIcon,
+  tablet: DeviceTabletIcon,
+  bot: RobotIcon,
 }
 
 function match(
@@ -120,18 +120,18 @@ export const getBrowserIcon = (
   browser: string,
   className = "size-3.5"
 ): ReactNode => {
-  return render(match(browser, BROWSER_MATCHERS) ?? CircleHelp, className)
+  return render(match(browser, BROWSER_MATCHERS) ?? QuestionIcon, className)
 }
 
 export const getOSIcon = (os: string, className = "size-3.5"): ReactNode => {
-  return render(match(os, OS_MATCHERS) ?? Laptop, className)
+  return render(match(os, OS_MATCHERS) ?? LaptopIcon, className)
 }
 
 export const getDeviceIcon = (
   device: string,
   className = "size-3.5"
 ): ReactNode => {
-  const Icon = DEVICE_ICONS[device.toLowerCase()] ?? Monitor
+  const Icon = DEVICE_ICONS[device.toLowerCase()] ?? MonitorIcon
   return <Icon className={className} aria-hidden="true" />
 }
 
@@ -173,17 +173,11 @@ export const getReferrerIcon = (
   className = "size-3.5"
 ): ReactNode => {
   if (hostname === "Direct") {
-    return (
-      <MousePointerClick
-        className={className}
-        strokeWidth={2}
-        aria-hidden="true"
-      />
-    )
+    return <CursorClickIcon className={className} aria-hidden="true" />
   }
   const host = hostname.toLowerCase().replace(/^www\./, "")
   return render(
-    REFERRER_MATCHERS.find(([re]) => re.test(host))?.[1] ?? Globe,
+    REFERRER_MATCHERS.find(([re]) => re.test(host))?.[1] ?? GlobeIcon,
     className
   )
 }

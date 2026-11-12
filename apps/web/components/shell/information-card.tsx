@@ -3,7 +3,7 @@
 import { useState, useSyncExternalStore } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { X } from "lucide-react"
+import { XIcon } from "@phosphor-icons/react/ssr"
 import { cn } from "@workspace/ui/lib/utils"
 import { ANNOUNCEMENTS } from "./announcements"
 
@@ -119,7 +119,7 @@ export const InformationCard = () => {
                   "absolute top-1.5 right-1.5 z-10 flex size-6 items-center justify-center rounded-full bg-sidebar/85 text-sidebar-foreground/80 opacity-0 shadow-sm backdrop-blur-sm transition-[opacity,color,scale] duration-150 outline-none group-hover/card:opacity-100 hover:text-sidebar-foreground focus-visible:opacity-100 focus-visible:ring-2 focus-visible:ring-sidebar-ring active:scale-[0.96] pointer-coarse:opacity-100"
                 )}
               >
-                <X aria-hidden className="size-3.5" />
+                <XIcon aria-hidden className="size-3.5" />
               </button>
             </li>
           )

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { CircleDollarSign } from "lucide-react"
+import { CurrencyCircleDollarIcon } from "@phosphor-icons/react/ssr"
 import {
   Card,
   CardDescription,
@@ -80,7 +80,7 @@ export const RevenueCard = ({ attribution, currency }: RevenueCardType) => {
       {rows.length === 0 && (
         <div className="flex flex-1 px-4 pb-4">
           <NoData
-            icon={CircleDollarSign}
+            icon={CurrencyCircleDollarIcon}
             title="No sales yet"
             description="Revenue appears here once a purchase comes through your payment provider."
           />

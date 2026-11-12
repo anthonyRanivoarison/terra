@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { ChevronRight } from "lucide-react"
+import { CaretRightIcon } from "@phosphor-icons/react/ssr"
 import {
   Collapsible,
   CollapsibleContent,
@@ -86,7 +86,7 @@ export const NavTree = ({ readOnly = false }: NavTreeType) => {
                       aria-label={`Toggle ${item.label}`}
                       className="group/chev absolute top-1 right-1 flex size-6 items-center justify-center rounded-md text-sidebar-foreground/60 group-data-[collapsible=icon]:hidden hover:bg-sidebar-accent hover:text-sidebar-foreground"
                     >
-                      <ChevronRight className="size-4 transition-transform duration-200 group-data-panel-open/chev:rotate-90" />
+                      <CaretRightIcon className="size-4 transition-transform duration-200 group-data-panel-open/chev:rotate-90" />
                     </CollapsibleTrigger>
                     <CollapsibleContent>
                       <SidebarMenuSub className="mx-0 ms-[0.95rem] me-0 gap-0.5 border-sidebar-foreground/15 py-0.5 ps-2.5 pe-0">

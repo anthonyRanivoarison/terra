@@ -1,7 +1,11 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowDown, FileText, SquareArrowOutUpRight } from "lucide-react"
+import {
+  ArrowDownIcon,
+  FileTextIcon,
+  ArrowSquareOutIcon,
+} from "@phosphor-icons/react/ssr"
 import { Card } from "@workspace/ui/components/card"
 import { Input } from "@workspace/ui/components/input"
 import { cn } from "@workspace/ui/lib/utils"
@@ -65,7 +69,7 @@ export const PagesTable = ({ rows, domain }: PagesTableType) => {
       {shown.length === 0 ? (
         <div className="px-4 pb-2">
           <NoData
-            icon={FileText}
+            icon={FileTextIcon}
             title="No pages match"
             description="Try another search, a wider period or fewer filters."
             className="border-0"
@@ -93,7 +97,7 @@ export const PagesTable = ({ rows, domain }: PagesTableType) => {
                     >
                       {c.label}
                       {sort === c.key && (
-                        <ArrowDown className="size-3" aria-hidden />
+                        <ArrowDownIcon className="size-3" aria-hidden />
                       )}
                     </button>
                   </th>
@@ -136,7 +140,7 @@ export const PagesTable = ({ rows, domain }: PagesTableType) => {
                           aria-label={`Open ${row.page}`}
                           className="shrink-0 text-muted-foreground opacity-0 group-hover:opacity-100 hover:text-foreground focus-visible:opacity-100"
                         >
-                          <SquareArrowOutUpRight
+                          <ArrowSquareOutIcon
                             className="size-3.5"
                             aria-hidden
                           />

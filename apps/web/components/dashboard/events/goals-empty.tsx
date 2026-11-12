@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Plus } from "lucide-react"
+import { PlusIcon } from "@phosphor-icons/react/ssr"
 import { buttonVariants } from "@workspace/ui/components/button"
 import { SamplePreview } from "../empty/sample-preview"
 
@@ -50,7 +50,7 @@ export const GoalsEmpty = ({ publicId }: GoalsEmptyType) => (
         href={`/sites/${publicId}#goals`}
         className={buttonVariants({ size: "sm" })}
       >
-        <Plus aria-hidden />
+        <PlusIcon aria-hidden />
         Add goals
       </Link>
       <p className="text-sm text-balance text-muted-foreground">

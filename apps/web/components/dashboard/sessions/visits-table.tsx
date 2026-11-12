@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { formatDistanceToNowStrict } from "date-fns"
-import { Users } from "lucide-react"
+import { UsersIcon } from "@phosphor-icons/react/ssr"
 import { Card } from "@workspace/ui/components/card"
 import type { VisitRow } from "@/lib/analytics/sessions"
 import { formatDuration, formatMoney } from "../format"
@@ -27,7 +27,7 @@ export const VisitsTable = ({
   <Card className="gap-0 overflow-hidden py-0">
     {rows.length === 0 && (
       <NoData
-        icon={Users}
+        icon={UsersIcon}
         title="No sessions found"
         description="No visit matches this date range and these filters."
         className="m-4 min-h-64 w-auto"

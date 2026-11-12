@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronLeft, ChevronRight } from "lucide-react"
+import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import { ButtonGroup } from "@workspace/ui/components/button-group"
 import { useAnalyticsNav } from "@/components/dashboard/nav-context"
@@ -25,7 +25,7 @@ export const PeriodStepper = ({ params }: PeriodStepperType) => {
         disabled={!previous}
         onClick={() => go(previous)}
       >
-        <ChevronLeft aria-hidden />
+        <CaretLeftIcon aria-hidden />
       </Button>
       <Button
         variant="outline"
@@ -34,7 +34,7 @@ export const PeriodStepper = ({ params }: PeriodStepperType) => {
         disabled={!next}
         onClick={() => go(next)}
       >
-        <ChevronRight aria-hidden />
+        <CaretRightIcon aria-hidden />
       </Button>
     </ButtonGroup>
   )

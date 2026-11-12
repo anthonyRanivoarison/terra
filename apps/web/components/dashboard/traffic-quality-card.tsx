@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Bot, Network } from "lucide-react"
+import { RobotIcon, TreeStructureIcon } from "@phosphor-icons/react/ssr"
 import {
   Card,
   CardContent,
@@ -90,7 +90,7 @@ export const TrafficQualityCard = ({
         {tab === "bots" &&
           (bots.visits === 0 ? (
             <NoData
-              icon={Bot}
+              icon={RobotIcon}
               title="No bots spotted"
               description="Crawlers and AI agents show up here."
             />
@@ -149,7 +149,7 @@ export const TrafficQualityCard = ({
         {tab === "networks" &&
           (networks.length === 0 ? (
             <NoData
-              icon={Network}
+              icon={TreeStructureIcon}
               title="No networks yet"
               description="Internet providers of your visitors appear here."
             />

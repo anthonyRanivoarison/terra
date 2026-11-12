@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Maximize2 } from "lucide-react"
+import { CornersOutIcon } from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import {
   Dialog,
@@ -35,7 +35,7 @@ export const ReportDialog = ({ title, tab, domain }: ReportDialogType) => {
           />
         }
       >
-        <Maximize2 aria-hidden />
+        <CornersOutIcon aria-hidden />
       </DialogTrigger>
       <DialogContent className="flex max-h-[85vh] flex-col gap-3 sm:max-w-2xl">
         <DialogHeader>

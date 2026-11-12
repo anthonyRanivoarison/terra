@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Check, ChevronDown, Copy } from "lucide-react"
+import { CheckIcon, CaretDownIcon, CopyIcon } from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import { cn } from "@workspace/ui/lib/utils"
 import { useCopy } from "@/hooks/use-copy"
@@ -36,7 +36,7 @@ export const PromptBlock = ({ prompt }: PromptBlockType) => {
           aria-label={copied ? "Copied" : "Copy prompt"}
           className="absolute top-2 right-2"
         >
-          {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
+          {copied ? <CheckIcon aria-hidden /> : <CopyIcon aria-hidden />}
         </Button>
       </div>
       <Button
@@ -48,7 +48,7 @@ export const PromptBlock = ({ prompt }: PromptBlockType) => {
         onClick={() => setOpen(!open)}
       >
         {open ? "Show less" : "Show full prompt"}
-        <ChevronDown
+        <CaretDownIcon
           aria-hidden
           data-icon="inline-end"
           className={cn("transition-transform", open && "rotate-180")}

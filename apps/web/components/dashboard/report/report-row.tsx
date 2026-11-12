@@ -1,6 +1,6 @@
 "use client"
 
-import { SquareArrowOutUpRight } from "lucide-react"
+import { ArrowSquareOutIcon } from "@phosphor-icons/react/ssr"
 import { cn } from "@workspace/ui/lib/utils"
 import type { MetricRow } from "@/lib/analytics/metrics"
 import { DimensionIcon } from "../dimension-icon"
@@ -61,7 +61,7 @@ export const ReportRow = ({
           aria-label={`Open ${label}`}
           className="relative ml-1 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 hover:text-foreground focus-visible:opacity-100"
         >
-          <SquareArrowOutUpRight className="size-4" aria-hidden />
+          <ArrowSquareOutIcon className="size-4" aria-hidden />
         </a>
       )}
       <span className="relative flex shrink-0 items-center gap-2 pr-2 pl-3 tabular-nums">

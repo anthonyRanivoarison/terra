@@ -1,6 +1,6 @@
 "use client"
 
-import { Filter } from "lucide-react"
+import { FunnelIcon } from "@phosphor-icons/react/ssr"
 import {
   Card,
   CardContent,
@@ -42,7 +42,7 @@ export const FunnelCard = ({ funnel, currency }: FunnelCardType) => {
       <CardContent className="flex flex-1 flex-col">
         {funnel.visitors === 0 ? (
           <NoData
-            icon={Filter}
+            icon={FunnelIcon}
             title="No visitors yet"
             description="Visitors, engaged visits, goals and sales line up here."
           />

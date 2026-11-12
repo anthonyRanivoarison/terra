@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useSearchParams } from "next/navigation"
-import { ChevronLeft, ListFilter } from "lucide-react"
+import { CaretLeftIcon, FunnelSimpleIcon } from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
 import {
@@ -76,7 +76,7 @@ export const FilterPicker = () => {
       }}
     >
       <PopoverTrigger render={<Button variant="outline" size="sm" />}>
-        <ListFilter aria-hidden />
+        <FunnelSimpleIcon aria-hidden />
         Filter
       </PopoverTrigger>
       <PopoverContent align="start" className="w-72 gap-0 p-0">
@@ -109,7 +109,7 @@ export const FilterPicker = () => {
                 aria-label="Back to dimensions"
                 onClick={() => setDim(null)}
               >
-                <ChevronLeft aria-hidden />
+                <CaretLeftIcon aria-hidden />
               </Button>
               <span className="text-sm font-medium">{FILTER_NAMES[dim]}</span>
             </div>

@@ -1,4 +1,10 @@
-import { BookOpen, Globe, Moon, Sun, type LucideIcon } from "lucide-react"
+import {
+  BookOpenIcon,
+  GlobeIcon,
+  MoonIcon,
+  SunIcon,
+} from "@phosphor-icons/react/ssr"
+import type { Icon } from "@phosphor-icons/react"
 import { flatNav, HOME_NAV, NAV } from "./nav"
 import type { SwitcherSite } from "./site-menu"
 
@@ -6,7 +12,7 @@ export type SearchItem = {
   key: string
   label: string
   hint?: string
-  icon: LucideIcon
+  icon: Icon
   href?: string
   theme?: "light" | "dark"
 }
@@ -41,21 +47,36 @@ export const buildGroups = ({ siteId, root, keep, sites }: BuildType) => {
         key: `site:${site.publicId}`,
         label: site.name,
         hint: site.domain,
-        icon: Globe,
+        icon: GlobeIcon,
         href: `/sites/${site.publicId}/dashboard`,
       })),
     },
     {
       label: "Appearance",
       items: [
-        { key: "theme:light", label: "Light theme", icon: Sun, theme: "light" },
-        { key: "theme:dark", label: "Dark theme", icon: Moon, theme: "dark" },
+        {
+          key: "theme:light",
+          label: "Light theme",
+          icon: SunIcon,
+          theme: "light",
+        },
+        {
+          key: "theme:dark",
+          label: "Dark theme",
+          icon: MoonIcon,
+          theme: "dark",
+        },
       ],
     },
     {
       label: "Help",
       items: [
-        { key: "docs", label: "API docs", icon: BookOpen, href: "/docs/api" },
+        {
+          key: "docs",
+          label: "API docs",
+          icon: BookOpenIcon,
+          href: "/docs/api",
+        },
       ],
     },
   ]

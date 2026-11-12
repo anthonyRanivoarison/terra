@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import { ArrowRightIcon } from "@phosphor-icons/react/ssr"
 import { buttonVariants } from "@workspace/ui/components/button"
 import { cn } from "@workspace/ui/lib/utils"
 import type { Cta } from "@/components/marketing/cta"
@@ -17,7 +17,7 @@ export const DemoCta = ({ cta }: DemoCtaType) => (
       className={cn(buttonVariants({ size: "sm" }), "mt-1 w-full")}
     >
       {cta.label}
-      <ArrowRight data-icon="inline-end" />
+      <ArrowRightIcon data-icon="inline-end" />
     </Link>
   </div>
 )

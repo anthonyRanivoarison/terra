@@ -2,7 +2,12 @@
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { ChevronDown, Globe, KeyRound, LogOut } from "lucide-react"
+import {
+  CaretDownIcon,
+  GlobeIcon,
+  KeyIcon,
+  SignOutIcon,
+} from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import {
   DropdownMenu,
@@ -76,16 +81,16 @@ export const UserMenuItems = ({
       </DropdownMenuGroup>
       <DropdownMenuSeparator />
       <DropdownMenuItem render={<Link href="/sites" />}>
-        <Globe aria-hidden />
+        <GlobeIcon aria-hidden />
         Sites
       </DropdownMenuItem>
       <DropdownMenuItem render={<Link href="/settings/api-keys" />}>
-        <KeyRound aria-hidden />
+        <KeyIcon aria-hidden />
         API keys
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem onClick={signOut}>
-        <LogOut aria-hidden />
+        <SignOutIcon aria-hidden />
         Sign out
       </DropdownMenuItem>
     </DropdownMenuContent>
@@ -101,7 +106,7 @@ export const UserMenu = (user: UserMenuType) => (
       <span className="max-w-40 truncate text-sm font-medium">
         {userLabel(user)}
       </span>
-      <ChevronDown className="size-4 text-muted-foreground" aria-hidden />
+      <CaretDownIcon className="size-4 text-muted-foreground" aria-hidden />
     </DropdownMenuTrigger>
     <UserMenuItems {...user} />
   </DropdownMenu>

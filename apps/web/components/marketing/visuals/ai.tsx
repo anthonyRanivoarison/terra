@@ -1,4 +1,4 @@
-import { BadgeCheck } from "lucide-react"
+import { SealCheckIcon } from "@phosphor-icons/react/ssr"
 import { getReferrerIcon } from "@/lib/platform-icons"
 
 const reads = [
@@ -28,7 +28,7 @@ export const AiVisual = () => (
           <span className="flex min-w-0 flex-1 flex-col">
             <span className="flex items-center gap-1.5 font-medium">
               {r.bot}
-              <BadgeCheck
+              <SealCheckIcon
                 className="size-3.5 text-ring"
                 aria-label="Verified"
               />

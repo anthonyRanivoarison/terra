@@ -2,7 +2,7 @@
 
 import { useTransition } from "react"
 import { useRouter } from "next/navigation"
-import { RotateCw } from "lucide-react"
+import { ArrowClockwiseIcon } from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import { cn } from "@workspace/ui/lib/utils"
 
@@ -26,9 +26,8 @@ export const RefreshButton = ({ action }: RefreshButtonType) => {
       aria-label={isPending ? "Refreshing data" : "Refresh data"}
       aria-busy={isPending}
     >
-      <RotateCw
+      <ArrowClockwiseIcon
         className={cn("size-4", isPending && "animate-spin")}
-        strokeWidth={2}
         aria-hidden="true"
       />
     </Button>

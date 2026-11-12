@@ -1,5 +1,9 @@
 import Link from "next/link"
-import { Eye, MousePointerClick, Radio } from "lucide-react"
+import {
+  EyeIcon,
+  CursorClickIcon,
+  BroadcastIcon,
+} from "@phosphor-icons/react/ssr"
 import { formatDistanceToNowStrict } from "date-fns"
 import { Card, CardHeader, CardTitle } from "@workspace/ui/components/card"
 import type { FeedItem } from "@/lib/analytics/realtime"
@@ -16,7 +20,7 @@ export const LiveFeed = ({ feed, base }: LiveFeedType) => (
     {feed.length === 0 && (
       <div className="flex flex-1 px-4 pb-4">
         <NoData
-          icon={Radio}
+          icon={BroadcastIcon}
           title="Waiting for visitors"
           description="Page views and clicks stream in here as they happen."
         />
@@ -27,7 +31,7 @@ export const LiveFeed = ({ feed, base }: LiveFeedType) => (
       aria-live="polite"
     >
       {feed.map((item) => {
-        const Icon = item.kind === "view" ? Eye : MousePointerClick
+        const Icon = item.kind === "view" ? EyeIcon : CursorClickIcon
         const row = (
           <>
             <DimensionIcon kind="country" value={item.country ?? ""} />

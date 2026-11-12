@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeftIcon } from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import { SetupSteps } from "./setup-steps"
 
@@ -16,7 +16,7 @@ export const SetupNav = ({ current, revenueHref }: SetupNavType) => (
       nativeButton={false}
       render={<Link href="/sites" />}
     >
-      <ArrowLeft aria-hidden />
+      <ArrowLeftIcon aria-hidden />
       Dashboard
     </Button>
     <SetupSteps current={current} revenueHref={revenueHref} />

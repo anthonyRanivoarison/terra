@@ -1,12 +1,17 @@
-import { Eye, MousePointerClick, ShoppingBag, Undo2 } from "lucide-react"
+import {
+  EyeIcon,
+  CursorClickIcon,
+  ShoppingBagIcon,
+  ArrowUUpLeftIcon,
+} from "@phosphor-icons/react/ssr"
 import type { TimelineItem } from "@/lib/analytics/sessions"
 import { formatDuration, formatMoney } from "../format"
 
 const ICONS = {
-  view: Eye,
-  event: MousePointerClick,
-  purchase: ShoppingBag,
-  refund: Undo2,
+  view: EyeIcon,
+  event: CursorClickIcon,
+  purchase: ShoppingBagIcon,
+  refund: ArrowUUpLeftIcon,
 }
 
 function props(detail: string | null): string | null {

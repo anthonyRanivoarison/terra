@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Check, Copy } from "lucide-react"
+import { CheckIcon, CopyIcon } from "@phosphor-icons/react/ssr"
 
 const SNIPPET = `<script defer data-website-id="ws_…" data-domain="yourdomain.com" src="https://cdn.terra.dev/js/script.js"></script>`
 
@@ -34,7 +34,11 @@ export const Snippet = () => {
           onClick={copy}
           className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm text-white/85 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-white"
         >
-          {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+          {copied ? (
+            <CheckIcon className="size-4" />
+          ) : (
+            <CopyIcon className="size-4" />
+          )}
           <span aria-live="polite">{copied ? "Copied" : "Copy"}</span>
         </button>
       </div>
