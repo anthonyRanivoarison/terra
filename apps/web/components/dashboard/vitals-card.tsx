@@ -1,4 +1,4 @@
-import { Gauge } from "lucide-react"
+import { GaugeIcon } from "@phosphor-icons/react/ssr"
 import {
   Card,
   CardContent,
@@ -43,7 +43,7 @@ export const VitalsCard = ({ vitals, scores }: VitalsCardType) => {
       <CardContent className="flex flex-col gap-8">
         {!overall ? (
           <NoData
-            icon={Gauge}
+            icon={GaugeIcon}
             title="No Web Vitals yet"
             description="LCP, INP and CLS are sent by real visitors as they browse."
           />

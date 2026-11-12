@@ -1,7 +1,11 @@
 "use client"
 
 import { useEffect, useId, useMemo, useRef, useState } from "react"
-import { Check, ChevronsUpDown, Search } from "lucide-react"
+import {
+  CheckIcon,
+  CaretUpDownIcon,
+  MagnifyingGlassIcon,
+} from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import {
   Popover,
@@ -110,7 +114,7 @@ export const TimezonePicker = ({
         <span className="truncate">{timezoneLabel(value)}</span>
         <span className="flex items-center gap-2">
           <ZoneTime zone={value} now={now} />
-          <ChevronsUpDown className="text-muted-foreground" aria-hidden />
+          <CaretUpDownIcon className="text-muted-foreground" aria-hidden />
         </span>
       </PopoverTrigger>
       <PopoverContent
@@ -118,7 +122,10 @@ export const TimezonePicker = ({
         className="w-(--anchor-width) min-w-72 gap-0 p-0"
       >
         <div className="flex items-center gap-2 border-b px-3">
-          <Search className="size-4 text-muted-foreground" aria-hidden />
+          <MagnifyingGlassIcon
+            className="size-4 text-muted-foreground"
+            aria-hidden
+          />
           <input
             role="combobox"
             aria-label="Search timezones"
@@ -165,7 +172,7 @@ export const TimezonePicker = ({
                 index === active && "bg-accent text-accent-foreground"
               )}
             >
-              <Check
+              <CheckIcon
                 aria-hidden
                 className={cn("size-4", zone !== value && "invisible")}
               />

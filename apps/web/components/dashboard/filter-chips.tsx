@@ -1,6 +1,6 @@
 "use client"
 
-import { X } from "lucide-react"
+import { XIcon } from "@phosphor-icons/react/ssr"
 import { FILTER_NAMES as NAMES } from "./filter-names"
 import { dimensionLabel } from "./format"
 import { useAnalyticsNav } from "./nav-context"
@@ -29,7 +29,7 @@ export const FilterChips = ({ filters }: FilterChipsType) => {
             aria-label={`Remove ${NAMES[key] ?? key} filter`}
             className="rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
           >
-            <X className="size-3.5" aria-hidden />
+            <XIcon className="size-3.5" aria-hidden />
           </button>
         </span>
       ))}

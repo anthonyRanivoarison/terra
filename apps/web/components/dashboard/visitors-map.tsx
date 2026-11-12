@@ -1,7 +1,11 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Minus, Plus, RotateCcw } from "lucide-react"
+import {
+  MinusIcon,
+  PlusIcon,
+  ArrowCounterClockwiseIcon,
+} from "@phosphor-icons/react/ssr"
 import { useTheme } from "next-themes"
 import { Skeleton } from "@workspace/ui/components/skeleton"
 import type { GeoPoint } from "@/lib/analytics/insights"
@@ -110,7 +114,7 @@ export const VisitorsMap = ({
           aria-label="Zoom in"
           className={control}
         >
-          <Plus className="size-3.5" strokeWidth={2} aria-hidden />
+          <PlusIcon className="size-3.5" aria-hidden />
         </button>
         <button
           type="button"
@@ -118,7 +122,7 @@ export const VisitorsMap = ({
           aria-label="Zoom out"
           className={cn(control, "border-t")}
         >
-          <Minus className="size-3.5" strokeWidth={2} aria-hidden />
+          <MinusIcon className="size-3.5" aria-hidden />
         </button>
         <button
           type="button"
@@ -126,7 +130,7 @@ export const VisitorsMap = ({
           aria-label="Reset view"
           className={cn(control, "border-t")}
         >
-          <RotateCcw className="size-3.5" strokeWidth={2} aria-hidden />
+          <ArrowCounterClockwiseIcon className="size-3.5" aria-hidden />
         </button>
       </div>
       <div className="absolute bottom-3 left-3 flex items-center gap-2 rounded-md border bg-card/80 px-2.5 py-1.5 text-[11px] text-muted-foreground backdrop-blur-sm">

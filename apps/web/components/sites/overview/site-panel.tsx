@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight, LoaderCircle } from "lucide-react"
+import { ArrowUpRightIcon, CircleNotchIcon } from "@phosphor-icons/react/ssr"
 import { Delta } from "@/components/dashboard/delta"
 import { formatMoney, formatNumber } from "@/components/dashboard/format"
 import { SiteFavicon } from "@/components/sites/site-favicon"
@@ -61,7 +61,7 @@ export const SitePanel = ({ site, overview }: SitePanelType) => {
           </span>
         ) : (
           <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-amber-500/10 px-2 py-1 text-xs font-medium text-amber-800 dark:text-amber-300">
-            <LoaderCircle
+            <CircleNotchIcon
               className="size-3 animate-spin motion-reduce:animate-none"
               aria-hidden
             />
@@ -103,7 +103,7 @@ export const SitePanel = ({ site, overview }: SitePanelType) => {
           </p>
           <span className="relative z-10 inline-flex w-fit items-center gap-1 text-sm font-medium text-primary">
             Install the script
-            <ArrowUpRight
+            <ArrowUpRightIcon
               className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               aria-hidden
             />

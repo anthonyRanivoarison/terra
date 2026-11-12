@@ -4,12 +4,12 @@ import { useEffect, useMemo, useState, useSyncExternalStore } from "react"
 import { useRouter } from "next/navigation"
 import { useTheme } from "next-themes"
 import {
-  ArrowDown,
-  ArrowUp,
-  CornerDownLeft,
-  Search,
-  SearchX,
-} from "lucide-react"
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ArrowElbowDownLeftIcon,
+  MagnifyingGlassIcon,
+  MagnifyingGlassMinusIcon,
+} from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import {
   Dialog,
@@ -89,7 +89,7 @@ export const SearchCommand = ({ sites }: SearchCommandType) => {
         className="h-9 w-full justify-between gap-2 px-3 font-normal text-muted-foreground group-data-[collapsible=icon]:hidden"
       >
         <span className="flex items-center gap-2">
-          <Search className="size-4" aria-hidden />
+          <MagnifyingGlassIcon className="size-4" aria-hidden />
           Search…
         </span>
         <kbd className="rounded-md border bg-muted px-1.5 font-sans text-[13px] text-foreground/80">
@@ -110,7 +110,10 @@ export const SearchCommand = ({ sites }: SearchCommandType) => {
         >
           <DialogTitle className="sr-only">Search Terra</DialogTitle>
           <div className="flex h-10 items-center gap-2 rounded-lg bg-input/30 px-2.5">
-            <Search className="size-4 shrink-0 opacity-50" aria-hidden />
+            <MagnifyingGlassIcon
+              className="size-4 shrink-0 opacity-50"
+              aria-hidden
+            />
             <input
               autoFocus
               value={query}
@@ -132,7 +135,10 @@ export const SearchCommand = ({ sites }: SearchCommandType) => {
           >
             {items.length === 0 && (
               <div className="flex flex-col items-center gap-2 px-4 py-10 text-center">
-                <SearchX className="size-6 text-muted-foreground" aria-hidden />
+                <MagnifyingGlassMinusIcon
+                  className="size-6 text-muted-foreground"
+                  aria-hidden
+                />
                 <p className="font-medium">No results</p>
                 <p className="text-sm text-muted-foreground">
                   Try a page name, a site or a domain.
@@ -183,17 +189,17 @@ export const SearchCommand = ({ sites }: SearchCommandType) => {
               <span className="flex items-center gap-2">
                 <span className="flex gap-1">
                   <Key>
-                    <ArrowUp className="size-3" aria-hidden />
+                    <ArrowUpIcon className="size-3" aria-hidden />
                   </Key>
                   <Key>
-                    <ArrowDown className="size-3" aria-hidden />
+                    <ArrowDownIcon className="size-3" aria-hidden />
                   </Key>
                 </span>
                 Navigate
               </span>
               <span className="flex items-center gap-2">
                 <Key>
-                  <CornerDownLeft className="size-3" aria-hidden />
+                  <ArrowElbowDownLeftIcon className="size-3" aria-hidden />
                 </Key>
                 Open
               </span>

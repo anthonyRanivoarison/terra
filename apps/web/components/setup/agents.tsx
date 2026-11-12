@@ -1,7 +1,7 @@
 import Claude from "@thesvg/react/claude"
 import Codex from "@thesvg/react/codex"
 import Cursor from "@thesvg/react/cursor"
-import { Bot } from "lucide-react"
+import { RobotIcon } from "@phosphor-icons/react/ssr"
 import type { ReactNode } from "react"
 
 export type Agent = {
@@ -52,7 +52,7 @@ export const AGENTS: Agent[] = [
   {
     key: "other",
     label: "Other agents",
-    icon: <Bot aria-hidden />,
+    icon: <RobotIcon aria-hidden />,
     start: {
       title: "Open your agent in the project",
       description:

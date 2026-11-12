@@ -3,7 +3,7 @@ import Google from "@thesvg/react/google"
 import Openai from "@thesvg/react/openai"
 import Perplexity from "@thesvg/react/perplexity"
 import X from "@thesvg/react/x"
-import { Sparkles, TrendingUp } from "lucide-react"
+import { SparkleIcon, TrendUpIcon } from "@phosphor-icons/react/ssr"
 
 import { HalftoneGlobe } from "@/components/brand/board/halftone-globe"
 import { Tile } from "@/components/brand/board/tile"
@@ -67,13 +67,13 @@ export const SystemTile = () => (
         <span
           className={`${chip} ring-[#7DD3FC]/60] bg-[#7DD3FC]/20 text-[#0B1B3F]`}
         >
-          <Sparkles className="size-3.5" aria-hidden />
+          <SparkleIcon className="size-3.5" aria-hidden />
           AI answers
         </span>
         <span
           className={`${chip} ring-[#0B1B3F]] bg-[#0B1B3F] font-mono text-white`}
         >
-          <TrendingUp className="size-3.5" aria-hidden />
+          <TrendUpIcon className="size-3.5" aria-hidden />
           +24%
         </span>
       </div>

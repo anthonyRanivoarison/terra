@@ -1,6 +1,6 @@
 "use client"
 
-import { MoreHorizontal } from "lucide-react"
+import { DotsThreeIcon } from "@phosphor-icons/react/ssr"
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -23,7 +23,7 @@ export const SidebarUser = (user: UserMenuType) => {
           {userLabel(user)}
         </span>
         <span className="grid size-7 shrink-0 place-content-center rounded-full text-sidebar-foreground/70 group-hover/row:text-sidebar-foreground group-data-[collapsible=icon]:hidden">
-          <MoreHorizontal className="size-4" aria-hidden />
+          <DotsThreeIcon className="size-4" aria-hidden />
         </span>
         <span className="sr-only">Open account menu</span>
       </DropdownMenuTrigger>

@@ -1,4 +1,4 @@
-import { FileText } from "lucide-react"
+import { FileTextIcon } from "@phosphor-icons/react/ssr"
 import type { CrawlFileHit } from "@/lib/analytics/crawls"
 import { formatNumber } from "../format"
 
@@ -17,7 +17,7 @@ export const CrawlerFiles = ({ files }: CrawlerFilesType) => {
           key={file}
           className="inline-flex items-center gap-1.5 rounded-md border bg-muted/40 px-2 py-1"
         >
-          <FileText aria-hidden className="size-3 text-muted-foreground" />
+          <FileTextIcon aria-hidden className="size-3 text-muted-foreground" />
           <span className="font-mono">{file}</span>
           <span className="text-muted-foreground tabular-nums">
             {formatNumber(hits)}

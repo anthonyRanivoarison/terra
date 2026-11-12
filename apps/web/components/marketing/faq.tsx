@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Plus } from "lucide-react"
+import { PlusIcon } from "@phosphor-icons/react/ssr"
 
 const questions = [
   {
@@ -60,7 +60,7 @@ export const Faq = () => (
               <span className="flex-1 text-[1.05rem] font-medium">
                 {item.q}
               </span>
-              <Plus
+              <PlusIcon
                 aria-hidden
                 className="size-4 shrink-0 text-muted-foreground transition-transform duration-300 ease-[cubic-bezier(0.2,0,0,1)] group-open:rotate-45"
               />

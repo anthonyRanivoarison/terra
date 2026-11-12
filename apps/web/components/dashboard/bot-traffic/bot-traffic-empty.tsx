@@ -2,12 +2,12 @@
 
 import Link from "next/link"
 import {
-  Brain,
-  EyeOff,
-  MessageSquareText,
-  Search,
-  Sparkles,
-} from "lucide-react"
+  BrainIcon,
+  EyeSlashIcon,
+  ChatTextIcon,
+  MagnifyingGlassIcon,
+  SparkleIcon,
+} from "@phosphor-icons/react/ssr"
 import { Button, buttonVariants } from "@workspace/ui/components/button"
 import { cn } from "@workspace/ui/lib/utils"
 import type { CrawlCategory } from "@/lib/analytics/crawls"
@@ -15,10 +15,10 @@ import { SamplePreview } from "../empty/sample-preview"
 import { BotTrafficSample } from "./bot-traffic-sample"
 import { CATEGORIES } from "./crawler-meta"
 
-const ICONS: Record<CrawlCategory, typeof Search> = {
-  answers: MessageSquareText,
-  indexing: Search,
-  training: Brain,
+const ICONS: Record<CrawlCategory, typeof MagnifyingGlassIcon> = {
+  answers: ChatTextIcon,
+  indexing: MagnifyingGlassIcon,
+  training: BrainIcon,
 }
 
 type BotTrafficEmptyType = { setupHref: string; onHide: () => void }
@@ -56,11 +56,11 @@ export const BotTrafficEmpty = ({ setupHref, onHide }: BotTrafficEmptyType) => (
         </p>
         <div className="flex flex-wrap justify-center gap-2 pt-1">
           <Link href={setupHref} className={buttonVariants({ size: "sm" })}>
-            <Sparkles aria-hidden />
+            <SparkleIcon aria-hidden />
             Set up bot tracking
           </Link>
           <Button variant="ghost" size="sm" onClick={onHide}>
-            <EyeOff aria-hidden />
+            <EyeSlashIcon aria-hidden />
             Hide this card
           </Button>
         </div>

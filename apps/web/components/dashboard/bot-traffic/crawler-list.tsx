@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronRight } from "lucide-react"
+import { CaretRightIcon } from "@phosphor-icons/react/ssr"
 import type { CSSProperties } from "react"
 import type { CrawlerStat } from "@/lib/analytics/crawls"
 import { formatNumber } from "../format"
@@ -63,7 +63,7 @@ export const CrawlerList = ({
             <span className="relative w-14 text-right font-mono text-[13px] tabular-nums">
               {formatNumber(c.hits)}
             </span>
-            <ChevronRight
+            <CaretRightIcon
               aria-hidden
               className="relative size-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
             />

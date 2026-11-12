@@ -1,7 +1,11 @@
 "use client"
 
 import { useEffect, useRef, useState, type ReactNode } from "react"
-import { Check, Copy, SquareTerminal } from "lucide-react"
+import {
+  CheckIcon,
+  CopyIcon,
+  TerminalWindowIcon,
+} from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import {
   Tabs,
@@ -62,7 +66,7 @@ export const AgentSetup = ({ prompt, promptNote, manual }: AgentSetupType) => {
               </TabsTrigger>
             ))}
             <TabsTrigger value="manual" className="flex-none px-2">
-              <SquareTerminal aria-hidden />
+              <TerminalWindowIcon aria-hidden />
               Manual
             </TabsTrigger>
           </TabsList>
@@ -73,7 +77,7 @@ export const AgentSetup = ({ prompt, promptNote, manual }: AgentSetupType) => {
           onClick={copy}
           className="hidden text-muted-foreground sm:inline-flex"
         >
-          {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
+          {copied ? <CheckIcon aria-hidden /> : <CopyIcon aria-hidden />}
           {copied ? "Copied" : "Copy as prompt"}
         </Button>
       </div>

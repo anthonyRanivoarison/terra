@@ -1,5 +1,5 @@
 import { formatDistanceToNow } from "date-fns"
-import { KeyRound } from "lucide-react"
+import { KeyIcon } from "@phosphor-icons/react/ssr"
 import { Badge } from "@workspace/ui/components/badge"
 import {
   Empty,
@@ -30,7 +30,7 @@ export const KeyList = ({ keys }: KeyListType) => {
       <Empty className="border">
         <EmptyHeader>
           <EmptyMedia variant="icon">
-            <KeyRound aria-hidden />
+            <KeyIcon aria-hidden />
           </EmptyMedia>
           <EmptyTitle>No API keys yet</EmptyTitle>
           <EmptyDescription>

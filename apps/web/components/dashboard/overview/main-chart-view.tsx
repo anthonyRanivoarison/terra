@@ -1,6 +1,6 @@
 "use client"
 
-import { ChartSpline } from "lucide-react"
+import { ChartLineIcon } from "@phosphor-icons/react/ssr"
 import { Card } from "@workspace/ui/components/card"
 import { EChartsAreaChart } from "@/components/evilcharts/charts/echarts-area-chart"
 import type { ChartConfig } from "@/components/evilcharts/ui/echarts-chart"
@@ -62,7 +62,7 @@ export const MainChart = ({ series, granularity, currency }: MainChartType) => {
       {empty ? (
         <div className="flex h-[300px] px-4">
           <NoData
-            icon={ChartSpline}
+            icon={ChartLineIcon}
             title="No traffic in this period"
             description="Pick a wider date range or remove a filter."
           />

@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import Link from "next/link"
-import { Globe, Plus } from "lucide-react"
+import { GlobeIcon, PlusIcon } from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import {
   Empty,
@@ -25,7 +25,7 @@ export default async function SitesPage() {
   const liveCount = sites.filter((site) => site.firstEventAt).length
   const add = (
     <Button nativeButton={false} render={<Link href="/sites/new" />}>
-      <Plus aria-hidden />
+      <PlusIcon aria-hidden />
       Add site
     </Button>
   )
@@ -50,7 +50,7 @@ export default async function SitesPage() {
           <Empty className="border">
             <EmptyHeader>
               <EmptyMedia variant="icon">
-                <Globe aria-hidden />
+                <GlobeIcon aria-hidden />
               </EmptyMedia>
               <EmptyTitle>No sites yet</EmptyTitle>
               <EmptyDescription>

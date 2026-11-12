@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowUp } from "lucide-react"
+import { ArrowDownIcon, ArrowUpIcon } from "@phosphor-icons/react/ssr"
 import { cn } from "@workspace/ui/lib/utils"
 
 type DeltaType = { current: number; previous: number; invert?: boolean }
@@ -13,7 +13,7 @@ export const Delta = ({ current, previous, invert = false }: DeltaType) => {
   }
   const change = ((current - previous) / previous) * 100
   const good = invert ? change < 0 : change > 0
-  const Icon = change >= 0 ? ArrowUp : ArrowDown
+  const Icon = change >= 0 ? ArrowUpIcon : ArrowDownIcon
   return (
     <span
       className={cn(
@@ -23,7 +23,7 @@ export const Delta = ({ current, previous, invert = false }: DeltaType) => {
       )}
     >
       {Math.abs(change) >= 0.05 && (
-        <Icon className="size-3" strokeWidth={2.5} aria-hidden />
+        <Icon className="size-3" weight="bold" aria-hidden />
       )}
       <span className="sr-only">{change >= 0 ? "Up" : "Down"}</span>
       {Math.abs(change).toFixed(1)}%

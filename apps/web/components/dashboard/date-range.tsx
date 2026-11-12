@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { CalendarDays, ChevronDown } from "lucide-react"
+import { CalendarBlankIcon, CaretDownIcon } from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import { Calendar } from "@workspace/ui/components/calendar"
 import {
@@ -80,9 +80,12 @@ export const DateRange = ({ range, from, to, compare }: DateRangeType) => {
           />
         }
       >
-        <CalendarDays className="size-4 text-muted-foreground" aria-hidden />
+        <CalendarBlankIcon
+          className="size-4 text-muted-foreground"
+          aria-hidden
+        />
         <span className="flex-1 text-left">{label}</span>
-        <ChevronDown className="size-3.5 text-muted-foreground" aria-hidden />
+        <CaretDownIcon className="size-3.5 text-muted-foreground" aria-hidden />
       </PopoverTrigger>
       <PopoverContent align="end" className="w-auto gap-0 p-0">
         <div className="flex flex-col sm:flex-row">

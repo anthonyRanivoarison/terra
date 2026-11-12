@@ -1,4 +1,8 @@
-import { ShieldAlert, ShieldCheck, ShieldQuestion } from "lucide-react"
+import {
+  ShieldWarningIcon,
+  ShieldCheckIcon,
+  ShieldIcon,
+} from "@phosphor-icons/react/ssr"
 import { Badge } from "@workspace/ui/components/badge"
 import { cn } from "@workspace/ui/lib/utils"
 import { formatPercent } from "../format"
@@ -9,13 +13,13 @@ export const VerifiedBadge = ({ share, compact }: VerifiedBadgeType) => {
   if (share === null) {
     return (
       <Badge variant="outline" className="text-muted-foreground">
-        <ShieldQuestion aria-hidden />
+        <ShieldIcon aria-hidden />
         {compact ? "Unchecked" : "No published IP list"}
       </Badge>
     )
   }
   const good = share >= 0.9
-  const Icon = good ? ShieldCheck : ShieldAlert
+  const Icon = good ? ShieldCheckIcon : ShieldWarningIcon
   return (
     <Badge
       variant="outline"

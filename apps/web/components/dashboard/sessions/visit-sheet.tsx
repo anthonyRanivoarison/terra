@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react"
 import { useRouter } from "next/navigation"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRightIcon } from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import {
   Sheet,
@@ -46,7 +46,7 @@ export const VisitSheet = ({
             render={<a href={href} />}
           >
             Open full page
-            <ArrowUpRight aria-hidden data-icon="inline-end" />
+            <ArrowUpRightIcon aria-hidden data-icon="inline-end" />
           </Button>
         </div>
       </SheetContent>

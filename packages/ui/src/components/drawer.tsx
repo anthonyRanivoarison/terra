@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer"
 import { cn } from "cn"
-import { XIcon } from "lucide-react"
+import { XIcon } from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 
 function Drawer({ ...props }: DrawerPrimitive.Root.Props) {

@@ -4,7 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@workspace/ui/components/card"
-import { Activity } from "lucide-react"
+import { PulseIcon } from "@phosphor-icons/react/ssr"
 import type { Realtime } from "@/lib/analytics/realtime"
 import { NoData } from "../no-data"
 
@@ -20,7 +20,7 @@ export const MinuteBars = ({ minutes }: MinuteBarsType) => {
       <CardContent>
         {!minutes.some((m) => m.views > 0) ? (
           <NoData
-            icon={Activity}
+            icon={PulseIcon}
             title="No views in the last 30 minutes"
             className="min-h-36"
           />

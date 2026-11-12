@@ -2,7 +2,13 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Check, ChevronsUpDown, LayoutGrid, Plus, Settings } from "lucide-react"
+import {
+  CheckIcon,
+  CaretUpDownIcon,
+  GridFourIcon,
+  PlusIcon,
+  GearIcon,
+} from "@phosphor-icons/react/ssr"
 import { Button } from "@workspace/ui/components/button"
 import { ButtonGroup } from "@workspace/ui/components/button-group"
 import {
@@ -47,12 +53,15 @@ export const SiteMenu = ({ sites, readOnly = false }: SiteMenuType) => {
               className="size-5 rounded-md"
             />
           ) : (
-            <LayoutGrid className="size-4 text-muted-foreground" aria-hidden />
+            <GridFourIcon
+              className="size-4 text-muted-foreground"
+              aria-hidden
+            />
           )}
           <span className="min-w-0 flex-1 truncate text-left">
             {current?.name ?? "All sites"}
           </span>
-          <ChevronsUpDown
+          <CaretUpDownIcon
             className="size-4 text-muted-foreground"
             aria-hidden
           />
@@ -76,7 +85,7 @@ export const SiteMenu = ({ sites, readOnly = false }: SiteMenuType) => {
                   </span>
                 </span>
                 {site.publicId === siteId && (
-                  <Check className="size-4" aria-hidden />
+                  <CheckIcon className="size-4" aria-hidden />
                 )}
               </DropdownMenuItem>
             ))}
@@ -85,11 +94,11 @@ export const SiteMenu = ({ sites, readOnly = false }: SiteMenuType) => {
             <>
               <DropdownMenuSeparator />
               <DropdownMenuItem render={<Link href="/sites" />}>
-                <LayoutGrid aria-hidden />
+                <GridFourIcon aria-hidden />
                 All sites
               </DropdownMenuItem>
               <DropdownMenuItem render={<Link href="/sites/new" />}>
-                <Plus aria-hidden />
+                <PlusIcon aria-hidden />
                 Add a site
               </DropdownMenuItem>
             </>
@@ -105,7 +114,7 @@ export const SiteMenu = ({ sites, readOnly = false }: SiteMenuType) => {
           nativeButton={false}
           render={<Link href={siteId ? root : "/settings/api-keys"} />}
         >
-          <Settings aria-hidden />
+          <GearIcon aria-hidden />
         </Button>
       )}
     </ButtonGroup>
